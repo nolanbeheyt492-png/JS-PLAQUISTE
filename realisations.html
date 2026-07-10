@@ -6,11 +6,12 @@
 <title>Nos Réalisations — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+  .grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; margin-top: 40px; }
   .gallery-item { background: var(--panel); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-  .gallery-info { padding: 20px; }
-  .gallery-info h3 { font-size: 1.1rem; margin-bottom: 8px; color: #0f172a; }
-  .gallery-info p { color: var(--text-muted); font-size: 0.9rem; }
+  .gallery-info { padding: 24px; }
+  .gallery-info h3 { font-size: 1.15rem; margin-bottom: 8px; color: #0f172a; }
+  .gallery-info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+  .badge-photo { display: inline-block; font-size: 0.75rem; background: #f8fafc; border: 1px solid #e2e8f0; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; color: #64748b; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -21,7 +22,7 @@
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
-      <li><a href="tarifs.html">Nos Tarifs</a></li>
+      <li><a href="engagements.html">Nos Engagements</a></li>
       <li><a href="realisations.html" class="active">Photos</a></li>
       <li><a href="contact.html">Contact &amp; Devis</a></li>
     </ul>
@@ -33,35 +34,38 @@
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Nos Réalisations</h2>
-      <p>Aperçu en images de la qualité de nos finitions et de nos chantiers de plâtrerie.</p>
+      <h2>Le Chantier en Images</h2>
+      <p>Découvrez la précision de nos structures métalliques et la finesse du rendu final avant l'étape de mise en peinture.</p>
     </div>
     
     <div class="grid-gallery">
       <!-- CHANTIER 1 -->
       <div class="gallery-item">
-        <img src="Lien_De_Ta_Photo_1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <img src="img/chantier-1.jpg" alt="Faux plafond suspendu" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
         <div class="gallery-info">
-          <h3>Rénovation Salon — Lille</h3>
-          <p>Doublage thermique des murs extérieurs et création d'un faux plafond avec lissage complet.</p>
+          <span class="badge-photo">Plâtrerie design</span>
+          <h3>Création de Faux Plafond &amp; Spots</h3>
+          <p>Rattrapage d'un vieux plafond fissuré. Pose de suspentes, mise à niveau au laser, intégration des gaines de raccordement pour 12 spots LED et jointoiement 3 passes.</p>
         </div>
       </div>
 
       <!-- CHANTIER 2 -->
       <div class="gallery-item">
-        <img src="Lien_De_Ta_Photo_2.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <img src="img/chantier-2.jpg" alt="Isolation de combles" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
         <div class="gallery-info">
-          <h3>Aménagement de Combles — Tourcoing</h3>
-          <p>Pose de rails, suspentes et isolation en laine de roche pour création de 2 chambres.</p>
+          <span class="badge-photo">Isolation thermique</span>
+          <h3>Rénovation de Combles Perdus</h3>
+          <p>Optimisation de l'espace sous toiture. Pose d'un isolant semi-rigide en deux couches croisées pour supprimer les ponts thermiques, installation du pare-vapeur et plaquage BA13.</p>
         </div>
       </div>
 
       <!-- CHANTIER 3 -->
       <div class="gallery-item">
-        <img src="Lien_De_Ta_Photo_3.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <img src="img/chantier-3.jpg" alt="Cloisons amovibles placo" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
         <div class="gallery-info">
-          <h3>Cloisons Séparatives — Bureau Pro</h3>
-          <p>Création d'espaces de travail isolés phoniquement en plaques de plâtre BA13 acoustiques.</p>
+          <span class="badge-photo">Agencement acoustique</span>
+          <h3>Division d'Espace &amp; Cloison Acoustique</h3>
+          <p>Montage d'une cloison séparative entre un salon et une nouvelle chambre. Utilisation de montants doublés avec incorporation d'une laine de roche haute densité pour un calme absolu.</p>
         </div>
       </div>
     </div>
