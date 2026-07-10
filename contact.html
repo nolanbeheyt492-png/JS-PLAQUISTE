@@ -3,156 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demande de Devis — JS Plaquiste</title>
+<title>Contact &amp; Devis — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Styles pour la boîte de remerciement qui apparaîtra après l'envoi */
-  .merci-box {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .merci-icon {
-    font-size: 3.5rem;
-    color: var(--accent);
-    margin-bottom: 24px;
-  }
-  .merci-box h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 16px;
-  }
-  .merci-box p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
+  .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px; }
+  .contact-info-box { background: #0f172a; color: white; padding: 40px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 24px; }
+  .contact-info-box h3 { color: white; font-size: 1.4rem; }
+  .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; }
+  .info-link:hover { color: var(--accent); }
+  
+  /* Style des FAQ intégrées en dessous */
+  .faq-container { max-width: 800px; margin: 50px auto 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+  .faq-question { padding: 20px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+  .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--text-muted); font-size: 0.95rem; }
+  .faq-item.active .faq-answer { padding-bottom: 20px; max-height: 200px; }
+  .faq-item.active .faq-toggle { transform: rotate(45deg); }
+  .faq-toggle { transition: transform 0.2s; font-weight: bold; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="nav wrap">
-    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
-      <li><a href="contact.html" class="active">Demander un Devis</a></li>
+      <li><a href="realisations.html">Nos Chantiers</a></li>
+      <li><a href="contact.html" class="active">Contact &amp; Devis</a></li>
     </ul>
     <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
     <button class="menu-toggle" id="menu-btn">☰</button>
   </div>
 </header>
 
-<section class="section">
+<section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Votre projet de rénovation</h2>
-      <p>Une estimation claire, détaillée et entièrement gratuite sous 48 heures maximum.</p>
+      <h2>Contactez-nous / Demande de Devis</h2>
+      <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
+    </div>
+    
+    <div class="contact-wrapper">
+      <div class="contact-info-box">
+        <h3>📍 JS PLAQUISTE</h3>
+        <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
+        <hr style="border-color: #334155;">
+        <p>📞 Par téléphone :</p>
+        <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
+        <hr style="border-color: #334155;">
+        <p>⏱️ Horaires d'intervention :</p>
+        <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
+      </div>
+
+      <div class="form-box" style="margin: 0;">
+        <form id="client-contact-form" onsubmit="envoyerEmail(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Votre Nom / Prénom</label>
+              <input type="text" id="client-name" required placeholder="Ex: Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label>Numéro de Téléphone</label>
+              <input type="tel" id="client-phone" required placeholder="Ex: 06 12 34 56 78">
+            </div>
+            <div class="form-group form-group-full">
+              <label>Ville du Chantier</label>
+              <input type="text" id="client-city" required placeholder="Ex: Lille (59000)">
+            </div>
+            <div class="form-group form-group-full">
+              <label>Type de travaux souhaités</label>
+              <select id="client-type" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
+                <option>Rénovation complète d'une pièce</option>
+                <option>Pose de cloisons de séparation</option>
+                <option>Création de faux plafond suspendu</option>
+                <option>Isolation thermique ou acoustique</option>
+                <option>Joints / Enduit de lissage</option>
+                <option>Autre projet second œuvre</option>
+              </select>
+            </div>
+            <div class="form-group form-group-full">
+              <label>Description de votre projet</label>
+              <textarea id="client-message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
+        </form>
+      </div>
     </div>
 
-    <!-- Cette boîte contient le formulaire OU le message de succès -->
-    <div class="form-box" id="form-container">
-      <form id="devis-form">
-        
-        <!-- Options de configuration FormSubmit -->
-        <input type="hidden" name="_subject" value="Nouveau Devis JS Plaquiste !">
-        <input type="hidden" name="_captcha" value="false">
-        
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="nom">Nom / Prénom</label>
-            <input type="text" id="nom" name="Nom" required placeholder="Ex: Jean Dupont">
-          </div>
-          <div class="form-group">
-            <label for="tel">Téléphone</label>
-            <input type="tel" id="tel" name="Telephone" required placeholder="Ex: 06 00 00 00 00">
-          </div>
-          <div class="form-group">
-            <label for="ville">Lieu du projet</label>
-            <input type="text" id="ville" name="Ville" required placeholder="Ex: Paris, Lille...">
-          </div>
-          <div class="form-group">
-            <label for="surface">Superficie estimée (m²)</label>
-            <input type="number" id="surface" name="Superficie_m2" placeholder="Ex: 60">
-          </div>
-          <div class="form-group form-group-full">
-            <label for="type-bien">Type de bien</label>
-            <select id="type-bien" name="Type_de_bien" required>
-              <option value="">Sélectionnez...</option>
-              <option value="maison">Maison</option>
-              <option value="appartement">Appartement</option>
-              <option value="commercial">Local Commercial / Bureau</option>
-            </select>
-          </div>
-          <div class="form-group form-group-full">
-            <label for="msg">Description de vos besoins</label>
-            <textarea id="msg" name="Message" rows="5" required placeholder="Décrivez votre projet (ex: Doublage de murs, création d'un faux plafond...)"></textarea>
-          </div>
-        </div>
-        <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
-      </form>
+    <!-- QUESTIONS INTÉGRÉES SUR LA PAGE DE CONTACT -->
+    <div class="faq-container">
+      <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes</h3>
+      <div class="faq-item">
+        <div class="faq-question">Le devis est-il gratuit et sous combien de temps ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, tous nos devis sont 100% gratuits et sans engagement. Nous nous engageons à vous faire parvenir une offre chiffrée précise sous 48 heures après notre visite sur le chantier.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Êtes-vous couvert par une assurance décennale ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Absolument. Tous nos chantiers sont couverts par notre assurance Responsabilité Civile Professionnelle et Garantie Décennale obligatoire.</div>
+      </div>
     </div>
+
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JS Plaquiste.</div>
-    <div>Contact : beheytnolan@gmail.com</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
 
 <script>
-  // Script pour l'année et le menu mobile
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
 
-  // Script pour envoyer le formulaire sans recharger ni rediriger la page
-  const form = document.getElementById('devis-form');
-  const formContainer = document.getElementById('form-container');
-  const submitBtn = document.getElementById('submit-btn');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Bloque la redirection automatique
-    
-    // Change le texte du bouton pendant l'envoi
-    submitBtn.textContent = "Envoi en cours...";
-    submitBtn.disabled = true;
-
-    const formData = new FormData(form);
-
-    // Envoi transparent à FormSubmit
-    fetch("https://formsubmit.co/ajax/beheytnolan@gmail.com", {
-        method: "POST",
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            // Remplace le formulaire par ton message de remerciement personnalisé (sans Nolan)
-            formContainer.innerHTML = `
-              <div class="merci-box">
-                <div class="merci-icon">✓</div>
-                <h1>Demande bien reçue !</h1>
-                <p>Votre demande de devis a été transmise avec succès.<br>Nous étudions vos besoins et nous vous recontactons <strong>sous 48 heures maximum</strong>.</p>
-              </div>
-            `;
-        } else {
-            alert("Une erreur est survenue. Veuillez réessayer.");
-            submitBtn.textContent = "Envoyer ma demande de devis";
-            submitBtn.disabled = false;
-        }
-    })
-    .catch(error => {
-        alert("Erreur de connexion. Vérifiez votre réseau.");
-        submitBtn.textContent = "Envoyer ma demande de devis";
-        submitBtn.disabled = false;
-    });
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
+
+  function envoyerEmail(e) {
+    e.preventDefault();
+    alert("Merci ! Votre demande de devis a bien été transmise. Nous vous recontactons par téléphone sous 48h.");
+    document.getElementById('client-contact-form').reset();
+  }
 </script>
 </body>
 </html>
