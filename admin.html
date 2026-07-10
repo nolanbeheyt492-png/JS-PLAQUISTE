@@ -37,7 +37,7 @@
 
   <div class="form-box admin-panel" id="admin-box">
     <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
-    <p style="color: var(--text-muted); margin-bottom: 30px;">Le chantier sera visible par tout le monde instantanément sur internet.</p>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">Le chantier sera visible en local et envoyé sur internet.</p>
     
     <form id="add-project-form">
       <div class="form-grid">
@@ -54,17 +54,17 @@
           <input type="file" id="project-file" accept="image/*" required>
         </div>
       </div>
-      <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
+      <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier</button>
     </form>
     
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
-    <h3 style="margin-bottom: 15px;">Chantiers actuellement en ligne</h3>
+    <h3 style="margin-bottom: 15px;">Chantiers en ligne (et LocalStorage)</h3>
     <div class="admin-project-list" id="admin-gallery">
       <p style="color: var(--text-muted);">Chargement de vos chantiers...</p>
     </div>
 
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
-    <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter (ou faites 3 clics sur le logo)</button>
+    <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter (3 clics logo pour quitter)</button>
   </div>
 </div>
 
@@ -72,30 +72,25 @@
   const MOT_DE_PASSE_SECRET = "plaquiste2026";
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/x39moqat/image/upload"; 
   const CLOUDINARY_PRESET = "js_preset"; 
-  const JSONBIN_BIN_ID = "6a513eeada38895dfe4cb41d"; // Nouveau Bin ID mis à jour
+  const JSONBIN_BIN_ID = "6a513eeada38895dfe4cb41d"; 
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
 
   let globalProjects = [];
 
-  // TRIPLE CLIC SUR LE LOGO POUR QUITTER
+  // TRIPLE CLIC LOGO POUR QUITTER
   let clickCount = 0;
   document.getElementById('brand-logo').addEventListener('click', () => {
     clickCount++;
-    if (clickCount === 3) {
-      clickCount = 0;
-      deconnexion();
-    }
+    if (clickCount === 3) { clickCount = 0; deconnexion(); }
     setTimeout(() => { clickCount = 0; }, 1000);
   });
 
   function verifierConnexion() {
-    const inputPass = document.getElementById('admin-password').value;
-    const errorMsg = document.getElementById('login-error');
-    if (inputPass === MOT_DE_PASSE_SECRET) {
+    if (document.getElementById('admin-password').value === MOT_DE_PASSE_SECRET) {
       localStorage.setItem('js_admin_logged', 'true');
       afficherPanneau();
     } else {
-      errorMsg.style.display = 'block';
+      document.getElementById('login-error').style.display = 'block';
     }
   }
 
@@ -110,63 +105,61 @@
     window.location.href = 'index.html';
   }
 
-  if (localStorage.getItem('js_admin_logged') === 'true') {
-    afficherPanneau();
-  }
+  if (localStorage.getItem('js_admin_logged') === 'true') { afficherPanneau(); }
 
+  // Charger depuis le serveur OU depuis le localStorage si pas de réseau
   function chargerChantiersAdmin() {
     const adminGallery = document.getElementById('admin-gallery');
+    
     fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
       headers: { 'X-Master-Key': JSONBIN_SECRET_KEY, 'Cache-Control': 'no-cache' }
     })
     .then(res => res.json())
     .then(binData => {
-      if (binData.record && binData.record.chantiers) {
-        globalProjects = binData.record.chantiers;
-      } else if (Array.isArray(binData.record)) {
-        globalProjects = binData.record;
-      } else {
-        globalProjects = [];
-      }
-
-      if(globalProjects.length === 0) {
-        adminGallery.innerHTML = "<p style='color: var(--text-muted);'>Aucun chantier en ligne pour le moment.</p>";
-      } else {
-        adminGallery.innerHTML = "";
-        globalProjects.forEach((proj, index) => {
-          adminGallery.innerHTML += `
-            <div class="admin-project-item">
-              <div style="display:flex; align-items:center; gap:16px;">
-                <img src="${proj.image}" alt="">
-                <div>
-                  <h4 style="color:#0f172a; font-size:1rem;">${proj.title}</h4>
-                </div>
-              </div>
-              <button onclick="supprimerChantier(${index})" class="btn btn-danger">Supprimer</button>
-            </div>
-          `;
-        });
-      }
+      globalProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
+      // Synchronisation de secours dans le LocalStorage
+      localStorage.setItem('js_projects_backup', JSON.stringify(globalProjects));
+      afficherListeAdmin();
     })
-    .catch(() => { adminGallery.innerHTML = "<p style='color:red;'>Erreur de chargement.</p>"; });
+    .catch(() => {
+      // Secours LocalStorage direct si échec de l'hébergeur
+      const backup = localStorage.getItem('js_projects_backup');
+      globalProjects = backup ? JSON.parse(backup) : [];
+      afficherListeAdmin();
+    });
+  }
+
+  function afficherListeAdmin() {
+    const adminGallery = document.getElementById('admin-gallery');
+    if(globalProjects.length === 0) {
+      adminGallery.innerHTML = "<p style='color: var(--text-muted);'>Aucun chantier trouvé.</p>";
+    } else {
+      adminGallery.innerHTML = "";
+      globalProjects.forEach((proj, index) => {
+        adminGallery.innerHTML += `
+          <div class="admin-project-item">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <img src="${proj.image}" alt="">
+              <h4 style="color:#0f172a; font-size:1rem;">${proj.title}</h4>
+            </div>
+            <button onclick="supprimerChantier(${index})" class="btn btn-danger">Supprimer</button>
+          </div>
+        `;
+      });
+    }
   }
 
   function supprimerChantier(index) {
-    if(confirm("Voulez-vous vraiment supprimer ce chantier du site ?")) {
+    if(confirm("Supprimer ce chantier ?")) {
       globalProjects.splice(index, 1);
+      localStorage.setItem('js_projects_backup', JSON.stringify(globalProjects));
       
       fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': JSONBIN_SECRET_KEY
-        },
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_SECRET_KEY },
         body: JSON.stringify({ chantiers: globalProjects })
       })
-      .then(() => {
-        alert("Chantier supprimé !");
-        chargerChantiersAdmin();
-      });
+      .then(() => { alert("Supprimé !"); chargerChantiersAdmin(); });
     }
   }
 
@@ -178,48 +171,44 @@
     const fileInput = document.getElementById('project-file');
     
     if (fileInput.files && fileInput.files[0]) {
-      submitBtn.textContent = "Publication en cours...";
+      submitBtn.textContent = "Publication...";
       submitBtn.disabled = true;
 
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-      formData.append('upload_preset', CLOUDINARY_PRESET);
+      const reader = new FileReader();
+      reader.readAsDataURL(fileInput.files[0]);
+      reader.onload = function () {
+        const localImgData = reader.result; // Version ultra-rapide pour ton LocalStorage
 
-      fetch(CLOUDINARY_URL, { method: 'POST', body: formData })
-      .then(res => res.json())
-      .then(cloudinaryData => {
-        if(cloudinaryData.secure_url) {
-          
-          globalProjects.push({
-            title: title,
-            desc: desc,
-            image: cloudinaryData.secure_url
-          });
+        // 1. Sauvegarde IMMÉDIATE en local pour ton PC
+        globalProjects.push({ title: title, desc: desc, image: localImgData });
+        localStorage.setItem('js_projects_backup', JSON.stringify(globalProjects));
 
-          fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Master-Key': JSONBIN_SECRET_KEY
-            },
-            body: JSON.stringify({ chantiers: globalProjects })
-          })
-          .then(() => {
-            alert("Chantier publié avec succès !");
-            window.location.href = 'index.html'; // Retour au menu d'accueil
-          });
+        // 2. Envoi simultané sur le serveur pour ton téléphone
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('upload_preset', CLOUDINARY_PRESET);
 
-        } else {
-          alert("Erreur lors de l'envoi de la photo.");
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Publier le chantier sur le site";
-        }
-      })
-      .catch(() => {
-        alert("Erreur réseau.");
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Publier le chantier sur le site";
-      });
+        fetch(CLOUDINARY_URL, { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(cloudinaryData => {
+          if(cloudinaryData.secure_url) {
+            // On remplace l'image de secours par le vrai lien internet pour le serveur
+            globalProjects[globalProjects.length - 1].image = cloudinaryData.secure_url;
+            localStorage.setItem('js_projects_backup', JSON.stringify(globalProjects));
+
+            fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_SECRET_KEY },
+              body: JSON.stringify({ chantiers: globalProjects })
+            })
+            .then(() => { window.location.href = 'index.html'; });
+          } else {
+            // Même si Cloudinary foire, on retourne à l'accueil car le local est sauvegardé
+            window.location.href = 'index.html';
+          }
+        })
+        .catch(() => { window.location.href = 'index.html'; });
+      };
     }
   });
 </script>
