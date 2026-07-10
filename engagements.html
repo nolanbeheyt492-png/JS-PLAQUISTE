@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Engagements — JS Plaquiste</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .grid-commitments { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
+  .commitment-card { background: var(--panel); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .commitment-card h3 { font-size: 1.25rem; color: #0f172a; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .commitment-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
+    <ul id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html">Nos Services</a></li>
+      <li><a href="engagements.html" class="active">Nos Engagements</a></li>
+      <li><a href="realisations.html">Photos</a></li>
+      <li><a href="contact.html">Contact &amp; Devis</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
+    <button class="menu-toggle" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="section" style="margin-top: 40px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Notre Charte Qualité &amp; Engagements</h2>
+      <p>Parce que la confiance se gagne sur le terrain, nous appliquons des règles strictes sur chacun de nos chantiers.</p>
+    </div>
+    
+    <div class="grid-commitments">
+      <div class="commitment-card">
+        <h3>🛡️ Garantie Décennale</h3>
+        <p>L'ensemble de nos structures (cloisons, doublages, faux plafonds) est couvert par une assurance décennale. Vous êtes serein à long terme.</p>
+      </div>
+      <div class="commitment-card">
+        <h3>📐 Respect des Normes DTU</h3>
+        <p>Nous travaillons strictement selon les Documents Techniques Uniformes (DTU 25.41). Les entraxes de rails, le calage d'isolant et le type de vis sont scrupuleusement respectés.</p>
+      </div>
+      <div class="commitment-card">
+        <h3>🧼 Protection &amp; Propreté</h3>
+        <p>Vos sols et mobiliers sont systématiquement bâchés avant intervention. Le chantier est aspiré et nettoyé chaque fin de journée.</p>
+      </div>
+      <div class="commitment-card">
+        <h3>🎯 Finition Prête à Peindre</h3>
+        <p>Pas de mauvaise surprise pour le peintre. Nos joints et bandes sont réalisés en 3 passes avec ponçage méticuleux pour garantir une planéité zéro défaut.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-wrap">
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>Garantie Décennale | Travail soigné aux normes DTU</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+</script>
+</body>
+</html>
