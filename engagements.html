@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nos Engagements Qualité — JS Plaquiste</title>
+<title>Nos Engagements — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
   .grid-commitments { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
   .commitment-card { background: var(--panel); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
   .commitment-card h3 { font-size: 1.25rem; color: #0f172a; margin-bottom: 12px; }
   .commitment-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-  .info-banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-lg); padding: 24px; margin-top: 40px; color: #1e3a8a; }
-  .info-banner h4 { margin-bottom: 8px; font-size: 1.1rem; }
+  
+  /* Tableau des Solutions Techniques */
+  .tech-section { margin-top: 50px; background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; }
+  .tech-table { width: 100%; border-collapse: collapse; margin-top: 20px; text-align: left; font-size: 0.95rem; }
+  .tech-table th { background: #0f172a; color: white; padding: 12px 16px; font-weight: 600; }
+  .tech-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+  .tech-table tr:hover { background: #f8fafc; }
 </style>
 </head>
 <body>
@@ -34,34 +39,63 @@
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Sérieux, Normes &amp; Environnement</h2>
-      <p>Faire appel à notre entreprise, c'est s'assurer d'un chantier réglementaire, sécurisé et respectueux des normes écologiques actuelles.</p>
+      <h2>Notre Charte Qualité &amp; Engagements</h2>
+      <p>Parce que la confiance se gagne sur le terrain, nous appliquons des règles strictes sur chacun de nos chantiers.</p>
     </div>
     
     <div class="grid-commitments">
       <div class="commitment-card">
-        <h3>🛡️ Assurance Décennale Obligatoire</h3>
-        <p>Notre contrat d'assurance couvre les dommages matériels compromettant la solidité de l'ouvrage (effondrement de plafond, fissure majeure de cloison). Les numéros d'attestation sont fournis d'office avec chaque devis.</p>
+        <h3>🛡️ Garantie Décennale</h3>
+        <p>L'ensemble de nos structures (cloisons, doublages, faux plafonds) est couvert par une assurance décennale. Vous êtes serein à long terme.</p>
       </div>
       <div class="commitment-card">
-        <h3>📐 DTU 25.41 : La Règle de l'Art</h3>
-        <p>Nous n'économisons pas sur les fournitures. Les entraxes de montants métalliques sont fixés à 60 cm maximum (ou 40 cm si nécessaire), l'étanchéité à l'air est assurée aux jonctions et les fixations sont encastrées de façon réglementaire.</p>
+        <h3>📐 Respect des Normes DTU</h3>
+        <p>Nous travaillons strictement selon les Documents Techniques Uniformes (DTU 25.41). Les entraxes de rails, le calage d'isolant et le type de vis sont scrupuleusement respectés.</p>
       </div>
       <div class="commitment-card">
-        <h3>🌱 Matériaux Sains A+</h3>
-        <p>Toutes nos plaques de plâtre et enduits affichent une étiquette d'émission dans l'air intérieur de classe A+. Vos enfants et vous-même respirez un air exempt de solvants volatils toxiques.</p>
-      </div>
-      <div class="commitment-card">
-        <h3>♻️ Gestion des Déchets de Plâtre</h3>
-        <p>Le plâtre se recycle à l'infini ! Nous trions nos chutes sur le chantier et les déposons en centre de collecte spécialisé pour réduire l'empreinte carbone globale des travaux.</p>
+        <h3>🧼 Protection &amp; Propreté</h3>
+        <p>Vos sols et mobiliers sont systématiquement bâchés avant intervention. Le chantier est aspiré et nettoyé chaque fin de journée.</p>
       </div>
     </div>
 
-    <!-- NOUVELLE ZONE COMPLEMENTAIRE : INFOS SUR LES AIDES -->
-    <div class="info-banner">
-      <h4>💡 Économie d'Énergie : Vos travaux éligibles aux aides ?</h4>
-      <p>Si vous effectuez des travaux d'isolation thermique (doublage des murs extérieurs ou isolation des combles), votre logement peut bénéficier d'une **TVA réduite à 5,5%** au lieu de 20%, ainsi que des aides de l'État (selon législation en vigueur). Nous concevons nos fiches techniques de devis de manière à faire apparaître la résistance thermique (R) requise par la loi pour faciliter vos dossiers administratifs.</p>
+    <!-- NOUVEL ENRICHISSEMENT CONCRET : MAÎTRISE DES BESOINS TECHNIQUES -->
+    <div class="tech-section">
+      <h3 style="margin-top:0; color:#0f172a;">🛠️ Maîtrise des configurations spécifiques</h3>
+      <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom: 0;">Nous adaptons l'ossature et les matériaux selon la contrainte exacte de la pièce :</p>
+      
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Zone / Contrainte</th>
+            <th>Solution technique appliquée</th>
+            <th>Avantage Client</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cuisine &amp; Salle de bain</strong></td>
+            <td>Pose exclusive de plaques Hydrofuges H1 (vertes).</td>
+            <td>Résistance totale à l'humidité ambiante et aux moisissures.</td>
+          </tr>
+          <tr>
+            <td><strong>Support TV lourd / Cuisine suspendue</strong></td>
+            <td>Mise en place de renforts bois ou métalliques solidifiés dans l'ossature.</td>
+            <td>Sécurité maximale pour fixer des charges supérieures à 50kg.</td>
+          </tr>
+          <tr>
+            <td><strong>Chambre attenante à une pièce bruyante</strong></td>
+            <td>Cloisons à performance acoustique renforcée (plaques haute densité).</td>
+            <td>Affaiblissement acoustique certifié pour retrouver le calme.</td>
+          </tr>
+          <tr>
+            <td><strong>Plafonds de grande portée / Loft</strong></td>
+            <td>Calcul des charges et montage de plafonds autoportants renforcés.</td>
+            <td>Absence totale de fléchissement au centre des grandes pièces.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
   </div>
 </section>
 
