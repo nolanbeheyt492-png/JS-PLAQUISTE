@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "realisations"
+    label: "Nos Chantiers (Photos)"
+    folder: "content/realisations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre du chantier", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Photo du projet", name: "image", widget: "image" }
