@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demande de Devis — JS Plaquiste</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <ul id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html">Nos Services</a></li>
+      <li><a href="contact.html" class="active">Demander un Devis</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem;">Devis sous 48h</a>
+    <button class="menu-toggle" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Votre projet de rénovation</h2>
+      <p>Une estimation claire, détaillée et entièrement gratuite sous 48 heures maximum.</p>
+    </div>
+
+    <div class="form-box">
+      <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
+        
+        <input type="hidden" name="_subject" value="Nouveau Devis JS Plaquiste !">
+        <input type="hidden" name="_captcha" value="false">
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nom">Nom / Prénom</label>
+            <input type="text" id="nom" name="Nom" required placeholder="Ex: Jean Dupont">
+          </div>
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" name="Telephone" required placeholder="Ex: 06 00 00 00 00">
+          </div>
+          <div class="form-group">
+            <label for="ville">Lieu du projet</label>
+            <input type="text" id="ville" name="Ville" required placeholder="Ex: Paris, Lille...">
+          </div>
+          <div class="form-group">
+            <label for="surface">Superficie estimée (m²)</label>
+            <input type="number" id="surface" name="Superficie_m2" placeholder="Ex: 60">
+          </div>
+          <div class="form-group form-group-full">
+            <label for="type-bien">Type de bien</label>
+            <select id="type-bien" name="Type_de_bien" required>
+              <option value="">Sélectionnez...</option>
+              <option value="maison">Maison</option>
+              <option value="appartement">Appartement</option>
+              <option value="commercial">Local Commercial / Bureau</option>
+            </select>
+          </div>
+          <div class="form-group form-group-full">
+            <label for="msg">Description de vos besoins</label>
+            <textarea id="msg" name="Message" rows="5" required placeholder="Décrivez votre projet (ex: Doublage de murs, création d'un faux plafond...)"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-wrap">
+    <div>© <span id="year"></span> JS Plaquiste.</div>
+    <div>Contact : beheytnolan@gmail.com</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+</script>
+</body>
+</html>

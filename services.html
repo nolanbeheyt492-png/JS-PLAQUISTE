@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Prestations — JS Plaquiste</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <ul id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html" class="active">Nos Services</a></li>
+      <li><a href="contact.html">Demander un Devis</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem;">Devis sous 48h</a>
+    <button class="menu-toggle" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Nos Domaines d'Expertise</h2>
+      <p>Des solutions sur mesure, durables et esthétiques adaptées aux contraintes techniques de votre bâtiment.</p>
+    </div>
+
+    <div class="grid-services">
+      <div class="card-service">
+        <h3>Plâtrerie &amp; Placo</h3>
+        <p>Création et distribution des volumes intérieurs pour maisons, appartements ou bureaux.</p>
+        <ul>
+          <li>Pose de cloisons distributrices et doublages</li>
+          <li>Faux plafonds suspendus et fixes</li>
+          <li>Coffrages techniques et gorges lumineuses LED</li>
+          <li>Plaques standards, hydrofuges ou phoniques</li>
+        </ul>
+      </div>
+
+      <div class="card-service">
+        <h3>Isolation Thermique &amp; Phonique</h3>
+        <p>Optimisation des performances énergétiques pour réduire vos factures et améliorer le confort.</p>
+        <ul>
+          <li>Isolation des murs intérieurs (ITI)</li>
+          <li>Isolation des cloisons et combles perdus</li>
+          <li>Correction acoustique des espaces bruyants</li>
+          <li>Matériaux certifiés conformes aux normes RE2020</li>
+        </ul>
+      </div>
+
+      <div class="card-service">
+        <h3>Finitions &amp; Préparation</h3>
+        <p>Un traitement minutieux des surfaces pour garantir la pérennité et l'esthétique de vos peintures.</p>
+        <ul>
+          <li>Application des enduits et pose des bandes à joints</li>
+          <li>Ponçage et ratissage complet des supports</li>
+          <li>Finitions de qualité supérieure (Niveaux Q1 à Q4)</li>
+          <li>Reprises et réparations après sinistres ou dégâts des eaux</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-wrap">
+    <div>© <span id="year"></span> JS Plaquiste. Tous travaux de second œuvre.</div>
+    <div>Prestations conformes aux règles de l'art.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+</script>
+</body>
+</html>

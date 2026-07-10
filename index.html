@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <ul id="nav-menu">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="services.html">Nos Services</a></li>
+      <li><a href="contact.html">Demander un Devis</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem;">Devis sous 48h</a>
+    <button class="menu-toggle" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Rénovez et aménagez<br>en toute sérénité.</h1>
+    <p>Artisans plaquistes et spécialistes du second œuvre. Nous intervenons auprès des particuliers et des professionnels pour tous types de travaux de plâtrerie, isolation et finitions de surfaces.</p>
+    
+    <div class="hero-badges">
+      <span>Garantie Décennale Incluse</span>
+      <span>Devis Gratuit sous 48h</span>
+      <span>Matériaux Certifiés</span>
+    </div>
+
+    <div style="display:flex; gap:16px; justify-content:center;">
+      <a href="contact.html" class="btn btn-primary">Demander un devis gratuit</a>
+      <a href="services.html" class="btn btn-outline">Découvrir nos métiers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Pourquoi nous faire confiance ?</h2>
+      <p>Chaque chantier est unique. Nous nous engageons sur le respect des délais, la propreté du site et des finitions soignées prêtes à peindre.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-wrap">
+    <div>© <span id="year"></span> JS Plaquiste. Tous travaux de second œuvre.</div>
+    <div>Garantie Décennale | Normes DTU respectées</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+</script>
+</body>
+</html>
