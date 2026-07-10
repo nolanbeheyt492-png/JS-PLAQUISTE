@@ -3,62 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nos Prestations — JS Plaquiste</title>
+<title>Nos Services — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+  .service-card { background: var(--panel); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .service-card h3 { color: #0f172a; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+  .service-card ul { list-style: none; padding: 0; }
+  .service-card ul li { margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; position: relative; padding-left: 20px; }
+  .service-card ul li::before { content: "✓"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+</style>
 </head>
 <body>
 
 <header>
   <div class="nav wrap">
-    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html" class="active">Nos Services</a></li>
-      <li><a href="contact.html">Demander un Devis</a></li>
+      <li><a href="realisations.html">Nos Chantiers</a></li>
+      <li><a href="contact.html">Contact &amp; Devis</a></li>
     </ul>
     <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
     <button class="menu-toggle" id="menu-btn">☰</button>
   </div>
 </header>
 
-<section class="section">
+<section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Nos Domaines d'Expertise</h2>
-      <p>Des solutions sur mesure, durables et esthétiques adaptées aux contraintes techniques de votre bâtiment.</p>
+      <h2>Nos Domaines d'Intervention</h2>
+      <p>Des prestations complètes de plâtrerie et d'isolation pour le neuf ou la rénovation.</p>
     </div>
-
     <div class="grid-services">
-      <div class="card-service">
-        <h3>Plâtrerie &amp; Placo</h3>
-        <p>Création et distribution des volumes intérieurs pour maisons, appartements ou bureaux.</p>
+      <div class="service-card">
+        <h3>📐 Plâtrerie &amp; Cloisons</h3>
         <ul>
-          <li>Pose de cloisons distributrices et doublages</li>
-          <li>Faux plafonds suspendus et fixes</li>
-          <li>Coffrages techniques et gorges lumineuses LED</li>
-          <li>Plaques standards, hydrofuges ou phoniques</li>
+          <li>Cloisons de distribution (Placo BA13)</li>
+          <li>Doublage de murs périphériques</li>
+          <li>Création de niches et dressings encastrés</li>
         </ul>
       </div>
-
-      <div class="card-service">
-        <h3>Isolation Thermique &amp; Phonique</h3>
-        <p>Optimisation des performances énergétiques pour réduire vos factures et améliorer le confort.</p>
+      <div class="service-card">
+        <h3>☁️ Faux Plafonds</h3>
         <ul>
-          <li>Isolation des murs intérieurs (ITI)</li>
-          <li>Isolation des cloisons et combles perdus</li>
-          <li>Correction acoustique des espaces bruyants</li>
-          <li>Matériaux certifiés conformes aux normes RE2020</li>
+          <li>Plafonds suspendus en plaques de plâtre</li>
+          <li>Intégration de spots LED et gaines</li>
+          <li>Plafonds acoustiques autoportants</li>
         </ul>
       </div>
-
-      <div class="card-service">
-        <h3>Finitions &amp; Préparation</h3>
-        <p>Un traitement minutieux des surfaces pour garantir la pérennité et l'esthétique de vos peintures.</p>
+      <div class="service-card">
+        <h3>🔥 Isolation Intérieure</h3>
         <ul>
-          <li>Application des enduits et pose des bandes à joints</li>
-          <li>Ponçage et ratissage complet des supports</li>
-          <li>Finitions de qualité supérieure (Niveaux Q1 à Q4)</li>
-          <li>Reprises et réparations après sinistres ou dégâts des eaux</li>
+          <li>Isolation thermique (économie d'énergie)</li>
+          <li>Isolation phonique / acoustique</li>
+          <li>Laine de verre, laine de roche, bio-sourcés</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>✨ Finitions &amp; Joints</h3>
+        <ul>
+          <li>Pose de bandes à joints (calicot)</li>
+          <li>Enduisage de lissage complet</li>
+          <li>Ponçage mécanique sans poussière</li>
         </ul>
       </div>
     </div>
@@ -67,8 +75,8 @@
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JS Plaquiste. Tous travaux de second œuvre.</div>
-    <div>Prestations conformes aux règles de l'art.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
 
