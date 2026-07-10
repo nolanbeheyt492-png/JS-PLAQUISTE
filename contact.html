@@ -5,6 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demande de Devis — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Styles pour la boîte de remerciement qui apparaîtra après l'envoi */
+  .merci-box {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .merci-icon {
+    font-size: 3.5rem;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .merci-box h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .merci-box p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+</style>
 </head>
 <body>
 
@@ -28,10 +50,11 @@
       <p>Une estimation claire, détaillée et entièrement gratuite sous 48 heures maximum.</p>
     </div>
 
-    <div class="form-box">
-      <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
+    <!-- Cette boîte contient le formulaire OU le message de succès -->
+    <div class="form-box" id="form-container">
+      <form id="devis-form">
         
-        <input type="hidden" name="_next" value="merci.html">
+        <!-- Options de configuration FormSubmit -->
         <input type="hidden" name="_subject" value="Nouveau Devis JS Plaquiste !">
         <input type="hidden" name="_captcha" value="false">
         
@@ -66,7 +89,7 @@
             <textarea id="msg" name="Message" rows="5" required placeholder="Décrivez votre projet (ex: Doublage de murs, création d'un faux plafond...)"></textarea>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
+        <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
       </form>
     </div>
   </div>
@@ -80,10 +103,56 @@
 </footer>
 
 <script>
+  // Script pour l'année et le menu mobile
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+
+  // Script pour envoyer le formulaire sans recharger ni rediriger la page
+  const form = document.getElementById('devis-form');
+  const formContainer = document.getElementById('form-container');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Bloque la redirection automatique
+    
+    // Change le texte du bouton pendant l'envoi
+    submitBtn.textContent = "Envoi en cours...";
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+
+    // Envoi transparent à FormSubmit
+    fetch("https://formsubmit.co/ajax/beheytnolan@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remplace le formulaire par ton message de remerciement personnalisé (sans Nolan)
+            formContainer.innerHTML = `
+              <div class="merci-box">
+                <div class="merci-icon">✓</div>
+                <h1>Demande bien reçue !</h1>
+                <p>Votre demande de devis a été transmise avec succès.<br>Nous étudions vos besoins et nous vous recontactons <strong>sous 48 heures maximum</strong>.</p>
+              </div>
+            `;
+        } else {
+            alert("Une erreur est survenue. Veuillez réessayer.");
+            submitBtn.textContent = "Envoyer ma demande de devis";
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        alert("Erreur de connexion. Vérifiez votre réseau.");
+        submitBtn.textContent = "Envoyer ma demande de devis";
+        submitBtn.disabled = false;
+    });
+  });
 </script>
 </body>
 </html>
