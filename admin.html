@@ -8,6 +8,11 @@
 <style>
   .admin-panel { max-width: 650px; margin: 60px auto; display: none; }
   .login-panel { max-width: 400px; margin: 100px auto; }
+  .admin-project-list { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .admin-project-item { display: flex; align-items: center; justify-content: space-between; background: var(--panel); border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-md); gap: 16px; }
+  .admin-project-item img { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; }
+  .btn-danger { background: #ef4444; color: white; padding: 8px 16px; font-size: 0.85rem; }
+  .btn-danger:hover { background: #dc2626; }
 </style>
 </head>
 <body>
@@ -20,6 +25,7 @@
 </header>
 
 <div class="wrap">
+  <!-- 1. FORMULAIRE DE CONNEXION -->
   <div class="form-box login-panel" id="login-box">
     <h2 style="margin-bottom: 20px; text-align:center;">Connexion Admin</h2>
     <div class="form-group" style="margin-bottom: 15px;">
@@ -30,6 +36,7 @@
     <p id="login-error" style="color: red; margin-top: 10px; text-align: center; display: none;">Mot de passe incorrect.</p>
   </div>
 
+  <!-- 2. LE PANNEAU D'ADMINISTRATION -->
   <div class="form-box admin-panel" id="admin-box">
     <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
     <p style="color: var(--text-muted); margin-bottom: 30px;">Le chantier sera visible par tout le monde instantanément sur internet.</p>
@@ -52,22 +59,26 @@
       <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
     </form>
     
+    <!-- NOUVELLE SECTION : LISTER ET SUPPRIMER LES PHOTOS -->
+    <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
+    <h3 style="margin-bottom: 15px;">Chantiers actuellement en ligne</h3>
+    <div class="admin-project-list" id="admin-gallery">
+      <p style="color: var(--text-muted);">Chargement de vos chantiers...</p>
+    </div>
+
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
     <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter</button>
   </div>
 </div>
 
 <script>
-  // Paramètres de connexion
   const MOT_DE_PASSE_SECRET = "plaquiste2026";
-  
-  // Tes identifiants Cloudinary connectés par mes soins
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/x39moqat/image/upload"; 
   const CLOUDINARY_PRESET = "js_preset"; 
-
-  // Tes identifiants JSONBin connectés par mes soins
   const JSONBIN_BIN_ID = "6a5139ecf5f4af5e297e29e2"; 
-  const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; // Clé d'accès requise en lecture/écriture
+  const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
+
+  let globalProjects = [];
 
   function verifierConnexion() {
     const inputPass = document.getElementById('admin-password').value;
@@ -83,6 +94,7 @@
   function afficherPanneau() {
     document.getElementById('login-box').style.display = 'none';
     document.getElementById('admin-box').style.display = 'block';
+    chargerChantiersAdmin();
   }
 
   function deconnexion() {
@@ -94,6 +106,58 @@
     afficherPanneau();
   }
 
+  // Charger et afficher les chantiers dans l'espace admin avec le bouton Supprimer
+  function chargerChantiersAdmin() {
+    const adminGallery = document.getElementById('admin-gallery');
+    fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_SECRET_KEY }
+    })
+    .then(res => res.json())
+    .then(binData => {
+      globalProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
+      if(globalProjects.length === 0) {
+        adminGallery.innerHTML = "<p style='color: var(--text-muted);'>Aucun chantier en ligne pour le moment.</p>";
+      } else {
+        adminGallery.innerHTML = "";
+        globalProjects.forEach((proj, index) => {
+          adminGallery.innerHTML += `
+            <div class="admin-project-item">
+              <div style="display:flex; align-items:center; gap:16px;">
+                <img src="${proj.image}" alt="">
+                <div>
+                  <h4 style="color:#0f172a; font-size:1rem;">${proj.title}</h4>
+                </div>
+              </div>
+              <button onclick="supprimerChantier(${index})" class="btn btn-danger">Supprimer</button>
+            </div>
+          `;
+        });
+      }
+    })
+    .catch(() => { adminGallery.innerHTML = "<p style='color:red;'>Erreur de chargement.</p>"; });
+  }
+
+  // Fonction pour supprimer un chantier de la base de données globale
+  function supprimerChantier(index) {
+    if(confirm("Voulez-vous vraiment supprimer ce chantier du site ?")) {
+      globalProjects.splice(index, 1); // Enlève l'élément du tableau
+      
+      fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': JSONBIN_SECRET_KEY
+        },
+        body: JSON.stringify({ chantiers: globalProjects })
+      })
+      .then(() => {
+        alert("Chantier supprimé avec succès !");
+        chargerChantiersAdmin(); // Recharge la liste de l'admin
+      });
+    }
+  }
+
+  // Ajouter un chantier
   document.getElementById('add-project-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
@@ -105,7 +169,6 @@
       submitBtn.textContent = "Publication en cours...";
       submitBtn.disabled = true;
 
-      // 1. Envoi de l'image chez Cloudinary
       const formData = new FormData();
       formData.append('file', fileInput.files[0]);
       formData.append('upload_preset', CLOUDINARY_PRESET);
@@ -115,46 +178,35 @@
       .then(cloudinaryData => {
         if(cloudinaryData.secure_url) {
           
-          // 2. Récupération des anciens chantiers sur JSONBin
-          fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-            headers: { 'X-Master-Key': JSONBIN_SECRET_KEY }
-          })
-          .then(res => res.json())
-          .then(binData => {
-            // Lecture sécurisée du format "chantiers"
-            let currentProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
-            
-            // Ajout du nouveau projet
-            currentProjects.push({
-              title: title,
-              desc: desc,
-              image: cloudinaryData.secure_url
-            });
+          globalProjects.push({
+            title: title,
+            desc: desc,
+            image: cloudinaryData.secure_url
+          });
 
-            // 3. Mise à jour globale sur la base de données
-            fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_SECRET_KEY
-              },
-              body: JSON.stringify({ chantiers: currentProjects })
-            })
-            .then(() => {
-              alert("Chantier publié sur internet avec succès !");
-              window.location.href = 'index.html';
-            });
+          fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Master-Key': JSONBIN_SECRET_KEY
+            },
+            body: JSON.stringify({ chantiers: globalProjects })
+          })
+          .then(() => {
+            alert("Chantier publié avec succès !");
+            document.getElementById('add-project-form').reset();
+            submitBtn.textContent = "Publier le chantier sur le site";
+            submitBtn.disabled = false;
+            chargerChantiersAdmin();
           });
 
         } else {
-          alert("Erreur Cloudinary. Vérifie le preset 'js_preset' (Unsigned).");
-          submitBtn.textContent = "Publier le chantier sur le site";
+          alert("Erreur Cloudinary.");
           submitBtn.disabled = false;
         }
       })
       .catch(() => {
-        alert("Erreur réseau globale.");
-        submitBtn.textContent = "Publier le chantier sur le site";
+        alert("Erreur réseau.");
         submitBtn.disabled = false;
       });
     }
