@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nos Services Spécialisés — JS Plaquiste</title>
+<title>Nos Services — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 40px; }
+  .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
   .service-card { background: var(--panel); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-  .service-card h3 { color: #0f172a; margin-bottom: 16px; font-size: 1.3rem; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--border); padding-bottom: 12px; }
+  .service-card h3 { color: #0f172a; margin-bottom: 16px; font-size: 1.25rem; }
   .service-card ul { list-style: none; padding: 0; }
-  .service-card ul li { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; position: relative; padding-left: 24px; line-height: 1.5; }
-  .service-card ul li::before { content: "✓"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
-  .material-tag { display: inline-block; background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; margin-top: 8px; font-weight: 600; }
+  .service-card ul li { margin-bottom: 10px; color: var(--text-muted); font-size: 0.95rem; position: relative; padding-left: 20px; }
+  .service-card ul li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+  
+  /* Guide de Finitions Placo */
+  .finishing-guide { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; margin-top: 50px; }
+  .finishing-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 24px; }
+  .level-box { background: white; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border); }
+  .level-box h4 { margin-top: 0; color: #0f172a; font-size: 1.1rem; margin-bottom: 8px; }
+  .level-box p { font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4; }
+  .level-badge { display: inline-block; background: var(--accent); color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -35,55 +42,69 @@
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Nos Domaines d'Expertise</h2>
-      <p>Nous maîtrisons toutes les techniques modernes du plâtre et de l'isolation pour optimiser l'espace et le confort de votre habitat.</p>
+      <h2>Nos Domaines d'Intervention</h2>
+      <p>De la pose structurelle brute jusqu'au lissage final, nous prenons en charge l'ensemble du second œuvre.</p>
     </div>
     
     <div class="grid-services">
-      <!-- SERVICE 1 -->
       <div class="service-card">
-        <h3>📐 Plâtrerie &amp; Cloisonnement</h3>
+        <h3>📐 Pose de Cloisons</h3>
+        <p>Création de nouveaux espaces de vie adaptés à vos besoins.</p>
         <ul>
-          <li><strong>Cloisons séparatives :</strong> Distribution de vos pièces (chambres, dressing, bureau) avec isolation intégrée.</li>
-          <li><strong>Doublage de murs :</strong> Pose sur ossature métallique pour redresser les murs anciens ou abîmés.</li>
-          <li><strong>Plaques techniques :</strong> Hydrofuge (verte) pour salles de bains, Coupe-feu (rose) pour cuisines ou locaux techniques.</li>
+          <li>Cloisons de distribution (séparation de pièces)</li>
+          <li>Doublage de murs périphériques</li>
+          <li>Intégration d'isolants thermiques et phoniques</li>
         </ul>
-        <span class="material-tag">Plaques NF Placo®</span> <span class="material-tag">Norme hydro H1</span>
       </div>
-
-      <!-- SERVICE 2 -->
       <div class="service-card">
-        <h3>☁️ Plafonds &amp; Faux Plafonds</h3>
+        <h3>☁️ Faux Plafonds</h3>
+        <p>Idéal pour masquer les réseaux ou intégrer des éclairages.</p>
         <ul>
-          <li><strong>Création de plénum :</strong> Idéal pour masquer le passage des gaines de ventilation, clim ou câbles électriques.</li>
-          <li><strong>Esthétique moderne :</strong> Intégration de trappes de visite invisibles, de corniches ou d'emplacements pour bandeaux LED encastrés.</li>
-          <li><strong>Correction acoustique :</strong> Plafonds autoportants pour bloquer les bruits d'impact des étages supérieurs.</li>
+          <li>Plafond suspendu sur ossature</li>
+          <li>Création de plénum pour passage de gaines</li>
+          <li>Intégration de spots encastrés et luminaires</li>
         </ul>
-        <span class="material-tag">Plafond Suspendu</span> <span class="material-tag">Intégration LED</span>
       </div>
-
-      <!-- SERVICE 3 -->
       <div class="service-card">
-        <h3>🔥 Isolation Thermique &amp; Phonique</h3>
+        <h3>✨ Bandes à Joints &amp; Enduits</h3>
+        <p>L'étape cruciale pour assurer l'invisibilité des raccords.</p>
         <ul>
-          <li><strong>Économies d'énergie :</strong> Pose d'isolants certifiés à haute résistance thermique (R) pour réduire vos factures de chauffage.</li>
-          <li><strong>Confort acoustique :</strong> Utilisation de laine de roche ou de plaques bleues (Phonique) pour diviser les bruits par deux entre deux pièces.</li>
-          <li><strong>Combles &amp; Rampants :</strong> Aménagement thermique sous toiture pour rendre vos combles habitables au fil des saisons.</li>
+          <li>Application de bandes armées sur les angles sortants</li>
+          <li>Jointoiement soigné en plusieurs passes</li>
+          <li>Ponçage mécanique pour rendu lisse</li>
         </ul>
-        <span class="material-tag">Laine de verre GR32</span> <span class="material-tag">Isolants Biosourcés</span>
-      </div>
-
-      <!-- SERVICE 4 -->
-      <div class="service-card">
-        <h3>✨ Traitement des Joints &amp; Lissage</h3>
-        <ul>
-          <li><strong>Technique Calicot :</strong> Collage de la bande armée ou papier, suivi de deux passes de finition pour éliminer toute surépaisseur.</li>
-          <li><strong>Ratissage complet :</strong> Application d'un enduit de lissage extra-fin sur la totalité des plaques pour un aspect miroir.</li>
-          <li><strong>Prêt à peindre :</strong> Un support impeccable garantissant la réussite de vos travaux de peinture ou de pose de papier peint.</li>
-        </ul>
-        <span class="material-tag">Finition Qualité Q4</span> <span class="material-tag">Enduit Premium</span>
       </div>
     </div>
+
+    <!-- NOUVEL ENRICHISSEMENT CONCRET : GUIDE DES FINITIONS -->
+    <div class="finishing-guide">
+      <h3 style="margin-top: 0; color: #0f172a;">📐 Guide Qualité : Comprendre les niveaux de finition de vos murs</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0;">Parce qu'un beau mur dépend des besoins du revêtement final, nous classons le traitement de nos joints selon la norme européenne officielle :</p>
+      
+      <div class="finishing-levels">
+        <div class="level-box">
+          <div class="level-badge">Niveau Q1</div>
+          <h4>Remplissage Bruto</h4>
+          <p>Uniquement le serrage de la bande. Idéal pour les zones masquées (derrière une faïence ou un placard intégré).</p>
+        </div>
+        <div class="level-box">
+          <div class="level-badge">Niveau Q2</div>
+          <h4>Finition Standard</h4>
+          <p>Joints poncés et recouverts d'une deuxième passe. Parfait pour les papiers peints épais ou crépis décoratifs.</p>
+        </div>
+        <div class="level-box">
+          <div class="level-badge" style="background:#0f172a;">Niveau Q3</div>
+          <h4>Finition Soignée</h4>
+          <p>Passe d'enduit élargie et ponçage fin. Recommandé pour les peintures mates ou les papiers peints fins.</p>
+        </div>
+        <div class="level-box">
+          <div class="level-badge" style="background:#10b981;">Niveau Q4</div>
+          <h4>Zéro Défaut (Premium)</h4>
+          <p>Ratissage complet de la plaque avec un enduit pelliculaire de lissage. Indispensable pour les peintures satinées ou brillantes à la lumière rasante.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
