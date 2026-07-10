@@ -24,7 +24,8 @@
     <ul id="nav-menu">
       <li><a href="index.html" class="active">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
-      <li><a href="realisations.html">Nos Chantiers</a></li>
+      <li><a href="tarifs.html">Nos Tarifs</a></li>
+      <li><a href="realisations.html">Photos</a></li>
       <li><a href="contact.html">Contact &amp; Devis</a></li>
     </ul>
     <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
@@ -95,11 +96,6 @@
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
-
-  // Double-clic logo -> admin
-  document.getElementById('brand-logo').addEventListener('dblclick', () => {
-    window.location.href = 'admin.html';
-  });
 </script>
 </body>
 </html>
