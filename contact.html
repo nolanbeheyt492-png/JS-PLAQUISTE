@@ -20,6 +20,23 @@
   .faq-item.active .faq-answer { padding-bottom: 20px; max-height: 250px; }
   .faq-item.active .faq-toggle { transform: rotate(45deg); }
   .faq-toggle { transition: transform 0.2s; font-weight: bold; }
+
+  /* STYLE DU GRAND MESSAGE DE REMERCIEMENT DIRECT SUR LE SITE */
+  .thankyou-section {
+    display: none; /* Masqué par défaut */
+    background: white;
+    padding: 60px 40px;
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
+  }
+  .thankyou-section.show { display: block; }
+  .thankyou-icon { font-size: 4rem; color: #10b981; margin-bottom: 20px; }
+  .thankyou-section h3 { font-size: 1.8rem; color: #0f172a; margin-bottom: 16px; }
+  .thankyou-section p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 30px; }
 </style>
 </head>
 <body>
@@ -41,60 +58,79 @@
 
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Contactez-nous / Demande de Devis</h2>
-      <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
-    </div>
     
-    <div class="contact-wrapper">
-      <div class="contact-info-box">
-        <h3>📍 JS PLAQUISTE</h3>
-        <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
-        <hr style="border-color: #334155;">
-        <p>📞 Par téléphone :</p>
-        <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
-        <hr style="border-color: #334155;">
-        <p>⏱️ Horaires d'intervention :</p>
-        <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
-      </div>
+    <!-- BLOC DE REMERCIEMENT QUI RESTE SUR TON SITE (S'ACTIVE APRÈS L'ENVOI) -->
+    <div id="thankyou-block" class="thankyou-section">
+      <div class="thankyou-icon">📥</div>
+      <h3>Demande de devis reçue !</h3>
+      <p>Merci pour votre confiance. Vos informations ont bien été transmises à notre artisan. Nous étudions votre projet et nous vous recontactons par téléphone sous 48 heures.</p>
+      <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
 
-      <div class="form-box" style="margin: 0;">
-        <form id="client-contact-form" onsubmit="envoyerEmail(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Votre Nom / Prénom</label>
-              <input type="text" id="client-name" required placeholder="Ex: Jean Dupont">
+    <!-- CONTENU PRINCIPAL DU FORMULAIRE (SE MASQUE APRÈS L'ENVOI) -->
+    <div id="main-contact-content">
+      <div class="section-head">
+        <h2>Contactez-nous / Demande de Devis</h2>
+        <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
+      </div>
+      
+      <div class="contact-wrapper">
+        <div class="contact-info-box">
+          <h3>📍 JS PLAQUISTE</h3>
+          <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
+          <hr style="border-color: #334155;">
+          <p>📞 Par téléphone :</p>
+          <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
+          <hr style="border-color: #334155;">
+          <p>⏱️ Horaires d'intervention :</p>
+          <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
+        </div>
+
+        <div class="form-box" style="margin: 0;">
+          <!-- LE FORMULAIRE RE-PARAMÉTRÉ SANS JAVASCRIPT COMPLEXE POUR FORMSUBMIT -->
+          <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
+            
+            <!-- Indique à FormSubmit de renvoyer l'utilisateur directement sur cette page avec le paramètre ?success=true -->
+            <input type="hidden" name="_next" value="window.location.href">
+            <input type="hidden" name="_subject" value="Nouveau Devis Client - JS Plaquiste">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Votre Nom / Prénom</label>
+                <input type="text" name="Nom_Prenom" required placeholder="Ex: Jean Dupont">
+              </div>
+              <div class="form-group">
+                <label>Numéro de Téléphone</label>
+                <input type="tel" name="Telephone" required placeholder="Ex: 06 12 34 56 78">
+              </div>
+              <div class="form-group form-group-full">
+                <label>Ville du Chantier</label>
+                <input type="text" name="Ville_Chantier" required placeholder="Ex: Lille (59000)">
+              </div>
+              <div class="form-group form-group-full">
+                <label>Type de travaux souhaités</label>
+                <select name="Type_Travaux" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
+                  <option>Rénovation complète d'une pièce</option>
+                  <option>Pose de cloisons de séparation</option>
+                  <option>Création de faux plafond suspendu</option>
+                  <option>Isolation thermique ou acoustique</option>
+                  <option>Joints / Enduit de lissage</option>
+                  <option>Autre projet second œuvre</option>
+                </select>
+              </div>
+              <div class="form-group form-group-full">
+                <label>Description de votre projet</label>
+                <textarea name="Message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Numéro de Téléphone</label>
-              <input type="tel" id="client-phone" required placeholder="Ex: 06 12 34 56 78">
-            </div>
-            <div class="form-group form-group-full">
-              <label>Ville du Chantier</label>
-              <input type="text" id="client-city" required placeholder="Ex: Lille (59000)">
-            </div>
-            <div class="form-group form-group-full">
-              <label>Type de travaux souhaités</label>
-              <select id="client-type" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
-                <option>Rénovation complète d'une pièce</option>
-                <option>Pose de cloisons de séparation</option>
-                <option>Création de faux plafond suspendu</option>
-                <option>Isolation thermique ou acoustique</option>
-                <option>Joints / Enduit de lissage</option>
-                <option>Autre projet second œuvre</option>
-              </select>
-            </div>
-            <div class="form-group form-group-full">
-              <label>Description de votre projet</label>
-              <textarea id="client-message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
-        </form>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
+          </form>
+        </div>
       </div>
     </div>
 
-    <!-- LA GRANDE FAQ INTERACTIVE ET ENRICHIE -->
+    <!-- FAQ -->
     <div class="faq-container">
       <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes &amp; Réponses techniques</h3>
       
@@ -144,10 +180,15 @@
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
 
-  function envoyerEmail(e) {
-    e.preventDefault();
-    alert("Merci ! Votre demande de devis a bien été transmise. Nous vous recontactons par téléphone sous 48h.");
-    document.getElementById('client-contact-form').reset();
+  // DETECTION AUTOMATIQUE DU RETOUR DE FORMSUBMIT
+  // Indique dynamiquement à FormSubmit l'URL exacte actuelle de retour
+  document.getElementsByName('_next')[0].value = window.location.href.split('?')[0] + "?status=success";
+
+  // Si l'URL contient "?status=success", on cache le formulaire et on montre le grand message de remerciement
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('status') === 'success') {
+    document.getElementById('main-contact-content').style.display = 'none';
+    document.getElementById('thankyou-block').classList.add('show');
   }
 </script>
 </body>
