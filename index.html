@@ -111,16 +111,15 @@
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
 
-  // Double-clic pour aller à l'admin
+  // Double-clic logo -> admin
   document.getElementById('brand-logo').addEventListener('dblclick', () => {
     window.location.href = 'admin.html';
   });
 
-  const JSONBIN_BIN_ID = "6a5139ecf5f4af5e297e29e2"; 
+  const JSONBIN_BIN_ID = "6a513eeada38895dfe4cb41d"; // Nouveau Bin ID mis à jour
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
   const galleryContainer = document.getElementById('gallery-container');
 
-  // Lecture forcée et sécurisée
   fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
     headers: { 'X-Master-Key': JSONBIN_SECRET_KEY, 'Cache-Control': 'no-cache' }
   })
