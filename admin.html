@@ -11,7 +11,7 @@
   .admin-project-list { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
   .admin-project-item { display: flex; align-items: center; justify-content: space-between; background: var(--panel); border: 1px solid var(--border); padding: 16px; border-radius: var(--radius-md); gap: 16px; }
   .admin-project-item img { width: 80px; height: 60px; object-fit: cover; border-radius: 4px; }
-  .btn-danger { background: #ef4444; color: white; padding: 8px 16px; font-size: 0.85rem; }
+  .btn-danger { background: #ef4444; color: white; padding: 8px 16px; font-size: 0.85rem; border: none; border-radius: 4px; cursor: pointer; }
   .btn-danger:hover { background: #dc2626; }
 </style>
 </head>
@@ -19,7 +19,8 @@
 
 <header>
   <div class="nav wrap">
-    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <!-- TRIPLE-CLIC SUR LE LOGO POUR QUITTER L'ADMIN -->
+    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <div style="font-weight: 600; color: var(--accent);">Espace Admin</div>
   </div>
 </header>
@@ -59,7 +60,7 @@
       <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
     </form>
     
-    <!-- NOUVELLE SECTION : LISTER ET SUPPRIMER LES PHOTOS -->
+    <!-- GESTION DES PHOTOS -->
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
     <h3 style="margin-bottom: 15px;">Chantiers actuellement en ligne</h3>
     <div class="admin-project-list" id="admin-gallery">
@@ -67,7 +68,7 @@
     </div>
 
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
-    <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter</button>
+    <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter (ou faites 3 clics sur le logo)</button>
   </div>
 </div>
 
@@ -79,6 +80,17 @@
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
 
   let globalProjects = [];
+
+  // TRIPLE CLIC POUR QUITTER L'ADMIN
+  let clickCount = 0;
+  document.getElementById('brand-logo').addEventListener('click', () => {
+    clickCount++;
+    if (clickCount === 3) {
+      clickCount = 0;
+      deconnexion();
+    }
+    setTimeout(() => { clickCount = 0; }, 1000); // Reset si les clics sont trop lents
+  });
 
   function verifierConnexion() {
     const inputPass = document.getElementById('admin-password').value;
@@ -99,22 +111,29 @@
 
   function deconnexion() {
     localStorage.removeItem('js_admin_logged');
-    window.location.reload();
+    window.location.href = 'index.html';
   }
 
   if (localStorage.getItem('js_admin_logged') === 'true') {
     afficherPanneau();
   }
 
-  // Charger et afficher les chantiers dans l'espace admin avec le bouton Supprimer
   function chargerChantiersAdmin() {
     const adminGallery = document.getElementById('admin-gallery');
     fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-      headers: { 'X-Master-Key': JSONBIN_SECRET_KEY }
+      headers: { 'X-Master-Key': JSONBIN_SECRET_KEY, 'Cache-Control': 'no-cache' }
     })
     .then(res => res.json())
     .then(binData => {
-      globalProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
+      // Correction du bug de lecture
+      if (binData.record && binData.record.chantiers) {
+        globalProjects = binData.record.chantiers;
+      } else if (Array.isArray(binData.record)) {
+        globalProjects = binData.record;
+      } else {
+        globalProjects = [];
+      }
+
       if(globalProjects.length === 0) {
         adminGallery.innerHTML = "<p style='color: var(--text-muted);'>Aucun chantier en ligne pour le moment.</p>";
       } else {
@@ -137,10 +156,9 @@
     .catch(() => { adminGallery.innerHTML = "<p style='color:red;'>Erreur de chargement.</p>"; });
   }
 
-  // Fonction pour supprimer un chantier de la base de données globale
   function supprimerChantier(index) {
     if(confirm("Voulez-vous vraiment supprimer ce chantier du site ?")) {
-      globalProjects.splice(index, 1); // Enlève l'élément du tableau
+      globalProjects.splice(index, 1);
       
       fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
         method: 'PUT',
@@ -151,13 +169,12 @@
         body: JSON.stringify({ chantiers: globalProjects })
       })
       .then(() => {
-        alert("Chantier supprimé avec succès !");
-        chargerChantiersAdmin(); // Recharge la liste de l'admin
+        alert("Chantier supprimé !");
+        chargerChantiersAdmin();
       });
     }
   }
 
-  // Ajouter un chantier
   document.getElementById('add-project-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
@@ -194,14 +211,11 @@
           })
           .then(() => {
             alert("Chantier publié avec succès !");
-            document.getElementById('add-project-form').reset();
-            submitBtn.textContent = "Publier le chantier sur le site";
-            submitBtn.disabled = false;
-            chargerChantiersAdmin();
+            window.location.href = 'index.html'; // Retour automatique à l'accueil
           });
 
         } else {
-          alert("Erreur Cloudinary.");
+          alert("Erreur d'image.");
           submitBtn.disabled = false;
         }
       })
