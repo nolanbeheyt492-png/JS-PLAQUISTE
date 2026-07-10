@@ -3,13 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JS Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
+<title>JS Plaquiste — Rénovation, Isolation &amp; Finitions</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .grid-features, .grid-testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .grid-features, .grid-testimonials, .grid-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
   .feature-card { background: var(--panel); padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; }
   .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #0f172a; }
   .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+  
+  /* Section Étapes */
+  .step-card { background: var(--panel); padding: 24px; border-radius: var(--radius-lg); border-left: 4px solid var(--accent); position: relative; }
+  .step-num { font-size: 2.5rem; font-weight: 800; color: rgba(224, 130, 48, 0.15); position: absolute; top: 10px; right: 20px; }
+  .step-card h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 8px; }
+  .step-card p { color: var(--text-muted); font-size: 0.9rem; }
+
   .testimonial-card { background: var(--panel); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
   .stars { color: var(--accent); margin-bottom: 12px; font-size: 1.2rem; }
   .testimonial-card p { font-style: italic; color: #334155; margin-bottom: 16px; font-size: 0.95rem; }
@@ -35,50 +42,84 @@
 
 <section class="hero">
   <div class="wrap">
-    <h1>Rénovez et aménagement<br>en toute sérénité.</h1>
-    <p>Artisans plaquistes et spécialistes du second œuvre. Nous intervenons auprès des particuliers et des professionnels pour tous types de travaux de plâtrerie, isolation et finitions de surfaces.</p>
+    <h1>Des murs parfaits,<br>une isolation certifiée.</h1>
+    <p>Artisans plaquistes experts en aménagement intérieur et plâtrerie sèche. Du montage de cloisons complexes aux finitions haut de gamme prêtes à peindre, nous donnons vie à vos projets de rénovation et de neuf.</p>
     <div class="hero-badges">
-      <span>Garantie Décennale Incluse</span>
-      <span>Devis Gratuit sous 48h</span>
-      <span>Matériaux Certifiés</span>
+      <span>Assurance Décennale</span>
+      <span>Devis Gratuit &amp; Rapide</span>
+      <span>Solutions Éco-Énergétiques</span>
     </div>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
       <a href="contact.html" class="btn btn-primary">Demander un devis gratuit</a>
-      <a href="services.html" class="btn btn-outline">Découvrir nos métiers</a>
+      <a href="services.html" class="btn btn-outline">Découvrir nos spécialités</a>
     </div>
   </div>
 </section>
 
+<!-- ENGAGEMENTS RAPIDES -->
 <section class="section section-alt">
   <div class="wrap">
     <div class="section-head">
-      <h2>Pourquoi nous faire confiance ?</h2>
-      <p>Chaque chantier est unique. Nous nous engageons sur le respect des délais, la propreté du site et des finitions soignées prêtes à peindre.</p>
+      <h2>L'exigence du travail bien fait</h2>
+      <p>Parce que la plâtrerie est la base de toute votre décoration intérieure, nous ne laissons aucune place à l'improvisation.</p>
     </div>
     <div class="grid-features">
-      <div class="feature-card"><h3>🛡️ Garantie Décennale</h3><p>Tous nos travaux de structure et doublage sont couverts par notre assurance.</p></div>
-      <div class="feature-card"><h3>📐 Finitions Q4</h3><p>Un ponçage et ratissage minutieux pour des surfaces lisses, prêtes à peindre.</p></div>
-      <div class="feature-card"><h3>🧼 Chantier Propre</h3><p>Nettoyage rigoureux en fin de journée pour préserver votre confort.</p></div>
+      <div class="feature-card"><h3>🛡️ Solidité &amp; Garantie</h3><p>Structures robustes conformes aux exigences réglementaires et couvertes pendant 10 ans.</p></div>
+      <div class="feature-card"><h3>📐 Planéité Parfaite</h3><p>Contrôle systématique des niveaux pour des angles droits et des surfaces parfaitement lisses.</p></div>
+      <div class="feature-card"><h3>🧼 Respect des Lieux</h3><p>Aspiration des poussières de ponçage et évacuation responsable de tous les déchets de plâtre.</p></div>
     </div>
   </div>
 </section>
 
+<!-- NOUVELLE ZONE ENRICHIE : LES ÉTAPES DU CHANTIER -->
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <h2>Ce que disent nos clients</h2>
-      <p>La satisfaction de nos clients est notre meilleure carte de visite.</p>
+      <h2>Comment se déroule votre projet ?</h2>
+      <p>Une organisation claire pour un suivi de chantier en toute transparence et sans stress.</p>
+    </div>
+    <div class="grid-steps">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Étude &amp; Cotation</h3>
+        <p>Visite sur site obligatoire pour analyser les supports, prendre les mesures précises et écouter vos besoins spécifiques en isolation ou agencement.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Préparation &amp; Traçage</h3>
+        <p>Protection totale de vos sols. Implantation au laser au sol et au plafond pour garantir un alignement géométrique parfait des futures cloisons.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Ossature &amp; Réseaux</h3>
+        <p>Pose de la structure métallique, insertion des isolants thermiques ou phoniques, et passage des gaines électriques et de plomberie en attente.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Plaquage &amp; Jointoiement</h3>
+        <p>Pose des plaques (BA13, hydro, phonique). Réalisation des joints en 3 passes successives (collage, remplissage, finition) pour un résultat invisible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS CLIENTS -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>La parole à nos clients</h2>
+      <p>Découvrez les retours d'expérience des propriétaires qui nous ont confié leurs intérieurs.</p>
     </div>
     <div class="grid-testimonials">
       <div class="testimonial-card">
         <div class="stars">★★★★★</div>
-        <p>"Travail d'une grande précision pour la création de notre suite parentale. Les bandes à joints sont invisibles !"</p>
-        <div class="testimonial-author">Marc D. — Particulier</div>
+        <p>"Nous avons fait créer un faux plafond avec intégration de spots LED dans notre pièce de vie. Le rendu est magnifique, le ponçage est tellement bien fait qu'on ne devine aucune bande. Très pro !"</p>
+        <div class="testimonial-author">Marc D. — Rénovation Salon</div>
       </div>
       <div class="testimonial-card">
         <div class="stars">★★★★★</div>
-        <p>"Artisan très professionnel, ponctuel et le chantier a été rendu extrêmement propre. Je recommande."</p>
-        <div class="testimonial-author">Sophie L. — Rénovation</div>
+        <p>"L'isolation de nos combles a été entièrement refaite. Artisan ponctuel, discret et très soucieux de la propreté. Nous avons déjà gagné en confort thermique. Recommandé les yeux fermés."</p>
+        <div class="testimonial-author">Sophie L. — Isolation Combles</div>
       </div>
     </div>
   </div>
