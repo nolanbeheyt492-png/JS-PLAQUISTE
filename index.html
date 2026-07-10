@@ -10,7 +10,8 @@
 
 <header>
   <div class="nav wrap">
-    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <!-- On ajoute un ID "brand-logo" pour détecter le double-clic dessus -->
+    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html" class="active">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -60,6 +61,12 @@
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+
+  // CODE CACHÉ : Double-clic sur le logo pour ouvrir l'admin
+  const logo = document.getElementById('brand-logo');
+  logo.addEventListener('dblclick', () => {
+    window.location.href = 'admin.html';
+  });
 </script>
 </body>
 </html>
