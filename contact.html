@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact &amp; Demande de Devis — JS Plaquiste</title>
+<title>Contact &amp; Devis — JS Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
   .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px; }
@@ -12,7 +12,7 @@
   .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; }
   .info-link:hover { color: var(--accent); }
   
-  /* FAQ Pliante enrichie */
+  /* FAQ Pliante Complète */
   .faq-container { max-width: 850px; margin: 60px auto 0 auto; display: flex; flex-direction: column; gap: 16px; }
   .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
   .faq-question { padding: 20px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
@@ -42,20 +42,20 @@
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head">
-      <h2>Une question ? Un Devis ?</h2>
-      <p>Remplissez notre formulaire pour recevoir votre étude chiffrée gratuite, ou contactez l'artisan en direct.</p>
+      <h2>Contactez-nous / Demande de Devis</h2>
+      <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
     </div>
     
     <div class="contact-wrapper">
       <div class="contact-info-box">
         <h3>📍 JS PLAQUISTE</h3>
-        <p>Basés localement, nous nous déplaçons rapidement pour chiffrer précisément vos futurs chantiers.</p>
+        <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
         <hr style="border-color: #334155;">
-        <p>📞 Téléphone (Direct Artisan) :</p>
+        <p>📞 Par téléphone :</p>
         <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
         <hr style="border-color: #334155;">
-        <p>⏱️ Horaires téléphoniques :</p>
-        <p style="font-weight: 600; margin: 0;">Lun au Ven : 8h00 — 18h30<br>Samedi : 9h00 — 12h00</p>
+        <p>⏱️ Horaires d'intervention :</p>
+        <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
       </div>
 
       <div class="form-box" style="margin: 0;">
@@ -70,52 +70,57 @@
               <input type="tel" id="client-phone" required placeholder="Ex: 06 12 34 56 78">
             </div>
             <div class="form-group form-group-full">
-              <label>Ville du Chantier &amp; Code Postal</label>
+              <label>Ville du Chantier</label>
               <input type="text" id="client-city" required placeholder="Ex: Lille (59000)">
             </div>
             <div class="form-group form-group-full">
-              <label>Prestation principale</label>
+              <label>Type de travaux souhaités</label>
               <select id="client-type" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
-                <option>Création de cloisons de séparation</option>
-                <option>Doublage de murs intérieurs</option>
-                <option>Faux plafond suspendu ou autoportant</option>
-                <option>Isolation des combles / rampants</option>
-                <option>Joints calicot et lissage (ratissage)</option>
-                <option>Rénovation complète plâtrerie</option>
+                <option>Rénovation complète d'une pièce</option>
+                <option>Pose de cloisons de séparation</option>
+                <option>Création de faux plafond suspendu</option>
+                <option>Isolation thermique ou acoustique</option>
+                <option>Joints / Enduit de lissage</option>
+                <option>Autre projet second œuvre</option>
               </select>
             </div>
             <div class="form-group form-group-full">
-              <label>Détails du projet (dimensions approximatives, état actuel...)</label>
-              <textarea id="client-message" rows="4" required placeholder="Ex: Bonjour, projet de rénovation dans une maison ancienne. Il y aurait environ 45m² de cloisons à créer et l'isolation périphérique d'une pièce à refaire..."></textarea>
+              <label>Description de votre projet</label>
+              <textarea id="client-message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis gratuit</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
         </form>
       </div>
     </div>
 
-    <!-- FAQ RICHE ET ÉLARGIE -->
+    <!-- LA GRANDE FAQ INTERACTIVE ET ENRICHIE -->
     <div class="faq-container">
-      <h3 style="text-align: center; margin-bottom: 24px; color: #0f172a;">Questions Réponses Techniques</h3>
+      <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes &amp; Réponses techniques</h3>
       
       <div class="faq-item">
-        <div class="faq-question">Le devis engage-t-il le client ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Non, notre visite technique et l'envoi du devis détaillé sont entièrement gratuits et ne vous engagent à rien. Le contrat ne prend effet qu'une fois le devis signé avec la mention manuscrite "Bon pour accord".</div>
+        <div class="faq-question">Le devis est-il gratuit et sous combien de temps ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, tous nos devis sont 100% gratuits et sans aucun engagement. Après notre visite technique pour prendre les cotes, nous vous envoyons une proposition chiffrée claire sous 48 heures.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Êtes-vous couvert par une assurance décennale ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Absolument. Notre entreprise possède toutes les assurances obligatoires : Responsabilité Civile Professionnelle et Garantie Décennale. Les références et attestations sont systématiquement jointes à nos devis.</div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question">Faites-vous aussi la peinture de finition ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Notre spécialité première est le lot plâtrerie/isolation (pose de plaques et réalisation des joints). Nos supports sont livrés parfaitement poncés et lisses (Finition Q4), ce qui signifie qu'ils sont prêts à recevoir directement la couche d'impression (sous-couche) et les peintures décoratives.</div>
+        <div class="faq-question">Prenez-vous en charge la mise en peinture des murs ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Notre cœur de métier se concentre sur le lot plâtrerie, l'isolation, la pose de plaques et la réalisation des bandes à joints. Nous livrons les supports parfaitement lisses et poncés, prêts à recevoir les couches de peinture que vous ou votre peintre appliquerez.</div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question">Quelle est la différence entre une cloison BA13 standard et acoustique ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">La plaque standard (grise) convient aux distributions courantes. La plaque acoustique (bleue) possède une densité supérieure de gypse combinée à une structure de plaque amortissante, ce qui permet de réduire les bruits aériens jusqu'à 50% (idéal entre une salle de bain et une chambre).</div>
+        <div class="faq-question">Puis-je fixer un meuble lourd ou une TV sur vos cloisons en placo ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, c'est tout à fait possible ! Il suffit de nous le signaler avant le montage de la cloison. Nous intégrons des renforts en bois massif ou des traverses métalliques épaisses directement à l'intérieur de l'ossature, ce qui vous permettra de suspendre vos meubles lourds ou écrans TV en toute sécurité.</div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question">Combien de temps dure un chantier classique ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Cela dépend de la surface, mais à titre d'exemple, l'aménagement complet en placo d'une pièce standard de 20m² (murs, isolation, plafond et bandes) nécessite généralement entre 3 et 5 jours de travail, en tenant compte des temps de séchage obligatoires des enduits entre chaque passe.</div>
+        <div class="faq-question">Combien de temps faut-il pour faire une pièce classique ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Pour une pièce standard d'environ 15 à 20m² (plafond suspendu, doublage des murs et joints), il faut compter en moyenne entre 3 et 5 jours de travail sur place. Ce délai inclut obligatoirement les temps de séchage réglementaires entre les différentes passes d'enduit pour les joints.</div>
       </div>
     </div>
 
@@ -141,7 +146,7 @@
 
   function envoyerEmail(e) {
     e.preventDefault();
-    alert("Votre demande de devis a été enregistrée avec succès. Notre artisan étudie vos dimensions et vous recontacte sous 48h.");
+    alert("Merci ! Votre demande de devis a bien été transmise. Nous vous recontactons par téléphone sous 48h.");
     document.getElementById('client-contact-form').reset();
   }
 </script>
