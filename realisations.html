@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Réalisations — JS Plaquiste</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+  .gallery-item { background: var(--panel); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .gallery-info { padding: 20px; }
+  .gallery-info h3 { font-size: 1.1rem; margin-bottom: 8px; color: #0f172a; }
+  .gallery-info p { color: var(--text-muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
+    <ul id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html">Nos Services</a></li>
+      <li><a href="tarifs.html">Nos Tarifs</a></li>
+      <li><a href="realisations.html" class="active">Photos</a></li>
+      <li><a href="contact.html">Contact &amp; Devis</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
+    <button class="menu-toggle" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="section" style="margin-top: 40px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Nos Réalisations</h2>
+      <p>Aperçu en images de la qualité de nos finitions et de nos chantiers de plâtrerie.</p>
+    </div>
+    
+    <div class="grid-gallery">
+      <!-- CHANTIER 1 -->
+      <div class="gallery-item">
+        <img src="Lien_De_Ta_Photo_1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <div class="gallery-info">
+          <h3>Rénovation Salon — Lille</h3>
+          <p>Doublage thermique des murs extérieurs et création d'un faux plafond avec lissage complet.</p>
+        </div>
+      </div>
+
+      <!-- CHANTIER 2 -->
+      <div class="gallery-item">
+        <img src="Lien_De_Ta_Photo_2.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <div class="gallery-info">
+          <h3>Aménagement de Combles — Tourcoing</h3>
+          <p>Pose de rails, suspentes et isolation en laine de roche pour création de 2 chambres.</p>
+        </div>
+      </div>
+
+      <!-- CHANTIER 3 -->
+      <div class="gallery-item">
+        <img src="Lien_De_Ta_Photo_3.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+        <div class="gallery-info">
+          <h3>Cloisons Séparatives — Bureau Pro</h3>
+          <p>Création d'espaces de travail isolés phoniquement en plaques de plâtre BA13 acoustiques.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-wrap">
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>Garantie Décennale | Travail soigné aux normes DTU</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menu-btn');
+  const navMenu = document.getElementById('nav-menu');
+  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+</script>
+</body>
+</html>
