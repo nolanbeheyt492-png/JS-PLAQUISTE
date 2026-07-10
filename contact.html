@@ -11,8 +11,6 @@
   .contact-info-box h3 { color: white; font-size: 1.4rem; }
   .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; }
   .info-link:hover { color: var(--accent); }
-  
-  /* Style des FAQ intégrées en dessous */
   .faq-container { max-width: 800px; margin: 50px auto 0 auto; display: flex; flex-direction: column; gap: 16px; }
   .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
   .faq-question { padding: 20px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
@@ -26,11 +24,12 @@
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
-      <li><a href="realisations.html">Nos Chantiers</a></li>
+      <li><a href="engagements.html">Nos Engagements</a></li>
+      <li><a href="realisations.html">Photos</a></li>
       <li><a href="contact.html" class="active">Contact &amp; Devis</a></li>
     </ul>
     <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
@@ -93,7 +92,6 @@
       </div>
     </div>
 
-    <!-- QUESTIONS INTÉGRÉES SUR LA PAGE DE CONTACT -->
     <div class="faq-container">
       <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes</h3>
       <div class="faq-item">
