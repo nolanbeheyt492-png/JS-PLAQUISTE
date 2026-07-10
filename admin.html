@@ -19,14 +19,12 @@
 
 <header>
   <div class="nav wrap">
-    <!-- TRIPLE-CLIC SUR LE LOGO POUR QUITTER L'ADMIN -->
     <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <div style="font-weight: 600; color: var(--accent);">Espace Admin</div>
   </div>
 </header>
 
 <div class="wrap">
-  <!-- 1. FORMULAIRE DE CONNEXION -->
   <div class="form-box login-panel" id="login-box">
     <h2 style="margin-bottom: 20px; text-align:center;">Connexion Admin</h2>
     <div class="form-group" style="margin-bottom: 15px;">
@@ -37,7 +35,6 @@
     <p id="login-error" style="color: red; margin-top: 10px; text-align: center; display: none;">Mot de passe incorrect.</p>
   </div>
 
-  <!-- 2. LE PANNEAU D'ADMINISTRATION -->
   <div class="form-box admin-panel" id="admin-box">
     <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
     <p style="color: var(--text-muted); margin-bottom: 30px;">Le chantier sera visible par tout le monde instantanément sur internet.</p>
@@ -60,7 +57,6 @@
       <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
     </form>
     
-    <!-- GESTION DES PHOTOS -->
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
     <h3 style="margin-bottom: 15px;">Chantiers actuellement en ligne</h3>
     <div class="admin-project-list" id="admin-gallery">
@@ -81,7 +77,7 @@
 
   let globalProjects = [];
 
-  // TRIPLE CLIC POUR QUITTER L'ADMIN
+  // TRIPLE CLIC SUR LE LOGO POUR QUITTER
   let clickCount = 0;
   document.getElementById('brand-logo').addEventListener('click', () => {
     clickCount++;
@@ -89,7 +85,7 @@
       clickCount = 0;
       deconnexion();
     }
-    setTimeout(() => { clickCount = 0; }, 1000); // Reset si les clics sont trop lents
+    setTimeout(() => { clickCount = 0; }, 1000);
   });
 
   function verifierConnexion() {
@@ -118,6 +114,7 @@
     afficherPanneau();
   }
 
+  // SECURISATION : On force la création de la boîte si elle a sauté
   function chargerChantiersAdmin() {
     const adminGallery = document.getElementById('admin-gallery');
     fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
@@ -125,7 +122,6 @@
     })
     .then(res => res.json())
     .then(binData => {
-      // Correction du bug de lecture
       if (binData.record && binData.record.chantiers) {
         globalProjects = binData.record.chantiers;
       } else if (Array.isArray(binData.record)) {
@@ -201,6 +197,7 @@
             image: cloudinaryData.secure_url
           });
 
+          // FORCE LE FORMAT CORRECT { chantiers: [...] }
           fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
             method: 'PUT',
             headers: {
@@ -211,17 +208,19 @@
           })
           .then(() => {
             alert("Chantier publié avec succès !");
-            window.location.href = 'index.html'; // Retour automatique à l'accueil
+            window.location.href = 'index.html'; // Renvoie au menu d'accueil
           });
 
         } else {
-          alert("Erreur d'image.");
+          alert("Erreur lors de l'envoi de la photo sur Cloudinary. Vérifiez votre preset.");
           submitBtn.disabled = false;
+          submitBtn.textContent = "Publier le chantier sur le site";
         }
       })
       .catch(() => {
         alert("Erreur réseau.");
         submitBtn.disabled = false;
+        submitBtn.textContent = "Publier le chantier sur le site";
       });
     }
   });
