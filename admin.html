@@ -31,10 +31,10 @@
     <p id="login-error" style="color: red; margin-top: 10px; text-align: center; display: none;">Mot de passe incorrect.</p>
   </div>
 
-  <!-- 2. LE PANNEAU D'ADMINISTRATION (Caché au début) -->
+  <!-- 2. LE PANNEAU D'ADMINISTRATION -->
   <div class="form-box admin-panel" id="admin-box">
     <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
-    <p style="color: var(--text-muted); margin-bottom: 30px;">Remplissez les informations pour ajouter la photo sur la page d'accueil.</p>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">La photo sera hébergée en ligne et visible partout.</p>
     
     <form id="add-project-form">
       <div class="form-grid">
@@ -47,11 +47,11 @@
           <textarea id="project-desc" rows="3" required placeholder="Ex: Pose de faux plafond suspendu avec bandes à joints..."></textarea>
         </div>
         <div class="form-group form-group-full">
-          <label for="project-file">Lien URL de la Photo (ou fichier)</label>
+          <label for="project-file">Photo du projet</label>
           <input type="file" id="project-file" accept="image/*" required>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
+      <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
     </form>
     
     <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
@@ -60,13 +60,14 @@
 </div>
 
 <script>
-  // Chosir le mot de passe secret pour ton ami ici (Exemple: "plaquiste2026")
+  // Configuration d'accès sécurisée et cloud avec tes identifiants
   const MOT_DE_PASSE_SECRET = "plaquiste2026";
+  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/x39moqat/image/upload"; 
+  const CLOUDINARY_PRESET = "js_preset"; 
 
   function verifierConnexion() {
     const inputPass = document.getElementById('admin-password').value;
     const errorMsg = document.getElementById('login-error');
-    
     if (inputPass === MOT_DE_PASSE_SECRET) {
       localStorage.setItem('js_admin_logged', 'true');
       afficherPanneau();
@@ -85,37 +86,59 @@
     window.location.reload();
   }
 
-  // Vérifie si déjà connecté
   if (localStorage.getItem('js_admin_logged') === 'true') {
     afficherPanneau();
   }
 
-  // Gestion de l'ajout de projet (Sauvegarde locale pour le test)
+  // Envoi de l'image sur internet (Cloudinary)
   document.getElementById('add-project-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
+    const submitBtn = document.getElementById('submit-btn');
     const title = document.getElementById('project-title').value;
     const desc = document.getElementById('project-desc').value;
     const fileInput = document.getElementById('project-file');
     
     if (fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const newProject = {
-          title: title,
-          desc: desc,
-          image: event.target.result
-        };
-        
-        // Récupère les anciens chantiers et ajoute le nouveau
-        let projects = JSON.parse(localStorage.getItem('js_projects')) || [];
-        projects.push(newProject);
-        localStorage.setItem('js_projects', JSON.stringify(projects));
-        
-        alert("Chantier ajouté avec succès ! Visitez la page d'accueil.");
-        window.location.href = 'index.html';
-      };
-      reader.readAsDataURL(fileInput.files[0]);
+      submitBtn.textContent = "Téléchargement de la photo...";
+      submitBtn.disabled = true;
+
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+
+      // Envoi au serveur Cloudinary
+      fetch(CLOUDINARY_URL, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.secure_url) {
+          const newProject = {
+            title: title,
+            desc: desc,
+            image: data.secure_url // On enregistre le vrai lien internet de la photo !
+          };
+          
+          let projects = JSON.parse(localStorage.getItem('js_projects')) || [];
+          projects.push(newProject);
+          localStorage.setItem('js_projects', JSON.stringify(projects));
+          
+          alert("Chantier publié en ligne avec succès !");
+          window.location.href = 'index.html';
+        } else {
+          alert("Erreur Cloudinary. Vérifie que tu as bien créé le preset 'js_preset' en mode 'Unsigned'.");
+          submitBtn.textContent = "Publier le chantier sur le site";
+          submitBtn.disabled = false;
+        }
+      })
+      .catch(err => {
+        alert("Erreur réseau lors de l'envoi.");
+        submitBtn.textContent = "Publier le chantier sur le site";
+        submitBtn.disabled = false;
+      });
     }
   });
 </script>
