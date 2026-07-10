@@ -6,14 +6,40 @@
 <title>JS Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .grid-features, .grid-gallery, .grid-testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .grid-features, .grid-gallery, .grid-testimonials, .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
   .feature-card { background: var(--panel); padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; }
   .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #0f172a; }
   .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+  
+  /* Section Services */
+  .service-card { background: var(--panel); border: 1px solid var(--border); padding: 24px; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .service-card h3 { color: #0f172a; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+  .service-card ul { list-style: none; padding: 0; }
+  .service-card ul li { margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; position: relative; padding-left: 20px; }
+  .service-card ul li::before { content: "✓"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+
+  /* Galerie */
   .gallery-item { background: var(--panel); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
   .gallery-info { padding: 20px; }
   .gallery-info h3 { font-size: 1.1rem; margin-bottom: 8px; color: #0f172a; }
   .gallery-info p { color: var(--text-muted); font-size: 0.9rem; }
+  
+  /* FAQ */
+  .faq-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+  .faq-question { padding: 20px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+  .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--text-muted); font-size: 0.95rem; }
+  .faq-item.active .faq-answer { padding-bottom: 20px; max-height: 200px; }
+  .faq-item.active .faq-toggle { transform: rotate(45deg); }
+  .faq-toggle { transition: transform 0.2s; font-weight: bold; }
+
+  /* Section Contact / Devis */
+  .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 30px; }
+  .contact-info-box { background: #0f172a; color: white; padding: 40px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 24px; }
+  .contact-info-box h3 { color: white; font-size: 1.4rem; }
+  .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; }
+  .info-link:hover { color: var(--accent); }
+  
   .testimonial-card { background: var(--panel); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
   .stars { color: var(--accent); margin-bottom: 12px; font-size: 1.2rem; }
   .testimonial-card p { font-style: italic; color: #334155; margin-bottom: 16px; font-size: 0.95rem; }
@@ -26,11 +52,13 @@
   <div class="nav wrap">
     <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
-      <li><a href="index.html" class="active">Accueil</a></li>
-      <li><a href="services.html">Nos Services</a></li>
-      <li><a href="contact.html">Demander un Devis</a></li>
+      <li><a href="#" class="active">Accueil</a></li>
+      <li><a href="#services">Nos Services</a></li>
+      <li><a href="#realisations">Nos Chantiers</a></li>
+      <li><a href="#faq">Questions</a></li>
+      <li><a href="#contact">Contact &amp; Devis</a></li>
     </ul>
-    <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
+    <a href="#contact" class="btn btn-primary header-btn">Devis sous 48h</a>
     <button class="menu-toggle" id="menu-btn">☰</button>
   </div>
 </header>
@@ -45,8 +73,8 @@
       <span>Matériaux Certifiés</span>
     </div>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-      <a href="contact.html" class="btn btn-primary">Demander un devis gratuit</a>
-      <a href="services.html" class="btn btn-outline">Découvrir nos métiers</a>
+      <a href="#contact" class="btn btn-primary">Demander un devis gratuit</a>
+      <a href="#services" class="btn btn-outline">Découvrir nos métiers</a>
     </div>
   </div>
 </section>
@@ -58,14 +86,57 @@
       <p>Chaque chantier est unique. Nous nous engageons sur le respect des délais, la propreté du site et des finitions soignées prêtes à peindre.</p>
     </div>
     <div class="grid-features">
-      <div class="feature-card"><h3>🛡️ Garantie Décennale</h3><p>Tous nos travaux de structure et doublage sont couverts.</p></div>
-      <div class="feature-card"><h3>📐 Finitions Q4</h3><p>Un ponçage et ratissage minutieux pour des surfaces lisses.</p></div>
-      <div class="feature-card"><h3>🧼 Chantier Propre</h3><p>Nettoyage en fin de journée pour préserver votre confort.</p></div>
+      <div class="feature-card"><h3>🛡️ Garantie Décennale</h3><p>Tous nos travaux de structure et doublage sont couverts par notre assurance.</p></div>
+      <div class="feature-card"><h3>📐 Finitions Q4</h3><p>Un ponçage et ratissage minutieux pour des surfaces lisses, prêtes à peindre.</p></div>
+      <div class="feature-card"><h3>🧼 Chantier Propre</h3><p>Nettoyage rigoureux en fin de journée pour préserver votre confort.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Nos Domaines d'Intervention</h2>
+      <p>Des prestations complètes de plâtrerie et d'isolation pour le neuf ou la rénovation.</p>
+    </div>
+    <div class="grid-services">
+      <div class="service-card">
+        <h3>📐 Plâtrerie &amp; Cloisons</h3>
+        <ul>
+          <li>Cloisons de distribution (Placo BA13)</li>
+          <li>Doublage de murs périphériques</li>
+          <li>Création de niches et dressings encastrés</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>☁️ Faux Plafonds</h3>
+        <ul>
+          <li>Plafonds suspendus en plaques de plâtre</li>
+          <li>Intégration de spots LED et gaines</li>
+          <li>Plafonds acoustiques autoportants</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>🔥 Isolation Intérieure</h3>
+        <ul>
+          <li>Isolation thermique (économie d'énergie)</li>
+          <li>Isolation phonique / acoustique</li>
+          <li>Laine de verre, laine de roche, bio-sourcés</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>✨ Finitions &amp; Joints</h3>
+        <ul>
+          <li>Pose de bandes à joints (calicot)</li>
+          <li>Enduisage de lissage complet</li>
+          <li>Ponçage mécanique sans poussière</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="realisations">
   <div class="wrap">
     <div class="section-head">
       <h2>Nos Derniers Chantiers</h2>
@@ -77,10 +148,111 @@
   </div>
 </section>
 
-<footer style="margin-top: 80px;">
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Ce que disent nos clients</h2>
+      <p>La satisfaction de nos clients est notre meilleure carte de visite.</p>
+    </div>
+    <div class="grid-testimonials">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Travail d'une grande précision pour la création de notre suite parentale. Les bandes à joints sont invisibles !"</p>
+        <div class="testimonial-author">Marc D. — Particulier</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Artisan très professionnel, ponctuel et le chantier a été rendu extrêmement propre. Je recommande."</p>
+        <div class="testimonial-author">Sophie L. — Rénovation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Des réponses à vos questions</h2>
+      <p>Tout ce que vous devez savoir avant de lancer vos travaux.</p>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">Le devis est-il gratuit et sous combien de temps ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, tous nos devis sont 100% gratuits et sans engagement. Nous nous engageons à vous faire parvenir une offre chiffrée précise sous 48 heures après notre visite sur le chantier.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Êtes-vous couvert par une assurance décennale ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Absolument. Tous nos chantiers (structures métalliques, pose de cloisons, plafonds et isolation) sont couverts par notre assurance Responsabilité Civile Professionnelle et Garantie Décennale obligatoire.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Quels types de matériaux utilisez-vous ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Nous utilisons exclusivement des matériaux certifiés aux normes françaises (NF) et européennes (CE), principalement de marque Placo Saint-Gobain ou équivalent de haute qualité, pour vous garantir une tenue optimale dans le temps.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Contactez-nous / Demande de Devis</h2>
+      <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
+    </div>
+    
+    <div class="contact-wrapper">
+      <div class="contact-info-box">
+        <h3>📍 JS PLAQUISTE</h3>
+        <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
+        <hr style="border-color: #334155;">
+        <p>📞 Par téléphone :</p>
+        <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
+        <hr style="border-color: #334155;">
+        <p>⏱️ Horaires d'intervention :</p>
+        <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
+      </div>
+
+      <div class="form-box" style="margin: 0;">
+        <form id="client-contact-form" onsubmit="envoyerEmail(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Votre Nom / Prénom</label>
+              <input type="text" id="client-name" required placeholder="Ex: Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label>Numéro de Téléphone</label>
+              <input type="tel" id="client-phone" required placeholder="Ex: 06 12 34 56 78">
+            </div>
+            <div class="form-group form-group-full">
+              <label>Ville du Chantier</label>
+              <input type="text" id="client-city" required placeholder="Ex: Lille (59000)">
+            </div>
+            <div class="form-group form-group-full">
+              <label>Type de travaux souhaités</label>
+              <select id="client-type" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
+                <option>Rénovation complète d'une pièce</option>
+                <option>Pose de cloisons de séparation</option>
+                <option>Création de faux plafond suspendu</option>
+                <option>Isolation thermique ou acoustique</option>
+                <option>Joints / Enduit de lissage</option>
+                <option>Autre projet second œuvre</option>
+              </select>
+            </div>
+            <div class="form-group form-group-full">
+              <label>Description de votre projet</label>
+              <textarea id="client-message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long avec isolation acoustique pour séparer une chambre..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JS Plaquiste. Tous travaux de second œuvre.</div>
-    <div>Garantie Décennale | Normes DTU respectées</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
 
@@ -90,18 +262,39 @@
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
 
+  // Navigation fluide sur mobile dès qu'on clique sur un lien
+  document.querySelectorAll('#nav-menu a').forEach(link => {
+    link.addEventListener('click', () => { navMenu.classList.remove('active'); });
+  });
+
+  // Animation de la FAQ pliante
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+
+  // Envoi factice du formulaire de contact (Alerte de succès pour le client)
+  function envoyerEmail(e) {
+    e.preventDefault();
+    alert("Merci ! Votre demande de devis a bien été transmise. Nous vous recontactons par téléphone sous 48h.");
+    document.getElementById('client-contact-form').reset();
+  }
+
   // Double-clic logo -> admin
   document.getElementById('brand-logo').addEventListener('dblclick', () => {
     window.location.href = 'admin.html';
   });
 
+  // LECTURE HYBRIDE ET SÉCURISÉE DES PHOTOS (LOCAL + SERVER)
   const JSONBIN_BIN_ID = "6a513eeada38895dfe4cb41d"; 
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
   const galleryContainer = document.getElementById('gallery-container');
 
   function afficherProjets(liste) {
     if(!liste || liste.length === 0) {
-      galleryContainer.innerHTML = "<p style='text-align:center; color:var(--text-muted); grid-column: 1/-1;'>Aucun chantier pour le moment. Double-cliquez en haut à gauche pour en ajouter un !</p>";
+      galleryContainer.innerHTML = "<p style='text-align:center; color:var(--text-muted); grid-column: 1/-1;'>Aucun chantier pour le moment. Double-cliquez sur le logo en haut à gauche pour en ajouter un !</p>";
     } else {
       galleryContainer.innerHTML = "";
       liste.forEach(proj => {
@@ -118,13 +311,9 @@
     }
   }
 
-  // ÉTAPE 1 : Affichage immédiat du LocalStorage (zéro attente, marche hors-ligne)
   const localBackup = localStorage.getItem('js_projects_backup');
-  if(localBackup) {
-    afficherProjets(JSON.parse(localBackup));
-  }
+  if(localBackup) { afficherProjets(JSON.parse(localBackup)); }
 
-  // ÉTAPE 2 : Mise à jour silencieuse depuis internet pour le téléphone
   fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
     headers: { 'X-Master-Key': JSONBIN_SECRET_KEY, 'Cache-Control': 'no-cache' }
   })
@@ -132,11 +321,11 @@
   .then(binData => {
     let serverProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
     localStorage.setItem('js_projects_backup', JSON.stringify(serverProjects));
-    afficherProjets(serverProjects); // Met à jour l'affichage avec la version en ligne
+    afficherProjets(serverProjects);
   })
   .catch(() => {
     if(!localBackup) {
-      galleryContainer.innerHTML = "<p style='text-align:center; color:red; grid-column: 1/-1;'>Erreur de connexion internet.</p>";
+      galleryContainer.innerHTML = "<p style='text-align:center; color:red; grid-column: 1/-1;'>Erreur de chargement des chantiers.</p>";
     }
   });
 </script>
