@@ -120,12 +120,12 @@
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
   const galleryContainer = document.getElementById('gallery-container');
 
+  // Lecture forcée et sécurisée
   fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
     headers: { 'X-Master-Key': JSONBIN_SECRET_KEY, 'Cache-Control': 'no-cache' }
   })
   .then(res => res.json())
   .then(binData => {
-    // Lecture adaptative et sécurisée du format JSONBin
     let savedProjects = [];
     if (binData.record && binData.record.chantiers) {
       savedProjects = binData.record.chantiers;
@@ -134,7 +134,7 @@
     }
     
     if(savedProjects.length === 0) {
-      galleryContainer.innerHTML = "<p style='text-align:center; color:var(--text-muted); grid-column: 1/-1;'>Aucun chantier pour le moment. Double-cliquez sur le logo en haut pour vous connecter et en ajouter un !</p>";
+      galleryContainer.innerHTML = "<p style='text-align:center; color:var(--text-muted); grid-column: 1/-1;'>Aucun chantier pour le moment. Accédez à l'admin pour ajouter votre premier projet !</p>";
     } else {
       galleryContainer.innerHTML = "";
       savedProjects.forEach(proj => {
