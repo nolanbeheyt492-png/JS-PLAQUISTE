@@ -6,7 +6,7 @@
 <title>JS Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .grid-features, .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .grid-features, .grid-testimonials, .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
   .feature-card { background: var(--panel); padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center; }
   .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: #0f172a; }
   .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
@@ -17,6 +17,11 @@
   .checklist-item span { font-size: 1.3rem; }
   .checklist-item h4 { font-size: 1rem; color: #0f172a; margin-bottom: 4px; }
   .checklist-item p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+  .testimonial-card { background: var(--panel); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .stars { color: var(--accent); margin-bottom: 12px; font-size: 1.2rem; }
+  .testimonial-card p { font-style: italic; color: #334155; margin-bottom: 16px; font-size: 0.95rem; }
+  .testimonial-author { font-weight: 700; font-size: 0.9rem; color: #0f172a; }
 </style>
 </head>
 <body>
@@ -66,6 +71,7 @@
   </div>
 </section>
 
+<!-- NOUVEL ENRICHISSEMENT CONCRET : CHECKLIST CLIENT -->
 <section class="section">
   <div class="wrap">
     <div class="checklist-box">
@@ -99,6 +105,27 @@
   </div>
 </section>
 
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Ce que disent nos clients</h2>
+      <p>La satisfaction de nos clients est notre meilleure carte de visite.</p>
+    </div>
+    <div class="grid-testimonials">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Travail d'une grande précision pour la création de notre suite parentale. Les bandes à joints sont invisibles !"</p>
+        <div class="testimonial-author">Marc D. — Particulier</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Artisan très professionnel, ponctuel et le chantier a été rendu extrêmement propre. Je recommande."</p>
+        <div class="testimonial-author">Sophie L. — Rénovation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap footer-wrap">
     <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
@@ -110,7 +137,18 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
-  menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('active');
+    menuBtn.textContent = isOpen ? '✕' : '☰';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+      menuBtn.textContent = '☰';
+      document.body.style.overflow = '';
+    });
+  });
 </script>
 </body>
 </html>
