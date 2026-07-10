@@ -16,7 +16,7 @@
       <li><a href="services.html">Nos Services</a></li>
       <li><a href="contact.html" class="active">Demander un Devis</a></li>
     </ul>
-    <a href="contact.html" class="btn btn-primary" style="padding:8px 16px; font-size:0.85rem;">Devis sous 48h</a>
+    <a href="contact.html" class="btn btn-primary header-btn">Devis sous 48h</a>
     <button class="menu-toggle" id="menu-btn">☰</button>
   </div>
 </header>
@@ -28,10 +28,12 @@
       <p>Une estimation claire, détaillée et entièrement gratuite sous 48 heures maximum.</p>
     </div>
 
-    <!-- Zone du formulaire ou du message de succès -->
-    <div class="form-box" id="contact-zone">
-      <!-- Ajout des attributs action et method par sécurité si le JS est bloqué -->
-      <form id="devis-form" action="https://formsubmit.co/ajax/beheytnolan@gmail.com" method="POST">
+    <div class="form-box">
+      <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
+        
+        <input type="hidden" name="_next" value="merci.html">
+        <input type="hidden" name="_subject" value="Nouveau Devis JS Plaquiste !">
+        <input type="hidden" name="_captcha" value="false">
         
         <div class="form-grid">
           <div class="form-group">
@@ -64,7 +66,7 @@
             <textarea id="msg" name="Message" rows="5" required placeholder="Décrivez votre projet (ex: Doublage de murs, création d'un faux plafond...)"></textarea>
           </div>
         </div>
-        <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px;">Envoyer ma demande de devis</button>
       </form>
     </div>
   </div>
@@ -79,56 +81,9 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  
-  // Menu Mobile
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
-
-  // Envoi du formulaire via AJAX propre
-  document.getElementById('devis-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const btn = document.getElementById('submit-btn');
-    const zone = document.getElementById('contact-zone');
-    btn.innerText = "Envoi en cours...";
-    btn.disabled = true;
-
-    // Récupération correcte des champs du formulaire
-    const formData = new FormData(this);
-
-    // Envoi masqué avec les bons en-têtes pour FormSubmit AJAX
-    fetch("https://formsubmit.co/ajax/beheytnolan@gmail.com", {
-        method: "POST",
-        headers: { 
-            'Accept': 'application/json'
-        },
-        body: formData
-    })
-    .then(response => {
-        if (response.ok) {
-            // Le mail est parti, on affiche TON beau message de confirmation sans bouger
-            zone.innerHTML = `
-              <div style="text-align: center; padding: 20px;">
-                <div style="font-size: 3.5rem; color: var(--accent); margin-bottom: 20px;">✓</div>
-                <h3 style="font-size: 1.8rem; margin-bottom: 12px; font-weight:800;">Demande bien reçue !</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 24px;">
-                  Merci Nolan, votre demande de devis a été transmise avec succès.<br>
-                  Nous étudions vos besoins et nous vous recontactons <strong>sous 48 heures maximum</strong>.
-                </p>
-                <a href="index.html" class="btn btn-outline">Retour à l'accueil</a>
-              </div>
-            `;
-        } else {
-            throw new Error('Erreur serveur');
-        }
-    })
-    .catch(error => {
-        btn.innerText = "Erreur, réessayez";
-        btn.disabled = false;
-        alert("Un problème est survenu lors de l'envoi. Vérifiez votre connexion.");
-    });
-  });
 </script>
 </body>
 </html>
