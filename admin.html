@@ -1,16 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Espace Admin — JS Plaquiste</title>
-  <!-- Inclusion de l'interface sophistiquée Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    // Lie le CMS au fichier de configuration créé à l'étape 1
-    window.CMS_CONFIG = "admin-config.yml";
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace Administration — JS Plaquiste</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .admin-panel { max-width: 650px; margin: 60px auto; display: none; }
+  .login-panel { max-width: 400px; margin: 100px auto; }
+</style>
 </head>
 <body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand">JS <span>PLAQUISTE</span></div>
+    <div style="font-weight: 600; color: var(--accent);">Espace Admin</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- 1. FORMULAIRE DE CONNEXION -->
+  <div class="form-box login-panel" id="login-box">
+    <h2 style="margin-bottom: 20px; text-align:center;">Connexion Admin</h2>
+    <div class="form-group" style="margin-bottom: 15px;">
+      <label for="admin-password">Mot de passe secret</label>
+      <input type="password" id="admin-password" placeholder="Entrez le mot de passe">
+    </div>
+    <button onclick="verifierConnexion()" class="btn btn-primary" style="width:100%;">Se connecter</button>
+    <p id="login-error" style="color: red; margin-top: 10px; text-align: center; display: none;">Mot de passe incorrect.</p>
+  </div>
+
+  <!-- 2. LE PANNEAU D'ADMINISTRATION (Caché au début) -->
+  <div class="form-box admin-panel" id="admin-box">
+    <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">Remplissez les informations pour ajouter la photo sur la page d'accueil.</p>
+    
+    <form id="add-project-form">
+      <div class="form-grid">
+        <div class="form-group form-group-full">
+          <label for="project-title">Nom du chantier / Ville</label>
+          <input type="text" id="project-title" required placeholder="Ex: Rénovation Salon — Lille">
+        </div>
+        <div class="form-group form-group-full">
+          <label for="project-desc">Description des travaux</label>
+          <textarea id="project-desc" rows="3" required placeholder="Ex: Pose de faux plafond suspendu avec bandes à joints..."></textarea>
+        </div>
+        <div class="form-group form-group-full">
+          <label for="project-file">Lien URL de la Photo (ou fichier)</label>
+          <input type="file" id="project-file" accept="image/*" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; padding:16px; margin-top: 10px;">Publier le chantier sur le site</button>
+    </form>
+    
+    <hr style="border: 0; border-top: 1px solid var(--border); margin: 40px 0;">
+    <button onclick="deconnexion()" class="btn btn-outline" style="width: 100%;">Se déconnecter</button>
+  </div>
+</div>
+
+<script>
+  // Chosir le mot de passe secret pour ton ami ici (Exemple: "plaquiste2026")
+  const MOT_DE_PASSE_SECRET = "plaquiste2026";
+
+  function verifierConnexion() {
+    const inputPass = document.getElementById('admin-password').value;
+    const errorMsg = document.getElementById('login-error');
+    
+    if (inputPass === MOT_DE_PASSE_SECRET) {
+      localStorage.setItem('js_admin_logged', 'true');
+      afficherPanneau();
+    } else {
+      errorMsg.style.display = 'block';
+    }
+  }
+
+  function afficherPanneau() {
+    document.getElementById('login-box').style.display = 'none';
+    document.getElementById('admin-box').style.display = 'block';
+  }
+
+  function deconnexion() {
+    localStorage.removeItem('js_admin_logged');
+    window.location.reload();
+  }
+
+  // Vérifie si déjà connecté
+  if (localStorage.getItem('js_admin_logged') === 'true') {
+    afficherPanneau();
+  }
+
+  // Gestion de l'ajout de projet (Sauvegarde locale pour le test)
+  document.getElementById('add-project-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const title = document.getElementById('project-title').value;
+    const desc = document.getElementById('project-desc').value;
+    const fileInput = document.getElementById('project-file');
+    
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const newProject = {
+          title: title,
+          desc: desc,
+          image: event.target.result
+        };
+        
+        // Récupère les anciens chantiers et ajoute le nouveau
+        let projects = JSON.parse(localStorage.getItem('js_projects')) || [];
+        projects.push(newProject);
+        localStorage.setItem('js_projects', JSON.stringify(projects));
+        
+        alert("Chantier ajouté avec succès ! Visitez la page d'accueil.");
+        window.location.href = 'index.html';
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  });
+</script>
 </body>
 </html>
