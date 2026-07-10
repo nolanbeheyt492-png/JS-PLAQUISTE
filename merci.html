@@ -51,18 +51,19 @@
   <div class="merci-box">
     <div class="merci-icon">✓</div>
     <h1>Demande bien reçue !</h1>
-    <p>Merci Nolan, votre demande de devis a été transmise avec succès.<br>Nous étudions vos besoins et nous reprenons contact avec vous <strong>sous 48 heures maximum</strong> pour planifier un rendez-vous ou vous envoyer une estimation.</p>
+    <p>Votre demande de devis a été transmise avec succès.<br>Nous étudions vos besoins et nous vous recontactons <strong>sous 48 heures maximum</strong>.</p>
     <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
   </div>
 </div>
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© JS Plaquiste. Tous travaux de second œuvre.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous travaux de second œuvre.</div>
   </div>
 </footer>
 
 <script>
+  document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
   menuBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); });
