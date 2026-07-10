@@ -72,7 +72,7 @@
   const MOT_DE_PASSE_SECRET = "plaquiste2026";
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/x39moqat/image/upload"; 
   const CLOUDINARY_PRESET = "js_preset"; 
-  const JSONBIN_BIN_ID = "6a5139ecf5f4af5e297e29e2"; 
+  const JSONBIN_BIN_ID = "6a513eeada38895dfe4cb41d"; // Nouveau Bin ID mis à jour
   const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; 
 
   let globalProjects = [];
@@ -114,7 +114,6 @@
     afficherPanneau();
   }
 
-  // SECURISATION : On force la création de la boîte si elle a sauté
   function chargerChantiersAdmin() {
     const adminGallery = document.getElementById('admin-gallery');
     fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
@@ -197,7 +196,6 @@
             image: cloudinaryData.secure_url
           });
 
-          // FORCE LE FORMAT CORRECT { chantiers: [...] }
           fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
             method: 'PUT',
             headers: {
@@ -208,11 +206,11 @@
           })
           .then(() => {
             alert("Chantier publié avec succès !");
-            window.location.href = 'index.html'; // Renvoie au menu d'accueil
+            window.location.href = 'index.html'; // Retour au menu d'accueil
           });
 
         } else {
-          alert("Erreur lors de l'envoi de la photo sur Cloudinary. Vérifiez votre preset.");
+          alert("Erreur lors de l'envoi de la photo.");
           submitBtn.disabled = false;
           submitBtn.textContent = "Publier le chantier sur le site";
         }
