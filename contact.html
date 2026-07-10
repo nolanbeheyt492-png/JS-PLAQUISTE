@@ -87,26 +87,30 @@
         </div>
 
         <div class="form-box" style="margin: 0;">
-          <!-- LE FORMULAIRE RE-PARAMÉTRÉ SANS JAVASCRIPT COMPLEXE POUR FORMSUBMIT -->
           <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
             
-            <!-- Indique à FormSubmit de renvoyer l'utilisateur directement sur cette page avec le paramètre ?success=true -->
-            <input type="hidden" name="_next" value="window.location.href">
+            <!-- SOLUTION 4 : Redirection écrite en dur (Open Redirect fixé) -->
+            <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/contact.html?status=success">
             <input type="hidden" name="_subject" value="Nouveau Devis Client - JS Plaquiste">
             <input type="hidden" name="_captcha" value="false">
+
+            <!-- SOLUTION 2 : Sécurité Honeypot (Bloque les robots en arrière-plan sans embêter les humains) -->
+            <input type="text" name="_honey" style="display:none">
 
             <div class="form-grid">
               <div class="form-group">
                 <label>Votre Nom / Prénom</label>
-                <input type="text" name="Nom_Prenom" required placeholder="Ex: Jean Dupont">
+                <!-- SOLUTION 3 : Force au moins 2 lettres et empêche les symboles bizarres -->
+                <input type="text" name="Nom_Prenom" required minlength="2" pattern="^[a-zA-ZÀ-ÿ\s\-'\.]+$" placeholder="Ex: Jean Dupont">
               </div>
               <div class="form-group">
                 <label>Numéro de Téléphone</label>
-                <input type="tel" name="Telephone" required placeholder="Ex: 06 12 34 56 78">
+                <!-- SOLUTION 3 : Force un vrai numéro de téléphone valide (06, 07, etc. à 10 chiffres ou indicatif) -->
+                <input type="tel" name="Telephone" required pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$" placeholder="Ex: 06 12 34 56 78">
               </div>
               <div class="form-group form-group-full">
                 <label>Ville du Chantier</label>
-                <input type="text" name="Ville_Chantier" required placeholder="Ex: Lille (59000)">
+                <input type="text" name="Ville_Chantier" required minlength="2" placeholder="Ex: Lille (59000)">
               </div>
               <div class="form-group form-group-full">
                 <label>Type de travaux souhaités</label>
@@ -121,7 +125,8 @@
               </div>
               <div class="form-group form-group-full">
                 <label>Description de votre projet</label>
-                <textarea name="Message" rows="4" required placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
+                <!-- SOLUTION 3 : Force une description d'au moins 10 caractères pour éviter les messages vides -->
+                <textarea name="Message" rows="4" required minlength="10" placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
               </div>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
@@ -180,11 +185,7 @@
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
 
-  // DETECTION AUTOMATIQUE DU RETOUR DE FORMSUBMIT
-  // Indique dynamiquement à FormSubmit l'URL exacte actuelle de retour
-  document.getElementsByName('_next')[0].value = window.location.href.split('?')[0] + "?status=success";
-
-  // Si l'URL contient "?status=success", on cache le formulaire et on montre le grand message de remerciement
+  // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('status') === 'success') {
     document.getElementById('main-contact-content').style.display = 'none';
