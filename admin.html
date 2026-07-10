@@ -20,7 +20,6 @@
 </header>
 
 <div class="wrap">
-  <!-- 1. FORMULAIRE DE CONNEXION -->
   <div class="form-box login-panel" id="login-box">
     <h2 style="margin-bottom: 20px; text-align:center;">Connexion Admin</h2>
     <div class="form-group" style="margin-bottom: 15px;">
@@ -31,10 +30,9 @@
     <p id="login-error" style="color: red; margin-top: 10px; text-align: center; display: none;">Mot de passe incorrect.</p>
   </div>
 
-  <!-- 2. LE PANNEAU D'ADMINISTRATION -->
   <div class="form-box admin-panel" id="admin-box">
     <h2 style="margin-bottom: 10px;">Ajouter un nouveau chantier</h2>
-    <p style="color: var(--text-muted); margin-bottom: 30px;">La photo sera hébergée en ligne et visible partout.</p>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">Le chantier sera visible par tout le monde instantanément sur internet.</p>
     
     <form id="add-project-form">
       <div class="form-grid">
@@ -60,10 +58,16 @@
 </div>
 
 <script>
-  // Configuration d'accès sécurisée et cloud avec tes identifiants
+  // Paramètres de connexion
   const MOT_DE_PASSE_SECRET = "plaquiste2026";
+  
+  // Tes identifiants Cloudinary connectés par mes soins
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/x39moqat/image/upload"; 
   const CLOUDINARY_PRESET = "js_preset"; 
+
+  // Tes identifiants JSONBin connectés par mes soins
+  const JSONBIN_BIN_ID = "6a5139ecf5f4af5e297e29e2"; 
+  const JSONBIN_SECRET_KEY = "$2a$10$tZbeS4ZJbHqg0Y8zI5rbe.vWp11mK4Xv2D5MREI9x6C6HclB6/EWG"; // Clé d'accès requise en lecture/écriture
 
   function verifierConnexion() {
     const inputPass = document.getElementById('admin-password').value;
@@ -90,52 +94,66 @@
     afficherPanneau();
   }
 
-  // Envoi de l'image sur internet (Cloudinary)
   document.getElementById('add-project-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const submitBtn = document.getElementById('submit-btn');
     const title = document.getElementById('project-title').value;
     const desc = document.getElementById('project-desc').value;
     const fileInput = document.getElementById('project-file');
     
     if (fileInput.files && fileInput.files[0]) {
-      submitBtn.textContent = "Téléchargement de la photo...";
+      submitBtn.textContent = "Publication en cours...";
       submitBtn.disabled = true;
 
-      const file = fileInput.files[0];
+      // 1. Envoi de l'image chez Cloudinary
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', fileInput.files[0]);
       formData.append('upload_preset', CLOUDINARY_PRESET);
 
-      // Envoi au serveur Cloudinary
-      fetch(CLOUDINARY_URL, {
-        method: 'POST',
-        body: formData
-      })
+      fetch(CLOUDINARY_URL, { method: 'POST', body: formData })
       .then(res => res.json())
-      .then(data => {
-        if(data.secure_url) {
-          const newProject = {
-            title: title,
-            desc: desc,
-            image: data.secure_url // On enregistre le vrai lien internet de la photo !
-          };
+      .then(cloudinaryData => {
+        if(cloudinaryData.secure_url) {
           
-          let projects = JSON.parse(localStorage.getItem('js_projects')) || [];
-          projects.push(newProject);
-          localStorage.setItem('js_projects', JSON.stringify(projects));
-          
-          alert("Chantier publié en ligne avec succès !");
-          window.location.href = 'index.html';
+          // 2. Récupération des anciens chantiers sur JSONBin
+          fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+            headers: { 'X-Master-Key': JSONBIN_SECRET_KEY }
+          })
+          .then(res => res.json())
+          .then(binData => {
+            // Lecture sécurisée du format "chantiers"
+            let currentProjects = (binData.record && binData.record.chantiers) ? binData.record.chantiers : [];
+            
+            // Ajout du nouveau projet
+            currentProjects.push({
+              title: title,
+              desc: desc,
+              image: cloudinaryData.secure_url
+            });
+
+            // 3. Mise à jour globale sur la base de données
+            fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_SECRET_KEY
+              },
+              body: JSON.stringify({ chantiers: currentProjects })
+            })
+            .then(() => {
+              alert("Chantier publié sur internet avec succès !");
+              window.location.href = 'index.html';
+            });
+          });
+
         } else {
-          alert("Erreur Cloudinary. Vérifie que tu as bien créé le preset 'js_preset' en mode 'Unsigned'.");
+          alert("Erreur Cloudinary. Vérifie le preset 'js_preset' (Unsigned).");
           submitBtn.textContent = "Publier le chantier sur le site";
           submitBtn.disabled = false;
         }
       })
-      .catch(err => {
-        alert("Erreur réseau lors de l'envoi.");
+      .catch(() => {
+        alert("Erreur réseau globale.");
         submitBtn.textContent = "Publier le chantier sur le site";
         submitBtn.disabled = false;
       });
