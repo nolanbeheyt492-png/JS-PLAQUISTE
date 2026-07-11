@@ -216,51 +216,20 @@ footer{padding:56px 24px; border-top:1px solid var(--border); color:var(--text-m
   .menu-toggle{display:flex; align-items:center; justify-content:center; width:42px; height:42px; font-size:1.4rem; border-radius:var(--radius-sm); transition:background .2s; position:relative; z-index:201;}
   .menu-toggle:active{background:rgba(33,27,18,0.06);}
 
-  /* CORRECTION ICI : Le conteneur du menu s'affiche maintenant proprement en colonne verticale */
-  .nav ul, .nav-links, .menu-links {
-    display: flex !important; 
-    flex-direction: column !important; 
-    justify-content: flex-start !important;
-    align-items: center !important;
-    position: fixed; inset: 0;
-    background: var(--bg) !important; 
-    padding: 90px 24px 40px !important; 
-    gap: 12px !important; 
-    text-align: center !important;
-    box-shadow: 0 12px 20px -8px rgba(33,27,18,0.15);
-    transform: translateY(-8px); opacity: 0; pointer-events: none; visibility: hidden;
-    transition: opacity .25s ease, transform .25s ease, visibility .25s;
-    overflow-y: auto; z-index: 200;
+  #nav-menu.nav ul, .nav ul#nav-menu, .nav ul{
+    display:flex !important; flex-direction:column !important; flex-wrap:nowrap !important;
+    justify-content:center; align-items:stretch; position:fixed; inset:0;
+    background:var(--bg); padding:90px 20px 40px; gap:8px; text-align:left;
+    box-shadow:0 12px 20px -8px rgba(33,27,18,0.15);
+    transform:translateY(-8px); opacity:0; pointer-events:none; visibility:hidden;
+    transition:opacity .25s ease, transform .25s ease, visibility .25s;
+    overflow-x:hidden; overflow-y:auto; z-index:200;
   }
-  
-  /* Affichage de tous les onglets d'un coup net au clic */
-  .nav ul.active, .nav-links.active, .menu-links.active {
-    transform: translateY(0) !important; 
-    opacity: 1 !important; 
-    pointer-events: auto !important; 
-    visibility: visible !important;
-  }
-  
-  .nav ul li, .nav-links li, .menu-links li {
-    width: 100% !important; 
-    flex-shrink: 0 !important;
-  }
-  
-  /* Boutons d'onglets verticaux confortables et visibles en un coup d'œil */
-  .nav ul a, .nav-links a, .menu-links a {
-    display: block !important; 
-    width: 100% !important; 
-    padding: 14px 16px !important; 
-    border-radius: var(--radius-sm); 
-    font-size: 1.1rem; 
-    font-weight: 700; 
-    color: var(--text) !important; 
-    background: var(--panel) !important; 
-    border: 1px solid var(--border) !important;
-    text-align: center !important;
-  }
-  .nav ul a::after, .nav-links a::after{display:none;}
-  .nav ul a.active, .nav-links a.active{color:#fff !important; background:var(--accent) !important; border-color:var(--accent) !important;}
+  .nav ul.active{transform:translateY(0); opacity:1; pointer-events:auto; visibility:visible;}
+  .nav ul li{width:100% !important; flex-shrink:0; flex-basis:auto;}
+  .nav ul a{display:block; width:100%; padding:16px; border-radius:var(--radius-sm); font-size:1.1rem; font-weight:700; color:var(--text); background:var(--panel); border:1px solid var(--border);}
+  .nav ul a::after{display:none;}
+  .nav ul a.active{color:#fff; background:var(--accent); border-color:var(--accent);}
 
   .hero{padding:52px 18px 44px;}
   .hero h1{font-size:2rem; line-height:1.16; margin-bottom:16px;}

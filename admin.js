@@ -94,7 +94,9 @@
         z-index: 999999 !important; display: none; align-items: center !important; justify-content: center !important;
         font-family: 'Segoe UI', Roboto, sans-serif; opacity: 0; transition: opacity 0.2s ease;
         box-sizing: border-box !important; overflow: hidden !important;
+        -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important;
       }
+      .jc-admin-overlay *, .jc-admin-overlay *::before, .jc-admin-overlay *::after { box-sizing: border-box !important; }
       .jc-admin-overlay.show { display: flex !important; opacity: 1 !important; }
       
       /* Bouton Quitter sur le panneau de Connexion */
@@ -175,9 +177,38 @@
       .jc-zone-tag-chip button { background: none !important; border: none !important; color: #888 !important; cursor: pointer !important; font-weight: bold !important; }
       
       @media (max-width: 768px) {
+        .jc-admin-topbar { padding: 12px 16px !important; flex-wrap: wrap !important; gap: 6px !important; }
+        .jc-admin-brand { font-size: 15px !important; }
+        .jc-admin-topbar-status { font-size: 11px !important; }
+        .jc-admin-topbar-status .dot { width: 6px !important; height: 6px !important; margin-right: 6px !important; }
+
         .jc-admin-body { flex-direction: column !important; }
-        .jc-admin-sidebar { width: 100% !important; flex-direction: row !important; overflow-x: auto !important; padding: 10px !important; border-right: none !important; border-bottom: 1px solid #2b2b2b !important; }
-        .jc-admin-content { padding: 20px !important; }
+        .jc-admin-sidebar {
+          width: 100% !important; flex-direction: row !important; flex-wrap: nowrap !important;
+          overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
+          padding: 10px !important; gap: 8px !important; border-right: none !important; border-bottom: 1px solid #2b2b2b !important;
+        }
+        .jc-admin-nav-btn, .jc-admin-nav-logout {
+          width: auto !important; flex-shrink: 0 !important; white-space: nowrap !important;
+          padding: 10px 14px !important; font-size: 12.5px !important; margin-top: 0 !important;
+        }
+
+        .jc-admin-content { padding: 18px !important; }
+        .jc-admin-form { max-width: 100% !important; }
+
+        .jc-admin-lock { padding: 30px 20px !important; width: 88% !important; }
+        .jc-admin-lock h3 { font-size: 20px !important; }
+        .jc-admin-close-page { top: 12px !important; right: 12px !important; padding: 8px 14px !important; font-size: 12px !important; }
+
+        .jc-admin-list-item { flex-wrap: wrap !important; gap: 10px !important; }
+        .jc-admin-list-item img { width: 56px !important; height: 56px !important; }
+        .jc-admin-list-item span { flex: 1 1 100px !important; font-size: 12px !important; }
+      }
+
+      @media (max-width: 380px) {
+        .jc-admin-topbar-status { display: none !important; }
+        .jc-admin-nav-btn, .jc-admin-nav-logout { font-size: 11.5px !important; padding: 9px 11px !important; }
+        .jc-admin-brand { font-size: 14px !important; }
       }
     `;
     document.head.appendChild(style);
