@@ -59,15 +59,59 @@
 <section class="hero">
   <div class="wrap">
     <h1>Rénovez et aménagement<br>en toute sérénité.</h1>
-    <p>Artisans plaquistes et spécialistes du second œuvre. Nous intervenons auprès des particuliers et des professionnels pour tous types de travaux de plâtrerie, isolation et finitions de surfaces.</p>
+    <p>Artisans plaquistes et spécialistes du second œuvre, intervenant dans les <strong>Pyrénées-Orientales (66)</strong>. Nous intervenons auprès des particuliers et des professionnels pour tous types de travaux de plâtrerie, isolation et finitions de surfaces.</p>
     <div class="hero-badges">
       <span>Garantie Décennale Incluse</span>
       <span>Devis Gratuit sous 48h</span>
       <span>Matériaux Certifiés</span>
     </div>
+
+    <div class="project-picker">
+      <a href="contact.html?type=cloison">🧱 Cloison</a>
+      <a href="contact.html?type=plafond">☁️ Faux plafond</a>
+      <a href="contact.html?type=isolation">🌡️ Isolation</a>
+      <a href="contact.html?type=autre">✨ Autre projet</a>
+    </div>
+
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
       <a href="contact.html" class="btn btn-primary">Demander un devis gratuit</a>
       <a href="services.html" class="btn btn-outline">Découvrir nos métiers</a>
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATEUR DE BUDGET INTERACTIF -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Estimez votre budget en 30 secondes</h2>
+      <p>Un premier ordre d'idée basé sur les moyennes du marché — votre devis exact et gratuit reste établi après visite du chantier.</p>
+    </div>
+    <div class="estimator-box reveal">
+      <div class="estimator-grid">
+        <div class="estimator-field">
+          <label for="est-type">Type de travaux</label>
+          <select id="est-type">
+            <option value="cloison-simple">Cloison simple (sans isolation)</option>
+            <option value="cloison-isolee">Cloison avec isolation</option>
+            <option value="plafond">Faux plafond suspendu</option>
+            <option value="isolation">Isolation / doublage de mur</option>
+            <option value="finition">Bandes à joints / enduit seul</option>
+          </select>
+        </div>
+        <div class="estimator-field">
+          <label for="est-surface">Surface concernée (m²)</label>
+          <input type="number" id="est-surface" min="1" max="500" value="20" placeholder="Ex: 20">
+        </div>
+      </div>
+
+      <div class="estimator-result">
+        <div class="price-range" id="est-result">600 € — 900 €</div>
+        <p>Fourchette indicative pour ce type de projet, fourniture et pose comprises.<br>Le prix final dépend de l'accessibilité du chantier, de la finition choisie et des contraintes techniques.</p>
+        <a href="contact.html" class="btn btn-primary" id="est-cta">Obtenir mon devis précis gratuit</a>
+      </div>
+
+      <p class="estimator-disclaimer">⚠️ Estimation indicative calculée à partir des moyennes nationales de la profession (2026), donnée à titre informatif. Elle ne constitue pas un devis. Seule une visite de chantier permet d'établir un tarif garanti.</p>
     </div>
   </div>
 </section>
@@ -82,6 +126,11 @@
       <div class="feature-card"><h3>🛡️ Garantie Décennale</h3><p>Tous nos travaux de structure et doublage sont couverts par notre assurance.</p></div>
       <div class="feature-card"><h3>📐 Finitions Q4</h3><p>Un ponçage et ratissage minutieux pour des surfaces lisses, prêtes à peindre.</p></div>
       <div class="feature-card"><h3>🧼 Chantier Propre</h3><p>Nettoyage rigoureux en fin de journée pour préserver votre confort.</p></div>
+    </div>
+    <div class="trust-badges">
+      <div class="trust-badge"><span class="icon">🛡️</span><div class="txt"><strong>Garantie Décennale</strong><span>Assurance couverte</span></div></div>
+      <div class="trust-badge"><span class="icon">📋</span><div class="txt"><strong>Normes DTU</strong><span>Travail conforme</span></div></div>
+      <div class="trust-badge"><span class="icon">📍</span><div class="txt"><strong>Pyrénées-Orientales</strong><span>Zone d'intervention 66</span></div></div>
     </div>
   </div>
 </section>
@@ -165,6 +214,39 @@
     revealEls.forEach(el => io.observe(el));
   } else {
     revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // Estimateur de budget — fourchettes moyennes du marché français (€/m², fourniture + pose, 2026)
+  const PRICE_RANGES = {
+    'cloison-simple': [25, 35],
+    'cloison-isolee': [35, 50],
+    'plafond':        [30, 60],
+    'isolation':      [30, 50],
+    'finition':       [10, 20],
+  };
+  const estType = document.getElementById('est-type');
+  const estSurface = document.getElementById('est-surface');
+  const estResult = document.getElementById('est-result');
+  const estCta = document.getElementById('est-cta');
+
+  function formatEuro(n){
+    return Math.round(n).toLocaleString('fr-FR') + ' €';
+  }
+
+  function updateEstimate(){
+    if (!estType || !estSurface || !estResult) return;
+    const surface = Math.max(1, parseFloat(estSurface.value) || 0);
+    const [low, high] = PRICE_RANGES[estType.value];
+    estResult.textContent = `${formatEuro(low * surface)} — ${formatEuro(high * surface)}`;
+    if (estCta) {
+      estCta.href = `contact.html?type=${estType.value}&surface=${surface}`;
+    }
+  }
+
+  if (estType && estSurface) {
+    estType.addEventListener('change', updateEstimate);
+    estSurface.addEventListener('input', updateEstimate);
+    updateEstimate();
   }
 </script>
 </body>
