@@ -2,7 +2,7 @@
   --bg: #ffffff; /* Fond blanc lumineux */
   --bg-alt: #f8fafc; /* Sections secondaires gris très clair */
   --panel: #ffffff; /* Cartes et formulaires blancs */
-  --border: rgba(15, 23, 42, 0.08); /* Bordures légères sombres */ 
+  --border: rgba(15, 23, 42, 0.08); /* Bordures légères sombres */
   --text: #0f172a; /* Texte principal sombre (presque noir) pour une lisibilité parfaite */
   --text-muted: #64748b; /* Texte secondaire gris atténué */
   --accent: #f59e0b; /* Ambre/Or conservé pour l'identité de la marque */
@@ -99,28 +99,29 @@ footer{padding:60px 24px; border-top:1px solid var(--border); color:var(--text-m
     font-size:1.4rem;
     border-radius:var(--radius-md);
     transition:background .2s;
+    position:relative;
+    z-index:201;
   }
   .menu-toggle:active{background:rgba(0,0,0,0.05);}
 
   .nav ul{
     display:flex;
     flex-direction:column;
+    justify-content:center;
     position:fixed;
-    top:65px;
-    left:0;
-    right:0;
-    bottom:0;
-    background:var(--bg);
-    padding:28px 24px;
-    gap:4px;
+    inset:0;
+    background:#ffffff;
+    padding:90px 20px 40px;
+    gap:10px;
     text-align:left;
-    box-shadow:none;
+    box-shadow:0 12px 20px -8px rgba(15,23,42,0.15);
     transform:translateY(-8px);
     opacity:0;
     pointer-events:none;
     visibility:hidden;
     transition:opacity .25s ease, transform .25s ease, visibility .25s;
     overflow-y:auto;
+    z-index:200;
   }
   .nav ul.active{
     transform:translateY(0);
@@ -128,16 +129,19 @@ footer{padding:60px 24px; border-top:1px solid var(--border); color:var(--text-m
     pointer-events:auto;
     visibility:visible;
   }
-  .nav ul li{width:100%; border-bottom:1px solid var(--border);}
-  .nav ul li:last-child{border-bottom:none;}
+  .nav ul li{width:100%; flex-shrink:0;}
   .nav ul a{
     display:block;
-    padding:16px 4px;
-    font-size:1.05rem;
-    font-weight:600;
+    width:100%;
+    padding:16px 16px;
+    border-radius:var(--radius-md);
+    font-size:1.15rem;
+    font-weight:700;
     color:var(--text);
+    background:#f8fafc;
+    border:1px solid var(--border);
   }
-  .nav ul a.active{color:var(--accent);}
+  .nav ul a.active{color:#fff; background:var(--accent);}
 
   /* --- HERO --- */
   .hero{padding:56px 18px 48px; background:radial-gradient(circle at top, rgba(245,158,11,0.14), transparent 55%);}
