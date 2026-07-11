@@ -200,6 +200,37 @@
   </div>
 </footer>
 
+<div class="mobile-action-bar">
+  <a href="tel:0600000000" class="call-btn">📞 Appeler</a>
+  <a href="contact.html" class="devis-btn">📝 Devis gratuit</a>
+</div>
+
+<!-- ASSISTANT / CHAT INTELLIGENT -->
+<button class="assist-toggle" id="assist-toggle" aria-label="Ouvrir l'assistant">💬</button>
+<div class="assist-panel" id="assist-panel">
+  <div class="assist-header">
+    <span class="dot"></span>
+    <div>
+      <strong>Assistant JC Plaquiste</strong>
+      <span>Répond à vos questions instantanément</span>
+    </div>
+  </div>
+  <div class="assist-messages" id="assist-messages">
+    <div class="assist-msg bot">Bonjour 👋 Je suis l'assistant de JC Plaquiste. Posez-moi une question (devis, décennale, délais, prix, zone d'intervention...) ou choisissez une suggestion ci-dessous.</div>
+  </div>
+  <div class="assist-suggestions" id="assist-suggestions">
+    <button type="button" data-q="Le devis est gratuit ?">💰 Devis gratuit ?</button>
+    <button type="button" data-q="Vous êtes couverts par une décennale ?">🛡️ Garantie décennale ?</button>
+    <button type="button" data-q="Quelle est votre zone d'intervention ?">📍 Zone d'intervention</button>
+    <button type="button" data-q="Combien de temps pour une pièce ?">⏱️ Délais</button>
+  </div>
+  <div class="assist-input-row">
+    <input type="text" id="assist-input" placeholder="Écrivez votre question...">
+    <button type="button" id="assist-send" aria-label="Envoyer">➤</button>
+  </div>
+</div>
+
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
@@ -262,6 +293,120 @@
   if (urlParams.get('status') === 'success') {
     document.getElementById('main-contact-content').style.display = 'none';
     document.getElementById('thankyou-block').classList.add('show');
+  }
+
+  // ==========================================================
+  // ASSISTANT INTELLIGENT — recherche par mots-clés dans une
+  // base de connaissance (pas d'appel API externe, 100% local,
+  // aucune donnée envoyée nulle part).
+  // ==========================================================
+  const KNOWLEDGE_BASE = [
+    {
+      keywords: ['devis', 'gratuit', 'prix', 'tarif', 'coût', 'cout', 'combien'],
+      answer: "Nos devis sont 100% gratuits et sans engagement 💰. Après une visite technique pour prendre les cotes, vous recevez une proposition chiffrée claire sous 48h. Vous pouvez aussi utiliser notre estimateur de budget sur la page d'accueil pour un premier ordre d'idée."
+    },
+    {
+      keywords: ['décennale', 'decennale', 'assurance', 'garantie', 'couvert', 'assuré', 'assure'],
+      answer: "Oui, absolument 🛡️. Nous possédons toutes les assurances obligatoires : Responsabilité Civile Professionnelle et Garantie Décennale. Les attestations sont systématiquement jointes à nos devis."
+    },
+    {
+      keywords: ['zone', 'intervention', 'où', 'ou', 'secteur', 'ville', 'département', 'departement', 'pyrénées', 'pyrenees', 'perpignan'],
+      answer: "Nous intervenons dans tout le département des Pyrénées-Orientales (66) : Perpignan, Argelès-sur-Mer, Céret, Prades, Font-Romeu et les alentours 📍. N'hésitez pas à préciser votre ville dans le formulaire de contact."
+    },
+    {
+      keywords: ['délai', 'delai', 'temps', 'durée', 'duree', 'combien de jour', 'combien de temps'],
+      answer: "Pour une pièce standard de 15 à 20m² (plafond, doublage, joints), comptez entre 3 et 5 jours de travail sur place ⏱️. Ce délai inclut les temps de séchage réglementaires entre les passes d'enduit."
+    },
+    {
+      keywords: ['peinture', 'peindre', 'couleur'],
+      answer: "Notre métier se concentre sur la plâtrerie : pose de plaques, isolation et bandes à joints 🎨. Nous livrons des surfaces parfaitement lisses et poncées, prêtes à peindre. La mise en peinture n'est pas incluse mais nous pouvons vous conseiller un peintre partenaire."
+    },
+    {
+      keywords: ['tv', 'télé', 'tele', 'meuble', 'lourd', 'fixer', 'accrocher', 'suspendre'],
+      answer: "Oui, c'est tout à fait possible ✅ ! Signalez-le simplement avant le montage : nous intégrons des renforts en bois ou métal dans l'ossature pour supporter meubles lourds et écrans TV en toute sécurité."
+    },
+    {
+      keywords: ['isolation', 'isoler', 'thermique', 'phonique', 'bruit', 'froid'],
+      answer: "Nous réalisons de l'isolation thermique et phonique (doublage de murs, cloisons acoustiques renforcées) 🌡️. Ces travaux sont souvent éligibles à des aides comme MaPrimeRénov' ou les CEE — plus d'infos sur notre page Engagements."
+    },
+    {
+      keywords: ['aide', 'maprimerenov', 'prime', 'cee', 'financement', 'subvention'],
+      answer: "Les travaux d'isolation peuvent être éligibles à MaPrimeRénov' et aux Certificats d'Économie d'Énergie (CEE) 💶. Consultez le simulateur officiel de l'État sur notre page Engagements pour estimer vos aides."
+    },
+    {
+      keywords: ['cloison', 'séparation', 'separation', 'mur', 'pièce', 'piece'],
+      answer: "Nous créons des cloisons de distribution, du doublage de murs périphériques et intégrons l'isolation thermique/phonique nécessaire 🧱. Chaque projet est étudié sur place pour un résultat sur mesure."
+    },
+    {
+      keywords: ['plafond', 'suspendu', 'faux plafond'],
+      answer: "Nous posons des faux plafonds suspendus sur ossature ☁️, avec intégration possible de spots, luminaires et passage de gaines techniques."
+    },
+    {
+      keywords: ['contact', 'téléphone', 'telephone', 'appeler', 'numéro', 'numero', 'joindre'],
+      answer: "Vous pouvez nous appeler directement au 06 00 00 00 00 📞 (du lundi au vendredi, 8h-18h30) ou remplir le formulaire ci-dessus pour être recontacté sous 48h."
+    },
+    {
+      keywords: ['horaire', 'ouvert', 'disponible', 'samedi', 'weekend'],
+      answer: "Nous sommes disponibles du lundi au vendredi de 8h00 à 18h30, et le samedi sur rendez-vous ⏱️."
+    },
+    {
+      keywords: ['bonjour', 'salut', 'hello', 'bonsoir'],
+      answer: "Bonjour 👋 ! Comment puis-je vous aider ? Vous pouvez me parler de votre projet, des délais, des prix ou de la zone d'intervention."
+    },
+    {
+      keywords: ['merci', 'super', 'top', 'parfait'],
+      answer: "Avec plaisir 😊 ! N'hésitez pas si vous avez d'autres questions, ou remplissez le formulaire ci-dessus pour recevoir votre devis gratuit."
+    },
+  ];
+
+  const FALLBACK_ANSWER = "Je n'ai pas la réponse exacte à cette question 🤔. Le plus simple : appelez-nous directement au <a href=\"tel:0600000000\" style=\"color:var(--accent); font-weight:700;\">06 00 00 00 00</a>, ou remplissez le formulaire ci-dessus pour qu'on vous recontacte sous 48h.";
+
+  function findAnswer(question){
+    const q = question.toLowerCase();
+    let bestMatch = null;
+    let bestScore = 0;
+    KNOWLEDGE_BASE.forEach(entry => {
+      let score = 0;
+      entry.keywords.forEach(kw => { if (q.includes(kw)) score++; });
+      if (score > bestScore) { bestScore = score; bestMatch = entry; }
+    });
+    return bestMatch ? bestMatch.answer : FALLBACK_ANSWER;
+  }
+
+  const assistToggle = document.getElementById('assist-toggle');
+  const assistPanel = document.getElementById('assist-panel');
+  const assistMessages = document.getElementById('assist-messages');
+  const assistInput = document.getElementById('assist-input');
+  const assistSend = document.getElementById('assist-send');
+  const assistSuggestions = document.getElementById('assist-suggestions');
+
+  function addMessage(text, sender){
+    const msg = document.createElement('div');
+    msg.className = 'assist-msg ' + sender;
+    msg.innerHTML = text;
+    assistMessages.appendChild(msg);
+    assistMessages.scrollTop = assistMessages.scrollHeight;
+  }
+
+  function handleQuestion(question){
+    if (!question.trim()) return;
+    addMessage(question, 'user');
+    assistInput.value = '';
+    setTimeout(() => {
+      addMessage(findAnswer(question), 'bot');
+    }, 350);
+  }
+
+  if (assistToggle && assistPanel) {
+    assistToggle.addEventListener('click', () => {
+      assistPanel.classList.toggle('open');
+      if (assistPanel.classList.contains('open')) assistInput.focus();
+    });
+    assistSend.addEventListener('click', () => handleQuestion(assistInput.value));
+    assistInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleQuestion(assistInput.value); });
+    assistSuggestions.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => handleQuestion(btn.dataset.q));
+    });
   }
 
   // Loader + fade-in de page
