@@ -177,15 +177,16 @@
       .jc-zone-tag-chip button { background: none !important; border: none !important; color: #888 !important; cursor: pointer !important; font-weight: bold !important; }
       
       @media (max-width: 768px) {
-        .jc-admin-topbar { padding: 12px 16px !important; flex-wrap: wrap !important; gap: 6px !important; }
-        .jc-admin-brand { font-size: 15px !important; }
+        .jc-admin-dashboard { max-width: 100vw !important; overflow-x: hidden !important; }
+        .jc-admin-topbar { padding: 12px 16px !important; flex-wrap: wrap !important; gap: 6px !important; max-width: 100vw !important; }
+        .jc-admin-brand { font-size: 15px !important; overflow-wrap: anywhere !important; }
         .jc-admin-topbar-status { font-size: 11px !important; }
         .jc-admin-topbar-status .dot { width: 6px !important; height: 6px !important; margin-right: 6px !important; }
 
-        .jc-admin-body { flex-direction: column !important; }
+        .jc-admin-body { flex-direction: column !important; max-width: 100vw !important; overflow-x: hidden !important; }
         .jc-admin-sidebar {
-          width: 100% !important; flex-direction: row !important; flex-wrap: nowrap !important;
-          overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
+          width: 100% !important; max-width: 100vw !important; flex-direction: row !important; flex-wrap: nowrap !important;
+          overflow-x: auto !important; overflow-y: hidden !important; -webkit-overflow-scrolling: touch !important;
           padding: 10px !important; gap: 8px !important; border-right: none !important; border-bottom: 1px solid #2b2b2b !important;
         }
         .jc-admin-nav-btn, .jc-admin-nav-logout {
@@ -193,16 +194,16 @@
           padding: 10px 14px !important; font-size: 12.5px !important; margin-top: 0 !important;
         }
 
-        .jc-admin-content { padding: 18px !important; }
+        .jc-admin-content { padding: 18px !important; max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
         .jc-admin-form { max-width: 100% !important; }
 
         .jc-admin-lock { padding: 30px 20px !important; width: 88% !important; }
         .jc-admin-lock h3 { font-size: 20px !important; }
         .jc-admin-close-page { top: 12px !important; right: 12px !important; padding: 8px 14px !important; font-size: 12px !important; }
 
-        .jc-admin-list-item { flex-wrap: wrap !important; gap: 10px !important; }
+        .jc-admin-list-item { flex-wrap: wrap !important; gap: 10px !important; max-width: 100% !important; }
         .jc-admin-list-item img { width: 56px !important; height: 56px !important; }
-        .jc-admin-list-item span { flex: 1 1 100px !important; font-size: 12px !important; }
+        .jc-admin-list-item span { flex: 1 1 100px !important; font-size: 12px !important; overflow-wrap: anywhere !important; min-width: 0 !important; }
       }
 
       @media (max-width: 380px) {
