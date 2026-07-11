@@ -196,7 +196,7 @@
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
 
-  // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite
+  // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite 
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('status') === 'success') {
     document.getElementById('main-contact-content').style.display = 'none';
