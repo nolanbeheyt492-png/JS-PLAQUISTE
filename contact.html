@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact &amp; Devis — JC Plaquiste</title>
+<meta name="description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact & Devis — JC Plaquiste">
+<meta property="og:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://js-plaquiste.vercel.app/contact.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact & Devis — JC Plaquiste">
+<meta name="twitter:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px; }
@@ -40,6 +51,10 @@
 </style>
 </head>
 <body>
+<div id="page-loader">
+  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+</div>
+
 
 <header>
   <div class="nav wrap">
@@ -69,12 +84,12 @@
 
     <!-- CONTENU PRINCIPAL DU FORMULAIRE (SE MASQUE APRÈS L'ENVOI) -->
     <div id="main-contact-content">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>Contactez-nous / Demande de Devis</h2>
         <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
       </div>
       
-      <div class="contact-wrapper">
+      <div class="contact-wrapper reveal-stagger">
         <div class="contact-info-box">
           <h3>📍 JC PLAQUISTE</h3>
           <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
@@ -136,7 +151,7 @@
     </div>
 
     <!-- FAQ -->
-    <div class="faq-container">
+    <div class="faq-container reveal">
       <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes &amp; Réponses techniques</h3>
       
       <div class="faq-item">
@@ -201,6 +216,29 @@
   if (urlParams.get('status') === 'success') {
     document.getElementById('main-contact-content').style.display = 'none';
     document.getElementById('thankyou-block').classList.add('show');
+  }
+
+  // Loader + fade-in de page
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.add('hidden');
+  });
+
+  // Animations au scroll (fade-in des cartes / sections)
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
   }
 </script>
 </body>
