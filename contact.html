@@ -92,13 +92,19 @@
       <div class="contact-wrapper reveal-stagger">
         <div class="contact-info-box">
           <h3>📍 JC PLAQUISTE</h3>
-          <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
+          <p>Nous nous déplaçons chez vous, partout dans les Pyrénées-Orientales (66), pour étudier votre projet et prendre les cotes exactes.</p>
+          <div class="zone-tags">
+            <span>Perpignan</span><span>Argelès-sur-Mer</span><span>Céret</span><span>Prades</span><span>Font-Romeu</span>
+          </div>
           <hr style="border-color: #334155;">
           <p>📞 Par téléphone :</p>
           <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
           <hr style="border-color: #334155;">
           <p>⏱️ Horaires d'intervention :</p>
           <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
+          <div class="map-wrap">
+            <iframe src="https://www.google.com/maps?q=Pyr%C3%A9n%C3%A9es-Orientales&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
 
         <div class="form-box" style="margin: 0;">
@@ -125,23 +131,23 @@
               </div>
               <div class="form-group form-group-full">
                 <label>Ville du Chantier</label>
-                <input type="text" name="Ville_Chantier" required minlength="2" placeholder="Ex: Lille (59000)">
+                <input type="text" name="Ville_Chantier" required minlength="2" placeholder="Ex: Perpignan (66000)">
               </div>
               <div class="form-group form-group-full">
                 <label>Type de travaux souhaités</label>
-                <select name="Type_Travaux" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
-                  <option>Rénovation complète d'une pièce</option>
-                  <option>Pose de cloisons de séparation</option>
-                  <option>Création de faux plafond suspendu</option>
-                  <option>Isolation thermique ou acoustique</option>
-                  <option>Joints / Enduit de lissage</option>
-                  <option>Autre projet second œuvre</option>
+                <select name="Type_Travaux" id="type-travaux-select" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-md); background:white;">
+                  <option value="renovation">Rénovation complète d'une pièce</option>
+                  <option value="cloison">Pose de cloisons de séparation</option>
+                  <option value="plafond">Création de faux plafond suspendu</option>
+                  <option value="isolation">Isolation thermique ou acoustique</option>
+                  <option value="finition">Joints / Enduit de lissage</option>
+                  <option value="autre">Autre projet second œuvre</option>
                 </select>
               </div>
               <div class="form-group form-group-full">
                 <label>Description de votre projet</label>
                 <!-- SOLUTION 3 : Force une description d'au moins 10 caractères pour éviter les messages vides -->
-                <textarea name="Message" rows="4" required minlength="10" placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
+                <textarea name="Message" id="message-textarea" rows="4" required minlength="10" placeholder="Ex: Bonjour, j'aimerais monter une cloison de 4 mètres de long..."></textarea>
               </div>
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 15px;">Envoyer ma demande de devis</button>
@@ -153,6 +159,10 @@
     <!-- FAQ -->
     <div class="faq-container reveal">
       <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes &amp; Réponses techniques</h3>
+      <div class="faq-search">
+        <input type="text" id="faq-search-input" placeholder="Rechercher une question (ex: devis, décennale, délai...)">
+      </div>
+      <p class="faq-no-result" id="faq-no-result">Aucune question ne correspond à votre recherche. Essayez un autre mot-clé, ou <a href="tel:0600000000" style="color:var(--accent); font-weight:600;">appelez-nous directement</a>.</p>
       
       <div class="faq-item">
         <div class="faq-question">Le devis est-il gratuit et sous combien de temps ? <span class="faq-toggle">+</span></div>
@@ -210,6 +220,42 @@
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
+
+  // Recherche intelligente dans la FAQ
+  const faqSearchInput = document.getElementById('faq-search-input');
+  const faqNoResult = document.getElementById('faq-no-result');
+  if (faqSearchInput) {
+    faqSearchInput.addEventListener('input', () => {
+      const term = faqSearchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = term === '' || text.includes(term);
+        item.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+      if (faqNoResult) faqNoResult.style.display = visibleCount === 0 ? 'block' : 'none';
+    });
+  }
+
+  // Pré-remplissage du formulaire depuis le configurateur "quel est votre projet" ou l'estimateur
+  const params = new URLSearchParams(window.location.search);
+  const typeParam = params.get('type');
+  const surfaceParam = params.get('surface');
+  const typeMap = {
+    'cloison-simple': 'cloison', 'cloison-isolee': 'cloison', 'cloison': 'cloison',
+    'plafond': 'plafond', 'isolation': 'isolation', 'finition': 'finition',
+    'renovation': 'renovation', 'autre': 'autre'
+  };
+  const typeSelect = document.getElementById('type-travaux-select');
+  const messageTextarea = document.getElementById('message-textarea');
+  if (typeParam && typeSelect) {
+    const mapped = typeMap[typeParam];
+    if (mapped) typeSelect.value = mapped;
+  }
+  if (surfaceParam && messageTextarea && !messageTextarea.value) {
+    messageTextarea.placeholder = `Ex: Bonjour, j'ai un projet d'environ ${surfaceParam}m² à réaliser...`;
+  }
 
   // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite
   const urlParams = new URLSearchParams(window.location.search);
