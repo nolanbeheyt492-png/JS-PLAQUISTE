@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nos Services — JC Plaquiste</title>
+<meta name="description" content="Cloisons, faux plafonds, bandes à joints et isolation : découvrez tous nos services de plâtrerie et second œuvre.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nos Services — JC Plaquiste">
+<meta property="og:description" content="Cloisons, faux plafonds, bandes à joints et isolation : découvrez tous nos services de plâtrerie et second œuvre.">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://js-plaquiste.vercel.app/services.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nos Services — JC Plaquiste">
+<meta name="twitter:description" content="Cloisons, faux plafonds, bandes à joints et isolation : découvrez tous nos services de plâtrerie et second œuvre.">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
@@ -23,6 +34,10 @@
 </style>
 </head>
 <body>
+<div id="page-loader">
+  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+</div>
+
 
 <header>
   <div class="nav wrap">
@@ -41,12 +56,12 @@
 
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>Nos Domaines d'Intervention</h2>
       <p>De la pose structurelle brute jusqu'au lissage final, nous prenons en charge l'ensemble du second œuvre.</p>
     </div>
     
-    <div class="grid-services">
+    <div class="grid-services reveal-stagger">
       <div class="service-card">
         <h3>📐 Pose de Cloisons</h3>
         <p>Création de nouveaux espaces de vie adaptés à vos besoins.</p>
@@ -77,11 +92,11 @@
     </div>
 
     <!-- NOUVEL ENRICHISSEMENT CONCRET : GUIDE DES FINITIONS -->
-    <div class="finishing-guide">
+    <div class="finishing-guide reveal">
       <h3 style="margin-top: 0; color: #0f172a;">📐 Guide Qualité : Comprendre les niveaux de finition de vos murs</h3>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0;">Parce qu'un beau mur dépend des besoins du revêtement final, nous classons le traitement de nos joints selon la norme européenne officielle :</p>
       
-      <div class="finishing-levels">
+      <div class="finishing-levels reveal-stagger">
         <div class="level-box">
           <div class="level-badge">Niveau Q1</div>
           <h4>Remplissage Bruto</h4>
@@ -131,6 +146,29 @@
       document.body.style.overflow = '';
     });
   });
+
+  // Loader + fade-in de page
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.add('hidden');
+  });
+
+  // Animations au scroll (fade-in des cartes / sections)
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
