@@ -126,7 +126,7 @@
 
         <div class="booking-summary" id="booking-summary"></div>
 
-        <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" id="booking-form">
+        <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" id="booking-form" data-jc-quote-form>
           <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/merci.html">
           <input type="hidden" name="_subject" value="Nouvelle demande de RDV - JC Plaquiste">
           <input type="hidden" name="_captcha" value="false">
@@ -157,12 +157,12 @@
         <div class="contact-info-box">
           <h3>JC PLAQUISTE</h3>
           <p style="color:#C9C0B0;">Nous nous déplaçons chez vous, partout dans les Pyrénées-Orientales (66), pour étudier votre projet et prendre les cotes exactes.</p>
-          <div class="zone-tags">
+          <div class="zone-tags" id="zone-tags-container">
             <span>Perpignan</span><span>Argelès-sur-Mer</span><span>Céret</span><span>Prades</span><span>Font-Romeu</span>
           </div>
           <hr style="border:none; border-top:1px solid rgba(255,255,255,0.14);">
           <p style="color:#C9C0B0;">Par téléphone :</p>
-          <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
+          <a href="tel:0600000000" class="info-link" data-jc-phone-link><span data-jc-phone-text>06 00 00 00 00</span></a>
           <hr style="border:none; border-top:1px solid rgba(255,255,255,0.14);">
           <p style="color:#C9C0B0;">Horaires d'intervention :</p>
           <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
@@ -172,9 +172,7 @@
         </div>
 
         <div class="form-box" style="margin: 0;">
-          <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST">
-            
-            <!-- SOLUTION 4 : Redirection écrite en dur (Open Redirect fixé) -->
+          <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" data-jc-quote-form>
             <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/contact.html?status=success">
             <input type="hidden" name="_subject" value="Nouveau Devis Client - JC Plaquiste">
             <input type="hidden" name="_captcha" value="false">
@@ -589,7 +587,6 @@
     revealEls.forEach(el => el.classList.add('visible'));
   }
 </script>
-</div>
 <script src="admin.js" defer></script>
 </body>
 
