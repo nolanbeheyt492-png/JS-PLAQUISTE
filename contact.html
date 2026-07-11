@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact &amp; Devis — JS Plaquiste</title>
+<title>Contact &amp; Devis — JC Plaquiste</title>
 <link rel="stylesheet" href="style.css">
 <style>
   .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px; }
@@ -43,7 +43,7 @@
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JC <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -76,7 +76,7 @@
       
       <div class="contact-wrapper">
         <div class="contact-info-box">
-          <h3>📍 JS PLAQUISTE</h3>
+          <h3>📍 JC PLAQUISTE</h3>
           <p>Nous nous déplaçons chez vous pour étudier votre projet et prendre les cotes exactes.</p>
           <hr style="border-color: #334155;">
           <p>📞 Par téléphone :</p>
@@ -91,7 +91,7 @@
             
             <!-- SOLUTION 4 : Redirection écrite en dur (Open Redirect fixé) -->
             <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/contact.html?status=success">
-            <input type="hidden" name="_subject" value="Nouveau Devis Client - JS Plaquiste">
+            <input type="hidden" name="_subject" value="Nouveau Devis Client - JC Plaquiste">
             <input type="hidden" name="_captcha" value="false">
 
             <!-- SOLUTION 2 : Sécurité Honeypot (Bloque les robots en arrière-plan sans embêter les humains) -->
@@ -170,7 +170,7 @@
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
+    <div>© <span id="year"></span> JC Plaquiste. Tous droits réservés.</div>
     <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
@@ -196,7 +196,7 @@
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
 
-  // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite 
+  // Si l'URL contient "?status=success", on masque le formulaire et on montre le message de réussite
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('status') === 'success') {
     document.getElementById('main-contact-content').style.display = 'none';
