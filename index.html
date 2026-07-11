@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JC Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
+<meta name="description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JC Plaquiste — Rénovation & Aménagement Intérieur">
+<meta property="og:description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://js-plaquiste.vercel.app/index.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JC Plaquiste — Rénovation & Aménagement Intérieur">
+<meta name="twitter:description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   .grid-features, .grid-testimonials, .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
@@ -25,6 +36,10 @@
 </style>
 </head>
 <body>
+<div id="page-loader">
+  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+</div>
+
 
 <header>
   <div class="nav wrap">
@@ -59,11 +74,11 @@
 
 <section class="section section-alt">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>Pourquoi nous faire confiance ?</h2>
       <p>Chaque chantier est unique. Nous nous engageons sur le respect des délais, la propreté du site et des finitions soignées prêtes à peindre.</p>
     </div>
-    <div class="grid-features">
+    <div class="grid-features reveal-stagger">
       <div class="feature-card"><h3>🛡️ Garantie Décennale</h3><p>Tous nos travaux de structure et doublage sont couverts par notre assurance.</p></div>
       <div class="feature-card"><h3>📐 Finitions Q4</h3><p>Un ponçage et ratissage minutieux pour des surfaces lisses, prêtes à peindre.</p></div>
       <div class="feature-card"><h3>🧼 Chantier Propre</h3><p>Nettoyage rigoureux en fin de journée pour préserver votre confort.</p></div>
@@ -74,11 +89,11 @@
 <!-- NOUVEL ENRICHISSEMENT CONCRET : CHECKLIST CLIENT -->
 <section class="section">
   <div class="wrap">
-    <div class="checklist-box">
+    <div class="checklist-box reveal">
       <h3 style="margin-top:0; margin-bottom:12px; color:#0f172a;">📋 Check-list : Préparer votre pièce avant notre arrivée</h3>
       <p style="color:var(--text-muted); margin-bottom:24px; font-size:0.95rem;">Pour optimiser le temps d'intervention et garantir une réalisation parfaite de vos cloisons ou plafonds, voici quelques étapes simples à valider :</p>
       
-      <div class="checklist-grid">
+      <div class="checklist-grid reveal-stagger">
         <div class="checklist-item">
           <span>📦</span>
           <div>
@@ -128,6 +143,29 @@
       document.body.style.overflow = '';
     });
   });
+
+  // Loader + fade-in de page
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.add('hidden');
+  });
+
+  // Animations au scroll (fade-in des cartes / sections)
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
