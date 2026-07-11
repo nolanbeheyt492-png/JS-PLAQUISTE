@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merci pour votre demande — JC Plaquiste</title>
+<meta name="description" content="Votre demande de devis a bien été reçue. Nous vous recontactons sous 48h.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Merci — JC Plaquiste">
+<meta property="og:description" content="Votre demande de devis a bien été reçue. Nous vous recontactons sous 48h.">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://js-plaquiste.vercel.app/merci.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Merci — JC Plaquiste">
+<meta name="twitter:description" content="Votre demande de devis a bien été reçue. Nous vous recontactons sous 48h.">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   .merci-box {
@@ -34,6 +45,10 @@
 </style>
 </head>
 <body>
+<div id="page-loader">
+  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+</div>
+
 
 <header>
   <div class="nav wrap">
@@ -78,6 +93,29 @@
       document.body.style.overflow = '';
     });
   });
+
+  // Loader + fade-in de page
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.add('hidden');
+  });
+
+  // Animations au scroll (fade-in des cartes / sections)
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
