@@ -8,48 +8,65 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Contact & Devis — JC Plaquiste">
 <meta property="og:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
-<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/contact.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact & Devis — JC Plaquiste">
 <meta name="twitter:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
-<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
   .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 40px; }
-  .contact-info-box { background: #0f172a; color: white; padding: 40px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 24px; }
-  .contact-info-box h3 { color: white; font-size: 1.4rem; }
-  .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; }
+  .contact-info-box { background: var(--text); color: white; padding: 40px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 22px; }
+  .contact-info-box h3 { color: white; font-size: 1.3rem; }
+  .info-link { color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); }
   .info-link:hover { color: var(--accent); }
   
   /* FAQ Pliante Complète */
-  .faq-container { max-width: 850px; margin: 60px auto 0 auto; display: flex; flex-direction: column; gap: 16px; }
-  .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
-  .faq-question { padding: 20px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
-  .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
-  .faq-item.active .faq-answer { padding-bottom: 20px; max-height: 250px; }
-  .faq-item.active .faq-toggle { transform: rotate(45deg); }
-  .faq-toggle { transition: transform 0.2s; font-weight: bold; }
+  .faq-container { max-width: 850px; margin: 60px auto 0 auto; display: flex; flex-direction: column; gap: 14px; }
 
   /* STYLE DU GRAND MESSAGE DE REMERCIEMENT DIRECT SUR LE SITE */
   .thankyou-section {
     display: none; /* Masqué par défaut */
-    background: white;
+    background: var(--panel);
     padding: 60px 40px;
     border-radius: var(--radius-lg);
     max-width: 600px;
     margin: 40px auto;
     text-align: center;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    box-shadow: 0 24px 48px -16px rgba(33,27,18,0.2);
     border: 1px solid var(--border);
   }
   .thankyou-section.show { display: block; }
-  .thankyou-icon { font-size: 4rem; color: #10b981; margin-bottom: 20px; }
-  .thankyou-section h3 { font-size: 1.8rem; color: #0f172a; margin-bottom: 16px; }
+  .thankyou-icon { font-size: 3.5rem; color: var(--success); margin-bottom: 20px; }
+  .thankyou-section h3 { font-size: 1.7rem; color: var(--text); margin-bottom: 16px; }
   .thankyou-section p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 30px; }
 </style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "JC Plaquiste",
+  "image": "https://js-plaquiste.vercel.app/og-image.png",
+  "telephone": "+33600000000",
+  "priceRange": "\u20ac\u20ac",
+  "areaServed": { "@type": "AdministrativeArea", "name": "Pyr\u00e9n\u00e9es-Orientales" },
+  "address": { "@type": "PostalAddress", "addressRegion": "Occitanie", "addressLocality": "Perpignan", "postalCode": "66000", "addressCountry": "FR" },
+  "url": "https://js-plaquiste.vercel.app/",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "12:00", "description": "Sur rendez-vous" }
+  ]
+}
+</script>
 </head>
+
 <body>
 <div id="page-loader">
   <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
@@ -63,6 +80,7 @@
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
       <li><a href="engagements.html">Nos Engagements</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
       <li><a href="realisations.html">Photos</a></li>
       <li><a href="contact.html" class="active">Contact &amp; Devis</a></li>
     </ul>
@@ -76,7 +94,7 @@
     
     <!-- BLOC DE REMERCIEMENT QUI RESTE SUR TON SITE (S'ACTIVE APRÈS L'ENVOI) -->
     <div id="thankyou-block" class="thankyou-section">
-      <div class="thankyou-icon">📥</div>
+      <div class="thankyou-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" style="stroke:currentColor; fill:none; stroke-width:1.5; vertical-align:-0.15em;"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
       <h3>Demande de devis reçue !</h3>
       <p>Merci pour votre confiance. Vos informations ont bien été transmises à notre artisan. Nous étudions votre projet et nous vous recontactons par téléphone sous 48 heures.</p>
       <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
@@ -85,22 +103,68 @@
     <!-- CONTENU PRINCIPAL DU FORMULAIRE (SE MASQUE APRÈS L'ENVOI) -->
     <div id="main-contact-content">
       <div class="section-head reveal">
+        <div class="eyebrow" style="justify-content:center;">On en parle ?</div>
         <h2>Contactez-nous / Demande de Devis</h2>
         <p>Un projet ? Une idée ? Remplissez le formulaire ci-dessous ou appelez-nous directement.</p>
       </div>
-      
+
+      <!-- RÉSERVATION DE CRÉNEAU EN LIGNE -->
+      <div class="booking-box reveal" style="margin-bottom:56px;">
+        <div class="booking-intro">
+          <div class="icon-badge"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></div>
+          <div>
+            <h3>Réservez un appel ou une visite technique</h3>
+            <p>Choisissez un jour et un créneau qui vous conviennent : nous vous rappelons ou passons chez vous à l'heure choisie, sans attendre.</p>
+          </div>
+        </div>
+
+        <span class="booking-step-label">1. Choisissez un jour</span>
+        <div class="booking-dates" id="booking-dates"></div>
+
+        <span class="booking-step-label">2. Choisissez un créneau</span>
+        <div class="booking-slots" id="booking-slots"><p class="booking-empty">Sélectionnez d'abord un jour ci-dessus.</p></div>
+
+        <div class="booking-summary" id="booking-summary"></div>
+
+        <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" id="booking-form">
+          <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/merci.html">
+          <input type="hidden" name="_subject" value="Nouvelle demande de RDV - JC Plaquiste">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="Date_RDV" id="booking-date-input">
+          <input type="hidden" name="Creneau_RDV" id="booking-slot-input">
+          <div class="booking-mini-grid" style="margin-bottom:20px;">
+            <div class="form-group">
+              <label>Votre Nom / Prénom</label>
+              <input type="text" name="Nom_Prenom" required minlength="2" pattern="^[a-zA-ZÀ-ÿ\s\-'\.]+$" placeholder="Ex: Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label>Numéro de Téléphone</label>
+              <input type="tel" name="Telephone" required pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$" placeholder="Ex: 06 12 34 56 78">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="booking-submit" style="width:100%; padding:14px;" disabled>Sélectionnez un jour et un créneau pour continuer</button>
+        </form>
+      </div>
+
+      <div class="chalk-divider" aria-hidden="true">
+        <span class="chalk-label">Ou</span>
+        <span class="chalk-line"></span>
+        <span class="chalk-label">Devis détaillé</span>
+      </div>
+
       <div class="contact-wrapper reveal-stagger">
         <div class="contact-info-box">
-          <h3>📍 JC PLAQUISTE</h3>
-          <p>Nous nous déplaçons chez vous, partout dans les Pyrénées-Orientales (66), pour étudier votre projet et prendre les cotes exactes.</p>
+          <h3>JC PLAQUISTE</h3>
+          <p style="color:#C9C0B0;">Nous nous déplaçons chez vous, partout dans les Pyrénées-Orientales (66), pour étudier votre projet et prendre les cotes exactes.</p>
           <div class="zone-tags">
             <span>Perpignan</span><span>Argelès-sur-Mer</span><span>Céret</span><span>Prades</span><span>Font-Romeu</span>
           </div>
-          <hr style="border-color: #334155;">
-          <p>📞 Par téléphone :</p>
+          <hr style="border:none; border-top:1px solid rgba(255,255,255,0.14);">
+          <p style="color:#C9C0B0;">Par téléphone :</p>
           <a href="tel:0600000000" class="info-link">06 00 00 00 00</a>
-          <hr style="border-color: #334155;">
-          <p>⏱️ Horaires d'intervention :</p>
+          <hr style="border:none; border-top:1px solid rgba(255,255,255,0.14);">
+          <p style="color:#C9C0B0;">Horaires d'intervention :</p>
           <p style="font-weight: 600; margin: 0;">Lundi au Vendredi : 8h00 — 18h30<br>Samedi : Sur rendez-vous</p>
           <div class="map-wrap">
             <iframe src="https://www.google.com/maps?q=Pyr%C3%A9n%C3%A9es-Orientales&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -157,8 +221,13 @@
     </div>
 
     <!-- FAQ -->
+    <div class="chalk-divider" aria-hidden="true">
+      <span class="chalk-label">Questions</span>
+      <span class="chalk-line"></span>
+      <span class="chalk-label">Réponses</span>
+    </div>
     <div class="faq-container reveal">
-      <h3 style="text-align: center; margin-bottom: 20px; color: #0f172a;">Questions fréquentes &amp; Réponses techniques</h3>
+      <h3 style="text-align: center; margin-bottom: 20px; color: var(--text);">Questions fréquentes &amp; Réponses techniques</h3>
       <div class="faq-search">
         <input type="text" id="faq-search-input" placeholder="Rechercher une question (ex: devis, décennale, délai...)">
       </div>
@@ -251,6 +320,94 @@
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', () => { q.parentElement.classList.toggle('active'); });
   });
+
+  // ==========================================================
+  // RÉSERVATION DE CRÉNEAU — génère les 14 prochains jours
+  // ouvrés (lun-sam) et les créneaux horaires disponibles.
+  // Aucun back-end de calendrier n'est nécessaire : la demande
+  // part vers le même formulaire (formsubmit.co) que le devis.
+  // ==========================================================
+  (function initBooking(){
+    const datesEl = document.getElementById('booking-dates');
+    const slotsEl = document.getElementById('booking-slots');
+    const summaryEl = document.getElementById('booking-summary');
+    const dateInput = document.getElementById('booking-date-input');
+    const slotInput = document.getElementById('booking-slot-input');
+    const submitBtn = document.getElementById('booking-submit');
+    if (!datesEl) return;
+
+    const WEEKDAY_SLOTS = ['08:00','09:00','10:00','11:00','14:00','15:00','16:00','17:00','18:00'];
+    const SATURDAY_SLOTS = ['09:00','09:30','10:00','10:30','11:00','11:30'];
+    let selectedDate = null;
+
+    function buildDates(){
+      const days = [];
+      let cursor = new Date();
+      cursor.setDate(cursor.getDate() + 1);
+      while (days.length < 12) {
+        if (cursor.getDay() !== 0) days.push(new Date(cursor)); // pas le dimanche
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      return days;
+    }
+
+    function renderDates(){
+      const days = buildDates();
+      datesEl.innerHTML = '';
+      days.forEach(d => {
+        const chip = document.createElement('div');
+        chip.className = 'date-chip';
+        chip.innerHTML = `
+          <span class="dow">${d.toLocaleDateString('fr-FR', { weekday: 'short' })}</span>
+          <span class="dom">${d.getDate()}</span>
+          <span class="mon">${d.toLocaleDateString('fr-FR', { month: 'short' })}</span>`;
+        chip.addEventListener('click', () => selectDate(d, chip));
+        datesEl.appendChild(chip);
+      });
+    }
+
+    function selectDate(date, chip){
+      selectedDate = date;
+      datesEl.querySelectorAll('.date-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      renderSlots(date);
+      resetSelection();
+    }
+
+    function renderSlots(date){
+      const isSaturday = date.getDay() === 6;
+      const slots = isSaturday ? SATURDAY_SLOTS : WEEKDAY_SLOTS;
+      slotsEl.innerHTML = '';
+      slots.forEach(s => {
+        const chip = document.createElement('div');
+        chip.className = 'slot-chip';
+        chip.textContent = s;
+        chip.addEventListener('click', () => selectSlot(s, chip));
+        slotsEl.appendChild(chip);
+      });
+    }
+
+    function resetSelection(){
+      slotsEl.querySelectorAll('.slot-chip').forEach(c => c.classList.remove('selected'));
+      summaryEl.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sélectionnez un créneau pour continuer';
+    }
+
+    function selectSlot(slot, chip){
+      slotsEl.querySelectorAll('.slot-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      const dateLabel = selectedDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      dateInput.value = dateLabel;
+      slotInput.value = slot;
+      summaryEl.innerHTML = `📅 Créneau sélectionné : <strong>${dateLabel} à ${slot}</strong>. Complétez vos coordonnées ci-dessous pour confirmer.`;
+      summaryEl.classList.add('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirmer ma demande de rendez-vous';
+    }
+
+    renderDates();
+  })();
 
   // Recherche intelligente dans la FAQ
   const faqSearchInput = document.getElementById('faq-search-input');
@@ -432,5 +589,8 @@
     revealEls.forEach(el => el.classList.add('visible'));
   }
 </script>
+</div>
+<script src="admin.js" defer></script>
 </body>
+
 </html>

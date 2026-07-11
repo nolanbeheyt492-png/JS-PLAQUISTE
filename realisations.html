@@ -8,22 +8,51 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nos Réalisations — JC Plaquiste">
 <meta property="og:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
-<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/realisations.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nos Réalisations — JC Plaquiste">
 <meta name="twitter:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
-<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
   .grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
-  .gallery-item { background: var(--panel); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+  .gallery-item { background: var(--panel); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(33,27,18,0.03); transition:all .25s; }
+  .gallery-item:hover{ border-color: var(--accent); transform:translateY(-3px); box-shadow:0 14px 28px -14px rgba(33,27,18,0.18); }
   .gallery-info { padding: 20px; }
-  .gallery-info h3 { font-size: 1.1rem; margin-bottom: 8px; color: #0f172a; }
+  .gallery-info h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text); font-weight:700; }
   .gallery-info p { color: var(--text-muted); font-size: 0.9rem; }
+  .gallery-tag { display:inline-block; font-family:var(--font-mono); font-size:0.68rem; font-weight:600; color:var(--accent); background:rgba(168,112,58,0.1); padding:3px 9px; border-radius:6px; margin-bottom:10px; letter-spacing:0.3px; }
+  .gallery-filter-tabs { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:36px; }
+  .gallery-filter-btn { font-family:var(--font-display); font-size:0.85rem; font-weight:600; padding:9px 18px; border-radius:999px; border:1.5px solid var(--border); background:var(--panel); color:var(--text-muted); cursor:pointer; transition:all .2s; }
+  .gallery-filter-btn:hover { border-color:var(--accent); color:var(--text); }
+  .gallery-filter-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
 </style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "JC Plaquiste",
+  "image": "https://js-plaquiste.vercel.app/og-image.png",
+  "telephone": "+33600000000",
+  "priceRange": "\u20ac\u20ac",
+  "areaServed": { "@type": "AdministrativeArea", "name": "Pyr\u00e9n\u00e9es-Orientales" },
+  "address": { "@type": "PostalAddress", "addressRegion": "Occitanie", "addressLocality": "Perpignan", "postalCode": "66000", "addressCountry": "FR" },
+  "url": "https://js-plaquiste.vercel.app/",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "12:00", "description": "Sur rendez-vous" }
+  ]
+}
+</script>
 </head>
+
 <body>
 <div id="page-loader">
   <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
@@ -37,6 +66,7 @@
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
       <li><a href="engagements.html">Nos Engagements</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
       <li><a href="realisations.html" class="active">Photos</a></li>
       <li><a href="contact.html">Contact &amp; Devis</a></li>
     </ul>
@@ -48,6 +78,7 @@
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
     <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;">En images</div>
       <h2>Nos Réalisations</h2>
       <p>Aperçu en images de la qualité de nos finitions et de nos chantiers de plâtrerie.</p>
     </div>
@@ -57,7 +88,7 @@
       <div class="ba-slider" id="ba-slider-1">
         <img class="ba-after" src="img/apres-1.jpg" alt="Chantier terminé - après travaux" style="background:#e2e8f0;">
         <div class="ba-before-wrap">
-          <img src="img/avant-1.jpg" alt="Chantier avant travaux" style="background:#94a3b8;">
+          <img src="img/avant-1.jpg" alt="Chantier avant travaux" style="background:#B8AFA0;">
         </div>
         <span class="ba-label before">AVANT</span>
         <span class="ba-label after">APRÈS</span>
@@ -66,24 +97,27 @@
       <p class="ba-slider-caption">👆 Faites glisser pour comparer — remplacez <code>img/avant-1.jpg</code> et <code>img/apres-1.jpg</code> par vos propres photos de chantier.</p>
     </div>
     
-    <div class="grid-gallery reveal-stagger">
-      <div class="gallery-item">
-        <img src="img/chantier-1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+    <div class="grid-gallery reveal-stagger" id="gallery-grid">
+      <div class="gallery-item" data-category="Rénovation complète">
+        <img src="img/chantier-1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
         <div class="gallery-info">
+          <span class="gallery-tag">Rénovation complète</span>
           <h3>Rénovation Salon</h3>
           <p>Doublage thermique des murs extérieurs et création d'un faux plafond suspendu.</p>
         </div>
       </div>
-      <div class="gallery-item">
-        <img src="img/chantier-2.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+      <div class="gallery-item" data-category="Isolation">
+        <img src="img/chantier-2.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
         <div class="gallery-info">
+          <span class="gallery-tag">Isolation</span>
           <h3>Aménagement de Combles</h3>
           <p>Pose de rails, suspentes et isolation de toiture.</p>
         </div>
       </div>
-      <div class="gallery-item">
-        <img src="img/chantier-3.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
+      <div class="gallery-item" data-category="Cloisons">
+        <img src="img/chantier-3.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
         <div class="gallery-info">
+          <span class="gallery-tag">Cloisons</span>
           <h3>Cloisons de Séparation</h3>
           <p>Création d'espaces isolés en plaques de plâtre BA13.</p>
         </div>
@@ -179,5 +213,8 @@
   }
   initBaSlider('ba-slider-1');
 </script>
+</div>
+<script src="admin.js" defer></script>
 </body>
+
 </html>

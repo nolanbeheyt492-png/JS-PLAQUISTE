@@ -8,13 +8,16 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Merci — JC Plaquiste">
 <meta property="og:description" content="Votre demande de devis a bien été reçue. Nous vous recontactons sous 48h.">
-<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/merci.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Merci — JC Plaquiste">
 <meta name="twitter:description" content="Votre demande de devis a bien été reçue. Nous vous recontactons sous 48h.">
-<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
   .merci-box {
@@ -28,12 +31,12 @@
   }
   .merci-icon {
     font-size: 3.5rem;
-    color: var(--accent);
+    color: var(--success);
     margin-bottom: 24px;
   }
   .merci-box h1 {
     font-size: 2rem;
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 16px;
   }
   .merci-box p {
@@ -43,7 +46,27 @@
     line-height: 1.6;
   }
 </style>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "JC Plaquiste",
+  "image": "https://js-plaquiste.vercel.app/og-image.png",
+  "telephone": "+33600000000",
+  "priceRange": "\u20ac\u20ac",
+  "areaServed": { "@type": "AdministrativeArea", "name": "Pyr\u00e9n\u00e9es-Orientales" },
+  "address": { "@type": "PostalAddress", "addressRegion": "Occitanie", "addressLocality": "Perpignan", "postalCode": "66000", "addressCountry": "FR" },
+  "url": "https://js-plaquiste.vercel.app/",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "12:00", "description": "Sur rendez-vous" }
+  ]
+}
+</script>
 </head>
+
 <body>
 <div id="page-loader">
   <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
@@ -52,7 +75,7 @@
 
 <header>
   <div class="nav wrap">
-    <div class="brand">JC <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JC <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -64,7 +87,7 @@
 
 <div class="wrap">
   <div class="merci-box">
-    <div class="merci-icon">✓</div>
+    <div class="merci-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" style="stroke:currentColor; fill:none; stroke-width:1.5; vertical-align:-0.15em;"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
     <h1>Demande bien reçue !</h1>
     <p>Votre demande de devis a été transmise avec succès.<br>Nous étudions vos besoins et nous vous recontactons <strong>sous 48 heures maximum</strong>.</p>
     <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
@@ -123,5 +146,8 @@
     revealEls.forEach(el => el.classList.add('visible'));
   }
 </script>
+</div>
+<script src="admin.js" defer></script>
 </body>
+
 </html>
