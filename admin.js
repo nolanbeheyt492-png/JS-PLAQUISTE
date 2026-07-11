@@ -90,7 +90,7 @@
       /* --- STYLE EN PLEIN ÉCRAN TYPE "VRAIE PAGE" --- */
       .jc-admin-overlay {
         position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-        width: 100vw !important; height: 100vh !important; background: #121212 !important;
+        width: 100vw !important; height: 100vh !important; height: 100dvh !important; background: #121212 !important;
         z-index: 999999 !important; display: none; align-items: center !important; justify-content: center !important;
         font-family: 'Segoe UI', Roboto, sans-serif; opacity: 0; transition: opacity 0.2s ease;
         box-sizing: border-box !important; overflow: hidden !important;
@@ -126,7 +126,7 @@
 
       /* L'interface Tableau de bord Plein Écran */
       .jc-admin-dashboard {
-        display: none; flex-direction: column !important; width: 100vw !important; height: 100vh !important;
+        display: none; flex-direction: column !important; width: 100vw !important; height: 100vh !important; height: 100dvh !important;
         background: #141414 !important; color: #ffffff !important; position: absolute !important; top: 0 !important; left: 0 !important;
       }
       .jc-admin-topbar {
@@ -153,7 +153,7 @@
       .jc-admin-nav-logout { margin-top: auto !important; color: #e74c3c !important; border: 1px solid rgba(231,76,60,0.15) !important; background: rgba(231,76,60,0.02) !important; text-align: center !important; }
       .jc-admin-nav-logout:hover { background: #e74c3c !important; color: #fff !important; }
       
-      .jc-admin-content { flex: 1 !important; padding: 40px !important; overflow-y: auto !important; background: #181818 !important; box-sizing: border-box !important; }
+      .jc-admin-content { flex: 1 !important; min-height: 0 !important; padding: 40px !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; background: #181818 !important; box-sizing: border-box !important; }
       .jc-admin-tab { width: 100% !important; }
       .jc-admin-form { display: flex !important; flex-direction: column !important; gap: 14px !important; max-width: 600px !important; margin-bottom: 35px !important; }
       .jc-admin-form label { font-weight: 600 !important; font-size: 14px !important; color: #bbb !important; }
@@ -659,13 +659,19 @@
   }
 
   /* MODIFICATION MAJEURE : Force le panneau de connexion à chaque clic et réinitialise la session */
+  let jcAdminSavedScrollY = 0;
   function openAdmin() {
     setUnlocked(false); // Force la déconnexion immédiate à chaque tentative d'ouverture
-    window.scrollTo({ top: 0, behavior: "instant" }); 
-    buildOverlay(); 
-    overlay.classList.add("show"); 
-    document.body.style.overflow = "hidden";
-    
+    jcAdminSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    buildOverlay();
+    overlay.classList.add("show");
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = (-jcAdminSavedScrollY) + "px";
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+
     // On réaffiche obligatoirement la boîte de verrouillage et le bouton quitter
     overlay.querySelector(".jc-admin-lock").style.display = "block"; 
     overlay.querySelector(".jc-admin-close-page").style.display = "block"; 
@@ -675,7 +681,16 @@
     setTimeout(() => overlay.querySelector(".jc-admin-pass-input").focus(), 100);
   }
   
-  function closeAdmin() { if (overlay) { overlay.classList.remove("show"); document.body.style.overflow = ""; } }
+  function closeAdmin() {
+    if (overlay) { overlay.classList.remove("show"); }
+    document.documentElement.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, jcAdminSavedScrollY);
+  }
 
   document.addEventListener("DOMContentLoaded", () => {
     injectStyles();

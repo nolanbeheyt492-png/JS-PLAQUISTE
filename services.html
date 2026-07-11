@@ -170,16 +170,35 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn = document.getElementById('menu-btn');
   const navMenu = document.getElementById('nav-menu');
+  let jcSavedScrollY = 0;
+  function jcLockPageScroll() {
+    jcSavedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = (-jcSavedScrollY) + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+  function jcUnlockPageScroll() {
+    document.documentElement.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, jcSavedScrollY);
+  }
   menuBtn.addEventListener('click', () => {
     const isOpen = navMenu.classList.toggle('active');
     menuBtn.textContent = isOpen ? '✕' : '☰';
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) { jcLockPageScroll(); } else { jcUnlockPageScroll(); }
   });
   navMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('active');
       menuBtn.textContent = '☰';
-      document.body.style.overflow = '';
+      jcUnlockPageScroll();
     });
   });
 
