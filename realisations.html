@@ -51,6 +51,20 @@
       <h2>Nos Réalisations</h2>
       <p>Aperçu en images de la qualité de nos finitions et de nos chantiers de plâtrerie.</p>
     </div>
+
+    <!-- SLIDER AVANT / APRÈS -->
+    <div class="reveal" style="max-width:800px; margin:0 auto 60px;">
+      <div class="ba-slider" id="ba-slider-1">
+        <img class="ba-after" src="img/apres-1.jpg" alt="Chantier terminé - après travaux" style="background:#e2e8f0;">
+        <div class="ba-before-wrap">
+          <img src="img/avant-1.jpg" alt="Chantier avant travaux" style="background:#94a3b8;">
+        </div>
+        <span class="ba-label before">AVANT</span>
+        <span class="ba-label after">APRÈS</span>
+        <div class="ba-handle"></div>
+      </div>
+      <p class="ba-slider-caption">👆 Faites glisser pour comparer — remplacez <code>img/avant-1.jpg</code> et <code>img/apres-1.jpg</code> par vos propres photos de chantier.</p>
+    </div>
     
     <div class="grid-gallery reveal-stagger">
       <div class="gallery-item">
@@ -124,6 +138,40 @@
   } else {
     revealEls.forEach(el => el.classList.add('visible'));
   }
+
+  // Slider Avant / Après
+  function initBaSlider(sliderId){
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+    const beforeWrap = slider.querySelector('.ba-before-wrap');
+    const handle = slider.querySelector('.ba-handle');
+    const beforeImg = beforeWrap.querySelector('img');
+
+    function setPosition(percent){
+      percent = Math.min(100, Math.max(0, percent));
+      beforeWrap.style.width = percent + '%';
+      handle.style.left = percent + '%';
+      beforeImg.style.width = (100 / (percent / 100 || 1)) + '%';
+    }
+
+    function moveFromClientX(clientX){
+      const rect = slider.getBoundingClientRect();
+      const percent = ((clientX - rect.left) / rect.width) * 100;
+      setPosition(percent);
+    }
+
+    let dragging = false;
+    slider.addEventListener('mousedown', (e) => { dragging = true; moveFromClientX(e.clientX); });
+    window.addEventListener('mousemove', (e) => { if (dragging) moveFromClientX(e.clientX); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+
+    slider.addEventListener('touchstart', (e) => { dragging = true; moveFromClientX(e.touches[0].clientX); }, {passive:true});
+    slider.addEventListener('touchmove', (e) => { if (dragging) moveFromClientX(e.touches[0].clientX); }, {passive:true});
+    slider.addEventListener('touchend', () => { dragging = false; });
+
+    setPosition(50);
+  }
+  initBaSlider('ba-slider-1');
 </script>
 </body>
 </html>
