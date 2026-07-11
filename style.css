@@ -2,7 +2,7 @@
   --bg: #ffffff; /* Fond blanc lumineux */
   --bg-alt: #f8fafc; /* Sections secondaires gris très clair */
   --panel: #ffffff; /* Cartes et formulaires blancs */
-  --border: rgba(15, 23, 42, 0.08); /* Bordures légères sombres */
+  --border: rgba(15, 23, 42, 0.08); /* Bordures légères sombres */ 
   --text: #0f172a; /* Texte principal sombre (presque noir) pour une lisibilité parfaite */
   --text-muted: #64748b; /* Texte secondaire gris atténué */
   --accent: #f59e0b; /* Ambre/Or conservé pour l'identité de la marque */
