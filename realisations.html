@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nos Réalisations — JC Plaquiste</title>
+<meta name="description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nos Réalisations — JC Plaquiste">
+<meta property="og:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
+<meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
+<meta property="og:url" content="https://js-plaquiste.vercel.app/realisations.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nos Réalisations — JC Plaquiste">
+<meta name="twitter:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
+<meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   .grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
@@ -14,6 +25,10 @@
 </style>
 </head>
 <body>
+<div id="page-loader">
+  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+</div>
+
 
 <header>
   <div class="nav wrap">
@@ -32,12 +47,12 @@
 
 <section class="section" style="margin-top: 40px;">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>Nos Réalisations</h2>
       <p>Aperçu en images de la qualité de nos finitions et de nos chantiers de plâtrerie.</p>
     </div>
     
-    <div class="grid-gallery">
+    <div class="grid-gallery reveal-stagger">
       <div class="gallery-item">
         <img src="img/chantier-1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#cbd5e1;">
         <div class="gallery-info">
@@ -86,6 +101,29 @@
       document.body.style.overflow = '';
     });
   });
+
+  // Loader + fade-in de page
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    const loader = document.getElementById('page-loader');
+    if (loader) loader.classList.add('hidden');
+  });
+
+  // Animations au scroll (fade-in des cartes / sections)
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
