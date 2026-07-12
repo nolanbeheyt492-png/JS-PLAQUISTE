@@ -715,6 +715,31 @@
     if (overlay) { overlay.classList.remove("show"); }
   });
 
+  /* ---------- GARDE-FOU ANTI-BLOCAGE DE SCROLL ----------
+     Vérifie en continu que le blocage du scroll (position:fixed sur <body>)
+     n'est actif QUE si le menu mobile ou le panneau admin est réellement ouvert.
+     Si un décalage survient (scroll bloqué alors que tout est fermé), on
+     débloque automatiquement — évite que la page reste "figée" sur mobile. */
+  function jcEnforceScrollLockConsistency() {
+    const navMenu = document.getElementById("nav-menu");
+    const menuOpen = !!(navMenu && navMenu.classList.contains("active"));
+    const adminOpen = !!(overlay && overlay.classList.contains("show"));
+    const shouldLock = menuOpen || adminOpen;
+    const isLocked = document.body.style.position === "fixed";
+    if (!shouldLock && isLocked) {
+      const topVal = document.body.style.top;
+      const y = topVal ? (Math.abs(parseInt(topVal, 10)) || 0) : 0;
+      document.documentElement.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      window.scrollTo(0, y);
+    }
+  }
+  setInterval(jcEnforceScrollLockConsistency, 400);
+
   document.addEventListener("DOMContentLoaded", () => {
     injectStyles();
     const logo = document.getElementById("brand-logo");
@@ -723,7 +748,7 @@
       logo.addEventListener("click", (e) => {
         e.preventDefault(); clicks++;
         if (clicks >= 2) { clicks = 0; openAdmin(); }
-        setTimeout(() => { clicks = 0; }, 1000);
+        setTimeout(() => { clicks = 0; }, 400);
       });
     }
     renderPublicGallery(); applySettingsToPage();
