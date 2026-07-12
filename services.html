@@ -173,7 +173,7 @@
   let jcSavedScrollY = 0;
   function jcLockPageScroll() {
     jcSavedScrollY = window.scrollY || window.pageYOffset || 0;
-    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.overscrollBehavior = 'none';
     document.body.style.position = 'fixed';
     document.body.style.top = (-jcSavedScrollY) + 'px';
     document.body.style.left = '0';
@@ -181,7 +181,7 @@
     document.body.style.width = '100%';
   }
   function jcUnlockPageScroll() {
-    document.documentElement.style.overflow = '';
+    document.documentElement.style.overscrollBehavior = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.left = '';

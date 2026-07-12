@@ -93,7 +93,7 @@
         width: 100vw !important; height: 100vh !important; height: 100dvh !important; background: #121212 !important;
         z-index: 999999 !important; display: none; align-items: center !important; justify-content: center !important;
         font-family: 'Segoe UI', Roboto, sans-serif; opacity: 0; transition: opacity 0.2s ease;
-        box-sizing: border-box !important; overflow: hidden !important;
+        box-sizing: border-box !important; overflow: hidden !important; overscroll-behavior: contain !important;
         -webkit-text-size-adjust: 100% !important; text-size-adjust: 100% !important;
       }
       .jc-admin-overlay *, .jc-admin-overlay *::before, .jc-admin-overlay *::after { box-sizing: border-box !important; }
@@ -153,7 +153,7 @@
       .jc-admin-nav-logout { margin-top: auto !important; color: #e74c3c !important; border: 1px solid rgba(231,76,60,0.15) !important; background: rgba(231,76,60,0.02) !important; text-align: center !important; }
       .jc-admin-nav-logout:hover { background: #e74c3c !important; color: #fff !important; }
       
-      .jc-admin-content { flex: 1 !important; min-height: 0 !important; padding: 40px !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; background: #181818 !important; box-sizing: border-box !important; }
+      .jc-admin-content { flex: 1 !important; min-height: 0 !important; padding: 40px !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; overscroll-behavior: contain !important; background: #181818 !important; box-sizing: border-box !important; }
       .jc-admin-tab { width: 100% !important; }
       .jc-admin-form { display: flex !important; flex-direction: column !important; gap: 14px !important; max-width: 600px !important; margin-bottom: 35px !important; }
       .jc-admin-form label { font-weight: 600 !important; font-size: 14px !important; color: #bbb !important; }
@@ -675,7 +675,7 @@
     jcAdminSavedScrollY = window.scrollY || window.pageYOffset || 0;
     buildOverlay();
     overlay.classList.add("show");
-    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
     document.body.style.position = "fixed";
     document.body.style.top = (-jcAdminSavedScrollY) + "px";
     document.body.style.left = "0";
@@ -693,7 +693,7 @@
   
   function closeAdmin() {
     if (overlay) { overlay.classList.remove("show"); }
-    document.documentElement.style.overflow = "";
+    document.documentElement.style.overscrollBehavior = "";
     document.body.style.position = "";
     document.body.style.top = "";
     document.body.style.left = "";
@@ -706,7 +706,7 @@
   // changement d'appli...) avec le panneau admin resté "ouvert" et le scroll
   // verrouillé, on force un état propre pour éviter que la page reste figée.
   window.addEventListener("pageshow", () => {
-    document.documentElement.style.overflow = "";
+    document.documentElement.style.overscrollBehavior = "";
     document.body.style.position = "";
     document.body.style.top = "";
     document.body.style.left = "";
@@ -715,40 +715,17 @@
     if (overlay) { overlay.classList.remove("show"); }
   });
 
-  /* ---------- GARDE-FOU ANTI-BLOCAGE DE SCROLL ----------
-     Vérifie en continu que le blocage du scroll (position:fixed sur <body>)
-     n'est actif QUE si le menu mobile ou le panneau admin est réellement ouvert.
-     Si un décalage survient (scroll bloqué alors que tout est fermé), on
-     débloque automatiquement — évite que la page reste "figée" sur mobile. */
-  function jcEnforceScrollLockConsistency() {
-    const navMenu = document.getElementById("nav-menu");
-    const menuOpen = !!(navMenu && navMenu.classList.contains("active"));
-    const adminOpen = !!(overlay && overlay.classList.contains("show"));
-    const shouldLock = menuOpen || adminOpen;
-    const isLocked = document.body.style.position === "fixed";
-    if (!shouldLock && isLocked) {
-      const topVal = document.body.style.top;
-      const y = topVal ? (Math.abs(parseInt(topVal, 10)) || 0) : 0;
-      document.documentElement.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      window.scrollTo(0, y);
-    }
-  }
-  setInterval(jcEnforceScrollLockConsistency, 400);
-
   document.addEventListener("DOMContentLoaded", () => {
     injectStyles();
     const logo = document.getElementById("brand-logo");
     if (logo) {
       let clicks = 0;
+      let clicksTimer = null;
       logo.addEventListener("click", (e) => {
         e.preventDefault(); clicks++;
-        if (clicks >= 2) { clicks = 0; openAdmin(); }
-        setTimeout(() => { clicks = 0; }, 400);
+        if (clicks >= 3) { clicks = 0; openAdmin(); }
+        clearTimeout(clicksTimer);
+        clicksTimer = setTimeout(() => { clicks = 0; }, 900);
       });
     }
     renderPublicGallery(); applySettingsToPage();
