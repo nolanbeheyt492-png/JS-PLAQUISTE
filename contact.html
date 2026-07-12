@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact &amp; Devis — JC Plaquiste</title>
+<title>Contact &amp; Devis — JS Plaquiste</title>
 <meta name="description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contact & Devis — JC Plaquiste">
+<meta property="og:title" content="Contact & Devis — JS Plaquiste">
 <meta property="og:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
 <meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/contact.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Contact & Devis — JC Plaquiste">
+<meta name="twitter:title" content="Contact & Devis — JS Plaquiste">
 <meta name="twitter:description" content="Demandez votre devis gratuit sous 48h. Plâtrier-plaquiste professionnel, garantie décennale.">
 <meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,7 @@
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  "name": "JC Plaquiste",
+  "name": "JS Plaquiste",
   "image": "https://js-plaquiste.vercel.app/og-image.png",
   "telephone": "+33600000000",
   "priceRange": "\u20ac\u20ac",
@@ -69,13 +69,13 @@
 
 <body>
 <div id="page-loader">
-  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+  <div class="loader-mark">JS <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
 </div>
 
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo">JC <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -128,7 +128,7 @@
 
         <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" id="booking-form" data-jc-quote-form>
           <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/merci.html">
-          <input type="hidden" name="_subject" value="Nouvelle demande de RDV - JC Plaquiste">
+          <input type="hidden" name="_subject" value="Nouvelle demande de RDV - JS Plaquiste">
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
           <input type="hidden" name="Date_RDV" id="booking-date-input">
@@ -155,7 +155,7 @@
 
       <div class="contact-wrapper reveal-stagger">
         <div class="contact-info-box">
-          <h3>JC PLAQUISTE</h3>
+          <h3>JS PLAQUISTE</h3>
           <p style="color:#C9C0B0;">Nous nous déplaçons chez vous, partout dans les Pyrénées-Orientales (66), pour étudier votre projet et prendre les cotes exactes.</p>
           <div class="zone-tags" id="zone-tags-container">
             <span>Perpignan</span><span>Argelès-sur-Mer</span><span>Céret</span><span>Prades</span><span>Font-Romeu</span>
@@ -174,7 +174,7 @@
         <div class="form-box" style="margin: 0;">
           <form action="https://formsubmit.co/beheytnolan@gmail.com" method="POST" data-jc-quote-form>
             <input type="hidden" name="_next" value="https://js-plaquiste.vercel.app/contact.html?status=success">
-            <input type="hidden" name="_subject" value="Nouveau Devis Client - JC Plaquiste">
+            <input type="hidden" name="_subject" value="Nouveau Devis Client - JS Plaquiste">
             <input type="hidden" name="_captcha" value="false">
 
             <!-- SOLUTION 2 : Sécurité Honeypot (Bloque les robots en arrière-plan sans embêter les humains) -->
@@ -262,7 +262,7 @@
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JC Plaquiste. Tous droits réservés.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
     <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
@@ -278,12 +278,12 @@
   <div class="assist-header">
     <span class="dot"></span>
     <div>
-      <strong>Assistant JC Plaquiste</strong>
+      <strong>Assistant JS Plaquiste</strong>
       <span>Répond à vos questions instantanément</span>
     </div>
   </div>
   <div class="assist-messages" id="assist-messages">
-    <div class="assist-msg bot">Bonjour 👋 Je suis l'assistant de JC Plaquiste. Posez-moi une question (devis, décennale, délais, prix, zone d'intervention...) ou choisissez une suggestion ci-dessous.</div>
+    <div class="assist-msg bot">Bonjour 👋 Je suis l'assistant de JS Plaquiste. Posez-moi une question (devis, décennale, délais, prix, zone d'intervention...) ou choisissez une suggestion ci-dessous.</div>
   </div>
   <div class="assist-suggestions" id="assist-suggestions">
     <button type="button" data-q="Le devis est gratuit ?">💰 Devis gratuit ?</button>
@@ -332,6 +332,15 @@
       menuBtn.textContent = '☰';
       jcUnlockPageScroll();
     });
+  });
+
+  // Filet de sécurité : si la page revient du cache du navigateur (retour arrière,
+  // changement d'appli...) avec le menu resté "ouvert", on force un état propre
+  // pour éviter que la page ne reste bloquée / figée.
+  window.addEventListener('pageshow', () => {
+    navMenu.classList.remove('active');
+    menuBtn.textContent = '☰';
+    jcUnlockPageScroll();
   });
 
   document.querySelectorAll('.faq-question').forEach(q => {

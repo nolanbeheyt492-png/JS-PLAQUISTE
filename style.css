@@ -1,5 +1,5 @@
 /* ============================================================
-   JC PLAQUISTE — Système de design
+   JS PLAQUISTE — Système de design
    Inspiration : le cordeau à tracer (outil du plaquiste pour
    snapper une ligne parfaitement droite avant de poser une
    ossature), le plâtre brut, la précision DTU / niveau à bulle.
@@ -352,7 +352,7 @@ footer{padding:56px 24px; border-top:1px solid var(--border); color:var(--text-m
 
 /* --- FAQ : recherche + accordéon --- */
 .faq-search{max-width:850px; margin:0 auto 24px auto; position:relative;}
-.faq-search input{width:100%; padding:14px 18px 14px 44px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--bg-alt); font-size:0.95rem; font-family:inherit; color:var(--text);}
+.faq-search input{width:100%; padding:14px 18px 14px 44px; border-radius:var(--radius-sm); border:1.5px solid var(--border); background:var(--bg-alt); font-size:16px; font-family:inherit; color:var(--text);}
 .faq-search input:focus{outline:none; border-color:var(--accent); background:#fff;}
 .faq-search::before{content:""; position:absolute; left:16px; top:50%; width:14px; height:14px; transform:translateY(-50%); opacity:0.5; background:none; border:1.6px solid var(--text-muted); border-radius:50%;}
 .faq-search::after{content:""; position:absolute; left:26px; top:calc(50% + 6px); width:6px; height:1.6px; background:var(--text-muted); transform:rotate(45deg) translateY(-50%); opacity:0.5;}
@@ -459,7 +459,7 @@ footer{padding:56px 24px; border-top:1px solid var(--border); color:var(--text-m
 .assist-suggestions button{font-size:0.76rem; padding:7px 12px; border-radius:999px; border:1px solid var(--border); background:var(--panel); color:var(--text); cursor:pointer;}
 .assist-suggestions button:hover{border-color:var(--accent); color:var(--accent);}
 .assist-input-row{display:flex; gap:8px; padding:12px; border-top:1px solid var(--border); background:var(--panel);}
-.assist-input-row input{flex:1; padding:11px 14px; border-radius:999px; border:1px solid var(--border); font-size:0.88rem; font-family:inherit; background:var(--bg-alt); color:var(--text);}
+.assist-input-row input{flex:1; padding:11px 14px; border-radius:999px; border:1px solid var(--border); font-size:16px; font-family:inherit; background:var(--bg-alt); color:var(--text);}
 .assist-input-row input:focus{outline:none; border-color:var(--accent);}
 .assist-input-row button{width:42px; height:42px; border-radius:50%; background:var(--accent); color:#fff; border:none; font-size:1rem; cursor:pointer; flex-shrink:0;}
 @media (max-width:768px){
@@ -491,7 +491,7 @@ footer{padding:56px 24px; border-top:1px solid var(--border); color:var(--text-m
 .jc-admin-lock p, .jc-admin-hint{color:var(--text-muted); font-size:0.92rem; margin-bottom:18px;}
 .jc-admin-pass-input, .jc-admin-title-input, .jc-admin-file-input, .jc-admin-desc-input, .jc-admin-cat-input{
   width:100%; background:var(--bg-alt); border:1.5px solid var(--border); padding:12px 14px;
-  border-radius:var(--radius-sm); color:var(--text); font-family:var(--font-body); font-size:0.95rem;
+  border-radius:var(--radius-sm); color:var(--text); font-family:var(--font-body); font-size:16px;
   margin-bottom:14px;
 }
 .jc-admin-pass-input:focus, .jc-admin-title-input:focus, .jc-admin-desc-input:focus, .jc-admin-cat-input:focus{

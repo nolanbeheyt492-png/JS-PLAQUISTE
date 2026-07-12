@@ -1,6 +1,6 @@
 /* ============================================================
-   ESPACE ADMIN SÉCURISÉ MULTI-PAGES — JC BATIMENT
-   Accès : Double-clic sur le logo "JC PLAQUISTE"
+   ESPACE ADMIN SÉCURISÉ MULTI-PAGES — JS BATIMENT
+   Accès : Double-clic sur le logo "JS PLAQUISTE"
    ============================================================ */
 (function () {
   /* ---------- CONFIGURATION ---------- */
@@ -371,7 +371,7 @@
   async function fetchPhotos() {
     if (isConfigured) {
       const client = await ensureSupabase();
-      const { data, error } = await client.from(PHOTOS_TABLE).select("*").order("created_at", { ascending: false });
+      const { data, error } = await client.from(PHOTOS_TABLE).select("*").order("created_at", { ascending: true });
       if (error) return getLocalPhotos();
       return data || [];
     }
@@ -383,14 +383,24 @@
     const grid = document.getElementById("gallery-grid");
     if (!grid) return;
 
-    grid.querySelectorAll("[data-admin-photo]").forEach((el) => el.remove());
-    
+    grid.innerHTML = "";
+
     const photos = await fetchPhotos();
+
+    if (!photos.length) {
+      const emptyMsg = document.createElement("p");
+      emptyMsg.id = "gallery-empty-msg";
+      emptyMsg.style.cssText = "color:var(--text-muted); font-style:italic; padding:20px 0;";
+      emptyMsg.textContent = "Nos prochaines réalisations arrivent bientôt ici.";
+      grid.appendChild(emptyMsg);
+      return;
+    }
+
     photos.forEach((p) => {
       const item = document.createElement("div");
       item.className = "gallery-item";
       item.setAttribute("data-admin-photo", p.id);
-      item.innerHTML = `<img src="${p.image_url}" alt="Réalisation JC Bâtiment">`;
+      item.innerHTML = `<img src="${p.image_url}" alt="Réalisation JS Bâtiment">`;
       grid.appendChild(item);
     });
 
@@ -435,7 +445,7 @@
       <!-- ÉCRAN DE CONNEXION PRINCIPAL -->
       <div class="jc-admin-lock">
         <h3>Connexion</h3>
-        <p style="color:#666; margin:0; font-size:13px; text-transform:uppercase;">JC BÂTIMENT — Administration</p>
+        <p style="color:#666; margin:0; font-size:13px; text-transform:uppercase;">JS BÂTIMENT — Administration</p>
         <input type="password" class="jc-admin-pass-input" placeholder="Entrez le mot de passe">
         <button type="button" class="btn btn-primary jc-admin-pass-btn" style="width:100%; margin-top:16px;">Accéder à la gestion</button>
         <p class="jc-admin-error"></p>
@@ -444,7 +454,7 @@
       <!-- INTERFACE DÉDIÉE PLEIN ÉCRAN (INVISIBLE TANT QUE PAS CONNECTÉ) -->
       <div class="jc-admin-dashboard">
         <div class="jc-admin-topbar">
-          <div class="jc-admin-brand">JC <span>BATIMENT</span> — Espace Privé</div>
+          <div class="jc-admin-brand">JS <span>BATIMENT</span> — Espace Privé</div>
           <div class="jc-admin-topbar-status"><span class="dot"></span>Session Administrateur active</div>
         </div>
         <div class="jc-admin-body">
@@ -691,6 +701,19 @@
     document.body.style.width = "";
     window.scrollTo(0, jcAdminSavedScrollY);
   }
+
+  // Filet de sécurité : si la page revient du cache du navigateur (retour arrière,
+  // changement d'appli...) avec le panneau admin resté "ouvert" et le scroll
+  // verrouillé, on force un état propre pour éviter que la page reste figée.
+  window.addEventListener("pageshow", () => {
+    document.documentElement.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    if (overlay) { overlay.classList.remove("show"); }
+  });
 
   document.addEventListener("DOMContentLoaded", () => {
     injectStyles();

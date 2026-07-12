@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certifications &amp; Assurances — JC Plaquiste</title>
+<title>Certifications &amp; Assurances — JS Plaquiste</title>
 <meta name="description" content="Garantie décennale, Responsabilité Civile Professionnelle : consultez et téléchargez nos attestations d'assurance.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Certifications & Assurances — JC Plaquiste">
+<meta property="og:title" content="Certifications & Assurances — JS Plaquiste">
 <meta property="og:description" content="Garantie décennale, Responsabilité Civile Professionnelle : consultez et téléchargez nos attestations d'assurance.">
 <meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/certifications.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Certifications & Assurances — JC Plaquiste">
+<meta name="twitter:title" content="Certifications & Assurances — JS Plaquiste">
 <meta name="twitter:description" content="Garantie décennale, Responsabilité Civile Professionnelle : consultez et téléchargez nos attestations d'assurance.">
 <meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  "name": "JC Plaquiste",
+  "name": "JS Plaquiste",
   "image": "https://js-plaquiste.vercel.app/og-image.png",
   "telephone": "+33600000000",
   "priceRange": "\u20ac\u20ac",
@@ -42,13 +42,13 @@
 
 <body>
 <div id="page-loader">
-  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+  <div class="loader-mark">JS <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
 </div>
 
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo">JC <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -106,7 +106,7 @@
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JC Plaquiste. Tous droits réservés.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
     <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
@@ -151,6 +151,15 @@
       menuBtn.textContent = '☰';
       jcUnlockPageScroll();
     });
+  });
+
+  // Filet de sécurité : si la page revient du cache du navigateur (retour arrière,
+  // changement d'appli...) avec le menu resté "ouvert", on force un état propre
+  // pour éviter que la page ne reste bloquée / figée.
+  window.addEventListener('pageshow', () => {
+    navMenu.classList.remove('active');
+    menuBtn.textContent = '☰';
+    jcUnlockPageScroll();
   });
 
   // Loader + fade-in de page

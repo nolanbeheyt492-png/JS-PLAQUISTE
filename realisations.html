@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nos Réalisations — JC Plaquiste</title>
+<title>Nos Réalisations — JS Plaquiste</title>
 <meta name="description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Nos Réalisations — JC Plaquiste">
+<meta property="og:title" content="Nos Réalisations — JS Plaquiste">
 <meta property="og:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
 <meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/realisations.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nos Réalisations — JC Plaquiste">
+<meta name="twitter:title" content="Nos Réalisations — JS Plaquiste">
 <meta name="twitter:description" content="Découvrez nos chantiers récents : rénovation, cloisons, faux plafonds et aménagement de combles.">
 <meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,7 @@
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  "name": "JC Plaquiste",
+  "name": "JS Plaquiste",
   "image": "https://js-plaquiste.vercel.app/og-image.png",
   "telephone": "+33600000000",
   "priceRange": "\u20ac\u20ac",
@@ -55,13 +55,13 @@
 
 <body>
 <div id="page-loader">
-  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+  <div class="loader-mark">JS <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
 </div>
 
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo">JC <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -98,37 +98,14 @@
     </div>
     
     <div class="grid-gallery reveal-stagger" id="gallery-grid">
-      <div class="gallery-item" data-category="Rénovation complète">
-        <img src="img/chantier-1.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
-        <div class="gallery-info">
-          <span class="gallery-tag">Rénovation complète</span>
-          <h3>Rénovation Salon</h3>
-          <p>Doublage thermique des murs extérieurs et création d'un faux plafond suspendu.</p>
-        </div>
-      </div>
-      <div class="gallery-item" data-category="Isolation">
-        <img src="img/chantier-2.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
-        <div class="gallery-info">
-          <span class="gallery-tag">Isolation</span>
-          <h3>Aménagement de Combles</h3>
-          <p>Pose de rails, suspentes et isolation de toiture.</p>
-        </div>
-      </div>
-      <div class="gallery-item" data-category="Cloisons">
-        <img src="img/chantier-3.jpg" alt="Chantier Plaquiste" style="width:100%; height:240px; object-fit:cover; background:#DDD4C0;">
-        <div class="gallery-info">
-          <span class="gallery-tag">Cloisons</span>
-          <h3>Cloisons de Séparation</h3>
-          <p>Création d'espaces isolés en plaques de plâtre BA13.</p>
-        </div>
-      </div>
+      <p id="gallery-empty-msg" style="color:var(--text-muted); font-style:italic; padding:20px 0;">Nos prochaines réalisations arrivent bientôt ici.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JC Plaquiste. Tous droits réservés.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
     <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
@@ -173,6 +150,15 @@
       menuBtn.textContent = '☰';
       jcUnlockPageScroll();
     });
+  });
+
+  // Filet de sécurité : si la page revient du cache du navigateur (retour arrière,
+  // changement d'appli...) avec le menu resté "ouvert", on force un état propre
+  // pour éviter que la page ne reste bloquée / figée.
+  window.addEventListener('pageshow', () => {
+    navMenu.classList.remove('active');
+    menuBtn.textContent = '☰';
+    jcUnlockPageScroll();
   });
 
   // Loader + fade-in de page

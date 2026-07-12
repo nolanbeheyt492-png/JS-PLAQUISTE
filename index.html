@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JC Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
+<title>JS Plaquiste — Rénovation &amp; Aménagement Intérieur</title>
 <meta name="description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JC Plaquiste — Rénovation & Aménagement Intérieur">
+<meta property="og:title" content="JS Plaquiste — Rénovation & Aménagement Intérieur">
 <meta property="og:description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
 <meta property="og:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <meta property="og:url" content="https://js-plaquiste.vercel.app/index.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="JC Plaquiste — Rénovation & Aménagement Intérieur">
+<meta name="twitter:title" content="JS Plaquiste — Rénovation & Aménagement Intérieur">
 <meta name="twitter:description" content="Plâtrier-plaquiste professionnel : cloisons, faux plafonds, isolation et finitions soignées. Devis gratuit sous 48h, garantie décennale.">
 <meta name="twitter:image" content="https://js-plaquiste.vercel.app/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,7 @@
 {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  "name": "JC Plaquiste",
+  "name": "JS Plaquiste",
   "image": "https://js-plaquiste.vercel.app/og-image.png",
   "telephone": "+33600000000",
   "priceRange": "\u20ac\u20ac",
@@ -79,13 +79,13 @@
 
 <body>
 <div id="page-loader">
-  <div class="loader-mark">JC <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
+  <div class="loader-mark">JS <span>PLAQUISTE</span> <span class="loader-dot"></span></div>
 </div>
 
 
 <header>
   <div class="nav wrap">
-    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JC <span>PLAQUISTE</span></div>
+    <div class="brand" id="brand-logo" style="cursor: pointer; user-select: none;">JS <span>PLAQUISTE</span></div>
     <ul id="nav-menu">
       <li><a href="index.html" class="active">Accueil</a></li>
       <li><a href="services.html">Nos Services</a></li>
@@ -305,7 +305,7 @@
 
 <footer>
   <div class="wrap footer-wrap">
-    <div>© <span id="year"></span> JC Plaquiste. Tous droits réservés.</div>
+    <div>© <span id="year"></span> JS Plaquiste. Tous droits réservés.</div>
     <div>Garantie Décennale | Travail soigné aux normes DTU</div>
   </div>
 </footer>
@@ -350,6 +350,15 @@
       menuBtn.textContent = '☰';
       jcUnlockPageScroll();
     });
+  });
+
+  // Filet de sécurité : si la page revient du cache du navigateur (retour arrière,
+  // changement d'appli...) avec le menu resté "ouvert", on force un état propre
+  // pour éviter que la page ne reste bloquée / figée.
+  window.addEventListener('pageshow', () => {
+    navMenu.classList.remove('active');
+    menuBtn.textContent = '☰';
+    jcUnlockPageScroll();
   });
 
   // Loader + fade-in de page
@@ -431,7 +440,7 @@
       doc.setTextColor(255, 255, 255);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(20);
-      doc.text('JC PLAQUISTE', 15, 20);
+      doc.text('JS PLAQUISTE', 15, 20);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
       doc.text('Plâtrerie · Cloisons · Faux plafonds · Isolation — Pyrénées-Orientales (66)', 15, 27);
@@ -502,7 +511,7 @@
   window.JC_REVIEWS_CONFIG = window.JC_REVIEWS_CONFIG || {
     googleMapsApiKey: '',
     googlePlaceId: '',
-    googleReviewsUrl: 'https://www.google.com/search?q=JC+Plaquiste+avis'
+    googleReviewsUrl: 'https://www.google.com/search?q=JS+Plaquiste+avis'
   };
 
   (function initGoogleReviews(){
